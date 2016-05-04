@@ -1,0 +1,3 @@
+﻿CREATE TYPE [dbo].[BIGINT_LIST] AS TABLE (
+    [Id] BIGINT NULL);
+

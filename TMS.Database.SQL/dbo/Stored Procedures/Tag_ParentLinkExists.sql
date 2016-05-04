@@ -1,0 +1,15 @@
+﻿
+CREATE PROCEDURE dbo.Tag_ParentLinkExists
+	@ChildTagId		BIGINT,
+	@ParentTagId	BIGINT
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	SELECT CASE WHEN EXISTS (
+	SELECT *
+	FROM RelatedTag 
+	WHERE ChildID = @ChildTagId AND ParentID = @ParentTagId)
+	THEN CAST(1 AS BIT)
+	ELSE CAST(0 AS BIT) END
+END

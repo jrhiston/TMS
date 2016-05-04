@@ -1,0 +1,17 @@
+.loading {
+    display: flex;
+    justify-content: center;
+
+    .loading-icon{
+        font-size: 4em;
+    }
+}
+
+.area-section {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;;
+}

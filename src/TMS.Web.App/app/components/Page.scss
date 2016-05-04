@@ -1,0 +1,38 @@
+.page-container {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.page-container{
+    margin-top: 50px;
+
+    .page-body {
+        display: flex;
+        flex-flow: row;
+        flex-wrap: wrap;
+    }
+
+    .page-header {
+        align-content: flex-start;
+        padding-left: 30px;
+    }
+
+    .page-actions, .page-body, .page-header {
+        width: 80%;
+    }
+
+    @media (max-width: 600px) {
+        .page-body, .page-actions, .page-header {
+            width: 100%;
+        }
+    }
+
+    .page-actions  button {
+        margin: 10px;
+    }
+
+    .page-actions {
+        align-self: center;
+    }
+}

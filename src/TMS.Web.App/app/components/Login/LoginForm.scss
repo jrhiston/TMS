@@ -1,0 +1,34 @@
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: stretch;
+}
+
+.login-form--heading {
+    text-align: center;
+}
+
+.login-form > div {
+    padding: 20px;
+}
+
+.login-form--body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    align-content: flex-start;
+}
+
+.login-form--row {
+    flex: 1 0 100%;
+    align-self: flex-end;
+    padding: 10px;
+}
+
+.form-label {
+    margin-right: 10px;
+}

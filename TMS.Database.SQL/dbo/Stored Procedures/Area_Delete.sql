@@ -1,0 +1,9 @@
+﻿
+CREATE PROCEDURE dbo.Area_Delete
+	@AreaId	 BIGINT
+AS
+BEGIN
+	SET NOCOUNT ON;
+
+	DELETE FROM Area WHERE AreaId = @AreaId
+END
