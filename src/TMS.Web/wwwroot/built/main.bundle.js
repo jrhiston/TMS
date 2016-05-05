@@ -34928,7 +34928,7 @@
 	  var support = {
 	    blob: 'FileReader' in self && 'Blob' in self && (function() {
 	      try {
-	        new Blob();
+	        new Blob()
 	        return true
 	      } catch(e) {
 	        return false
@@ -35085,7 +35085,7 @@
 	
 	  function headers(xhr) {
 	    var head = new Headers()
-	    var pairs = xhr.getAllResponseHeaders().trim().split('\n')
+	    var pairs = (xhr.getAllResponseHeaders() || '').trim().split('\n')
 	    pairs.forEach(function(header) {
 	      var split = header.trim().split(':')
 	      var key = split.shift().trim()
@@ -35138,9 +35138,9 @@
 	    return new Response(null, {status: status, headers: {location: url}})
 	  }
 	
-	  self.Headers = Headers;
-	  self.Request = Request;
-	  self.Response = Response;
+	  self.Headers = Headers
+	  self.Request = Request
+	  self.Response = Response
 	
 	  self.fetch = function(input, init) {
 	    return new Promise(function(resolve, reject) {
@@ -35163,7 +35163,7 @@
 	          return xhr.getResponseHeader('X-Request-URL')
 	        }
 	
-	        return;
+	        return
 	      }
 	
 	      xhr.onload = function() {
@@ -35178,11 +35178,15 @@
 	          headers: headers(xhr),
 	          url: responseURL()
 	        }
-	        var body = 'response' in xhr ? xhr.response : xhr.responseText;
+	        var body = 'response' in xhr ? xhr.response : xhr.responseText
 	        resolve(new Response(body, options))
 	      }
 	
 	      xhr.onerror = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+	
+	      xhr.ontimeout = function() {
 	        reject(new TypeError('Network request failed'))
 	      }
 	

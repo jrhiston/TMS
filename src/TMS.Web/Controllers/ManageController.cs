@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Mvc;
 using Microsoft.Extensions.Logging;
-using TMS.Web.Models;
 using TMS.Web.Services;
 using TMS.Web.ViewModels.Manage;
-using TMS.Web.Models.Identity;
+using TMS.Database.Entities.Identity;
 
 namespace TMS.Web.Controllers
 {

@@ -5,8 +5,7 @@
     /// </summary>
     /// <typeparam name="TItem">The type of object to list and get.</typeparam>
     /// <typeparam name="TKey">A key to use for the get.</typeparam>
-    /// <typeparam name="TFilterData">The type of filter to use.</typeparam>
-    public interface IQueryableRepository<TItem, in TKey, in TFilterData> : IFilterableRepository<TItem, TFilterData>
+    public interface IQueryableRepository<TItem, in TKey>
     {
         /// <summary>
         /// Retrieve an object of type <see cref="TItem"/> with the key object of type <see cref="TKey"/>.

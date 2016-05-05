@@ -14,9 +14,11 @@ using TMS.Layer.Readers;
 using TMS.ModelLayerInterface.People;
 using TMS.ModelLayerInterface.People.Data;
 using TMS.Layer;
+using Microsoft.AspNet.Authorization;
 
 namespace TMS.Web.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class AreasController : TMSControllerBase
     {
@@ -25,10 +27,10 @@ namespace TMS.Web.Controllers
         private readonly IDecoratorFactory<PersistableAreaData, IArea, IPersistableArea> _persistableAreaFactory;
         private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
         private readonly IConverter<AreaViewModel, IPersistableArea> _areaViewModelToPersistableAreaConverter;
-        private readonly IReader<IAreaKey, Maybe<IPersistableArea>> _areaReader;
+        private readonly IReader<IAreaKey, IPersistableArea> _areaReader;
 
         public AreasController(IReader<IPersonKey, IEnumerable<IPersistableArea>> areaListReader,
-            IReader<IAreaKey, Maybe<IPersistableArea>> areaReader,
+            IReader<IAreaKey, IPersistableArea> areaReader,
             IFactory<AreaData, IArea> areaFactory,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory,
             IDecoratorFactory<PersistableAreaData, IArea, IPersistableArea> persistableAreaFactory,
@@ -52,7 +54,7 @@ namespace TMS.Web.Controllers
 
             return await Task.Run(() => _areaListReader
                 .Read(GetPersonKey())
-                .Select(item => new AreaViewModel(item)));
+                .SelectMany(item => item.Select(area => new AreaViewModel(area))));
         }
 
         // GET: api/Areas/5

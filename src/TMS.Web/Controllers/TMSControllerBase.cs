@@ -5,6 +5,7 @@ using System.Web.Http;
 using System.Linq;
 using TMS.Layer.Factories;
 using TMS.Layer.Readers;
+using TMS.Layer;
 
 namespace TMS.Web.Controllers
 {
@@ -43,7 +44,7 @@ namespace TMS.Web.Controllers
             return null;
         }
 
-        protected IPerson GetPerson()
+        protected Maybe<IPerson> GetPerson()
         {
             var personKey = GetPersonKey();
 

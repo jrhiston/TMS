@@ -1,7 +1,7 @@
 ﻿namespace TMS.Layer.Readers
 {
-    public interface IReader<in T, out R>
+    public interface IReader<in T, R>
     {
-        R Read(T key);
+        Maybe<R> Read(T key);
     }
 }

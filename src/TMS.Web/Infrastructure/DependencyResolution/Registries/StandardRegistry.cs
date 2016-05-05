@@ -11,8 +11,10 @@ namespace Proto.CMS.Infrastructure.DependencyResolution.Registries
 
             Scan(scan =>
             {
-                scan.Assembly("Proto.ModelLayer");
-                scan.Assembly("Proto.RepositoryLayer");
+                scan.Assembly("TMS.ModelLayer");
+                scan.Assembly("TMS.RepositoryLayer");
+                scan.Assembly("TMS.Database");
+                scan.Assembly("TMS.Web");
                 scan.Convention<SingletonConvention>();
             });
         }

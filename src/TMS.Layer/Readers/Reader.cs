@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-using TMS.Layer.Repositories;
+﻿using TMS.Layer.Repositories;
 
 namespace TMS.Layer.Readers
 {
-    public class Reader<TKey, TReturn, TFilterData> : IReader<TKey, Maybe<TReturn>>,
-         IReader<TFilterData, Maybe<IEnumerable<TReturn>>>
+    public class Reader<TKey, TReturn> : IReader<TKey, TReturn>
     {
-        private readonly IQueryableRepository<TReturn, TKey, TFilterData> _repository;
+        private readonly IQueryableRepository<TReturn, TKey> _repository;
 
-        public Reader(IQueryableRepository<TReturn, TKey, TFilterData> repository)
+        public Reader(IQueryableRepository<TReturn, TKey> repository)
         {
             _repository = repository;
         }
-
-        public Maybe<IEnumerable<TReturn>> Read(TFilterData key) => _repository.List(key);
 
         public Maybe<TReturn> Read(TKey key) => _repository.Get(key);
     }

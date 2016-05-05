@@ -16,7 +16,7 @@ namespace TMS.Web.Models.Areas
         public List<ActivityAreaViewModel> Activities { get; set; }
 
         public AreaActivitiesViewModel(IArea area, 
-            IReader<IAreaKey, IEnumerable<IActivity>> activityReader,
+            IListReader<IAreaKey, IActivity> activityReader,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory)
         {
             Area = new AreaViewModel(area);
@@ -27,7 +27,7 @@ namespace TMS.Web.Models.Areas
                 {
                     Identifier = Area.AreaId.Value
                 }))
-                .Select(activity => new ActivityAreaViewModel(activity))
+                .SelectMany(activities => activities.Select(activity => new ActivityAreaViewModel(activity)))
                 .ToList();
             }
         }

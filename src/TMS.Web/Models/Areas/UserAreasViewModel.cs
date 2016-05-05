@@ -18,8 +18,8 @@ namespace TMS.Web.Models.Areas
         public List<AreaActivitiesViewModel> UserAreas { get; set; }
 
         public UserAreasViewModel(IPerson person,
-            IReader<IPersonKey, IEnumerable<IArea>> areaReader,
-            IReader<IAreaKey, IEnumerable<IActivity>> activityReader,
+            IListReader<IPersonKey, IArea> areaReader,
+            IListReader<IAreaKey, IActivity> activityReader,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory,
             IFactory<PersonKeyData, IPersonKey> personKeyFactory)
         {
@@ -27,8 +27,8 @@ namespace TMS.Web.Models.Areas
         }
 
         private void InitialiseViewModel(IPerson person,
-            IReader<IPersonKey, IEnumerable<IArea>> areaReader,
-            IReader<IAreaKey, IEnumerable<IActivity>> activityReader,
+            IListReader<IPersonKey, IArea> areaReader,
+            IListReader<IAreaKey, IActivity> activityReader,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory,
             IFactory<PersonKeyData, IPersonKey> personKeyFactory)
         {
@@ -36,7 +36,7 @@ namespace TMS.Web.Models.Areas
 
             UserAreas = areaReader
                 .Read(personKeyFactory.Create(new PersonKeyData { Identifier = PersonModel.Identifier }))
-                .Select(pa => new AreaActivitiesViewModel(pa, activityReader, areaKeyFactory))
+                .SelectMany(item => item.Select(pa => new AreaActivitiesViewModel(pa, activityReader, areaKeyFactory)))
                 .ToList();
         }
     }

@@ -13,11 +13,17 @@
         "System.Linq": "4.0.1-beta-23516",
         "System.Runtime": "4.0.21-beta-23516",
         "System.Threading": "4.0.11-beta-23516",
-        "System.Data.Common": "4.0.1-beta-23516"
+        "System.Data.Common": "4.0.1-beta-23516",
+        "EntityFramework.Commands": "7.0.0-rc1-final",
+        "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final"
       }
     }
   },
+  "commands": {
+    "ef": "EntityFramework.Commands"
+  },
   "dependencies": {
+    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
     "TMS.Layer": "1.0.0-*",
     "TMS.LayerInterface": "1.0.0-*",
     "TMS.ModelLayerInterface": "1.0.0-*",

@@ -28,7 +28,8 @@
     "TMS.RepositoryLayerInterface": "1.0.0-*",
     "System.Threading.Tasks": "4.0.11-beta-23516",
     "Microsoft.AspNet.Mvc.WebApiCompatShim": "6.0.0-rc1-final",
-    "StructureMap.Dnx": "0.5.1-rc1-final"
+    "StructureMap.Dnx": "0.5.1-rc1-final",
+    "EntityFramework.InMemory": "7.0.0-rc1-final"
   },
 
   "commands": {

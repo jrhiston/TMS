@@ -40,6 +40,7 @@
     "bootstrap-sass": "^3.3.6",
     "bootstrap-sass-loader": "^1.0.10",
     "bootstrap-webpack": "0.0.5",
+    "core-js": "^2.3.0",
     "es6-promise": "^3.1.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",

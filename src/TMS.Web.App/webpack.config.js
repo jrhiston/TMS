@@ -5,7 +5,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const PATHS = {
     app: path.join(__dirname, 'app'),
-    build: path.join(__dirname, '../TMS.Web/built')
+    build: path.join(__dirname, '../TMS.Web/wwwroot/built')
 };
 module.exports = {
     context: PATHS.app,

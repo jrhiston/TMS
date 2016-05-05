@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace TMS.Web.Models.Identity
+namespace TMS.Database.Entities.Identity
 {
     public class ApplicationUser : IdentityUser
     {

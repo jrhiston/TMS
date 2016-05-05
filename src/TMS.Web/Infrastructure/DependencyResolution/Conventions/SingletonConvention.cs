@@ -6,6 +6,7 @@ using System.Linq;
 using TMS.Layer.Factories;
 using TMS.Layer.Filters;
 using TMS.Layer.Readers;
+using TMS.Layer.Conversion;
 
 namespace Proto.CMS.Infrastructure.DependencyResolution.Conventions
 {
@@ -31,7 +32,8 @@ namespace Proto.CMS.Infrastructure.DependencyResolution.Conventions
                    genericTypeDefinition == typeof(IDecoratorFactory<,,>) ||
                    genericTypeDefinition == typeof(IFilterFactory<>) ||
                    genericTypeDefinition == typeof(IReader<,>) ||
-                   genericTypeDefinition == typeof(IQueryFactory<>));
+                   genericTypeDefinition == typeof(IQueryFactory<>) ||
+                   genericTypeDefinition == typeof(IConverter<,>));
         }
     }
 }
