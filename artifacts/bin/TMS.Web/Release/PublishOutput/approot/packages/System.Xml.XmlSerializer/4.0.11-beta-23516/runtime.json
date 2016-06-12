@@ -1,0 +1,14 @@
+{
+  "runtimes": {
+    "any": {
+      "System.Xml.XmlSerializer": {
+        "runtime.any.System.Xml.XmlSerializer": "4.0.11-beta-23516"
+      }
+    },
+    "aot": {
+      "System.Xml.XmlSerializer": {
+        "runtime.aot.System.Xml.XmlSerializer": "4.0.11-beta-23516"
+      }
+    }
+  }
+}

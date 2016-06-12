@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>IdentityModel</id>
+    <version>2.0.0-alpha3</version>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <authors>Brock Allen &amp; Dominick Baier</authors>
+    <owners>Brock Allen &amp; Dominick Baier</owners>
+    <licenseUrl>https://github.com/IdentityModel/IdentityModel/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/IdentityModel/IdentityModel</projectUrl>
+    <iconUrl>https://identityserver.github.io/Documentation/assets/images/icons/IDmodel_icon128.png</iconUrl>
+    <description>Helper library for claims-based identity, System.IdentityModel, JSON Web Tokens, OAuth 2.0 and OpenID Connect client libraries</description>
+    <tags>OAuth2 OIDC OpenID Connect JWT Tokens Federation API Authorization Security</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1">
+        <dependency id="Newtonsoft.Json" version="6.0.4" />
+      </group>
+      <group targetFramework=".NETPlatform5.4">
+        <dependency id="Newtonsoft.Json" version="6.0.4" />
+        <dependency id="Microsoft.CSharp" version="4.0.1-beta-23516" />
+        <dependency id="System.Collections" version="4.0.11-beta-23516" />
+        <dependency id="System.Linq" version="4.0.1-beta-23516" />
+        <dependency id="System.Runtime" version="4.0.21-beta-23516" />
+        <dependency id="System.Threading" version="4.0.11-beta-23516" />
+        <dependency id="System.Net.Http" version="4.0.1-beta-23516" />
+        <dependency id="System.Security.Claims" version="4.0.1-beta-23516" />
+        <dependency id="System.Security.Cryptography.Algorithms" version="4.0.0-beta-23516" />
+        <dependency id="System.Console" version="4.0.0-beta-23516" />
+        <dependency id="System.Security.Cryptography.X509Certificates" version="4.0.0-beta-23516" />
+        <dependency id="System.Xml.ReaderWriter" version="4.0.11-beta-23516" />
+        <dependency id="System.Diagnostics.Tools" version="4.0.1-beta-23516" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.IdentityModel" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System.Net.Http" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System.XML" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System.Xml.Linq" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="mscorlib" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.5.1" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

@@ -1,0 +1,39 @@
+Application startup exception: System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.InvalidOperationException: Unable to find the required services. Please add all the required services by calling 'IServiceCollection.AddMvc()' inside the call to 'IApplicationBuilder.ConfigureServices(...)' or 'IApplicationBuilder.UseMvc(...)' in the application startup code.
+   at Microsoft.AspNet.Mvc.Internal.MvcServicesHelper.ThrowIfMvcNotRegistered(IServiceProvider services)
+   at Microsoft.AspNet.Builder.MvcApplicationBuilderExtensions.UseMvc(IApplicationBuilder app, Action`1 configureRoutes)
+   at Microsoft.AspNet.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute(IApplicationBuilder app)
+   at TMS.Web.IdentityServer.Startup.Configure(IApplicationBuilder app, ILoggerFactory loggerFactory) in G:\TMS.Web\artifacts\bin\TMS.Web.IdentityServer\Release\PublishOutput\approot\src\TMS.Web.IdentityServer\Startup.cs:line 38
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNet.Hosting.Startup.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNet.Hosting.Startup.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNet.Hosting.Internal.AutoRequestServicesStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNet.Hosting.Internal.HostingEngine.BuildApplication()
+fail: Microsoft.AspNet.Hosting.Internal.HostingEngine[7]
+      Application startup exception
+      System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.InvalidOperationException: Unable to find the required services. Please add all the required services by calling 'IServiceCollection.AddMvc()' inside the call to 'IApplicationBuilder.ConfigureServices(...)' or 'IApplicationBuilder.UseMvc(...)' in the application startup code.
+         at Microsoft.AspNet.Mvc.Internal.MvcServicesHelper.ThrowIfMvcNotRegistered(IServiceProvider services)
+         at Microsoft.AspNet.Builder.MvcApplicationBuilderExtensions.UseMvc(IApplicationBuilder app, Action`1 configureRoutes)
+         at Microsoft.AspNet.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute(IApplicationBuilder app)
+         at TMS.Web.IdentityServer.Startup.Configure(IApplicationBuilder app, ILoggerFactory loggerFactory) in G:\TMS.Web\artifacts\bin\TMS.Web.IdentityServer\Release\PublishOutput\approot\src\TMS.Web.IdentityServer\Startup.cs:line 38
+         --- End of inner exception stack trace ---
+         at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+         at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+         at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+         at Microsoft.AspNet.Hosting.Startup.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+         at Microsoft.AspNet.Hosting.Startup.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+         at Microsoft.AspNet.Hosting.Internal.AutoRequestServicesStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder builder)
+         at Microsoft.AspNet.Hosting.Internal.HostingEngine.BuildApplication()
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[4]
+      Hosting starting
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[5]
+      Hosting started
+Hosting environment: Production
+Now listening on: http://localhost:6079
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/  
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0016ms 500 text/html; charset=utf-8

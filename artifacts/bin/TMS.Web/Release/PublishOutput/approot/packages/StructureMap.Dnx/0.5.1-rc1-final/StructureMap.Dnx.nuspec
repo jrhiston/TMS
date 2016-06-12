@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>StructureMap.Dnx</id>
+    <version>0.5.1-rc1-final</version>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <authors>khellang</authors>
+    <owners>khellang</owners>
+    <licenseUrl>https://github.com/structuremap/structuremap.dnx/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/structuremap/structuremap.dnx</projectUrl>
+    <description>StructureMap.Dnx</description>
+    <tags>StructureMap DNX Dependency Injection DI IoC</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1">
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="1.0.0-rc1-final" />
+        <dependency id="structuremap" version="4.1.2.386" />
+      </group>
+      <group targetFramework=".NETPlatform5.4">
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="1.0.0-rc1-final" />
+        <dependency id="structuremap" version="4.1.2.386" />
+        <dependency id="System.Runtime" version="4.0.21-beta-23516" />
+      </group>
+      <group targetFramework=".NETCore5.0">
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="1.0.0-rc1-final" />
+        <dependency id="structuremap" version="4.1.2.386" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="mscorlib" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.5.1" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

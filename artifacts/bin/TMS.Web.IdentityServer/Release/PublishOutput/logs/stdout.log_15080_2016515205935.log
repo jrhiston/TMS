@@ -1,0 +1,90 @@
+warn: Microsoft.Extensions.DependencyInjection.DataProtectionServices[0]
+      Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+warn: Microsoft.AspNet.DataProtection.Repositories.EphemeralXmlRepository[0]
+      Using an in-memory repository. Keys will not be persisted to storage.
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[4]
+      Hosting starting
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[5]
+      Hosting started
+Hosting environment: Production
+Now listening on: http://localhost:17533
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/connect/authorize?client_id=tmsclient_oauth&redirect_uri=http://www.tms.local/TMS&response_type=token&scope=tmsapi&state=14633459652070.5627517006735603  
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Start Authorize Request
+verb: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      No user present in authorize request
+info: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      Start authorize request protocol validation
+fail: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      Invalid redirect_uri: http://www.tms.local/TMS
+ {
+        "ClientId": "tmsclient_oauth",
+        "ClientName": "JavaScript OAuth 2.0 Client",
+        "RedirectUri": "http://www.tms.local/TMS",
+        "AllowedRedirectUris": [
+          "http://localhost:28895/TMS"
+        ],
+        "SubjectId": "unknown",
+        "Flow": "AuthorizationCode",
+        "RequestedScopes": "",
+        "Raw": {
+          "client_id": "tmsclient_oauth",
+          "redirect_uri": "http://www.tms.local/TMS",
+          "response_type": "token",
+          "scope": "tmsapi",
+          "state": "14633459652070.5627517006735603"
+        }
+      }
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Showing error page
+verb: Microsoft.AspNet.DataProtection.KeyManagement.DefaultKeyResolver[0]
+      Repository contains no viable default key. Caller should generate a key with immediate activation.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.KeyRingProvider[0]
+      Policy resolution states that a new key should be added to the key ring.
+info: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Creating key {b385e3e1-4485-4ba4-92d0-c61165a0c7e3} with creation date 2016-05-15 20:59:36Z, activation date 2016-05-15 20:59:36Z, and expiration date 2016-08-13 20:59:36Z.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Descriptor deserializer type for key {b385e3e1-4485-4ba4-92d0-c61165a0c7e3} is 'Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNet.DataProtection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      No key escrow sink found. Not writing key {b385e3e1-4485-4ba4-92d0-c61165a0c7e3} to escrow.
+warn: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      No XML encryptor configured. Key {b385e3e1-4485-4ba4-92d0-c61165a0c7e3} may be persisted to storage in unencrypted form.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Key cache expiration token triggered by 'CreateNewKey' operation.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Found key {b385e3e1-4485-4ba4-92d0-c61165a0c7e3}.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.DefaultKeyResolver[0]
+      Considering key {b385e3e1-4485-4ba4-92d0-c61165a0c7e3} with expiration date 2016-08-13 20:59:36Z as default key.
+verb: Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.CngCbcAuthenticatedEncryptorDescriptor[0]
+      Opening CNG algorithm 'AES' from provider '' with chaining mode CBC.
+verb: Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.CngCbcAuthenticatedEncryptorDescriptor[0]
+      Opening CNG algorithm 'SHA256' from provider '' with HMAC.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.KeyRingProvider[0]
+      Using key {b385e3e1-4485-4ba4-92d0-c61165a0c7e3} as the default key.
+info: IdentityServer4.Core.Services.Default.DefaultEventService[0]
+      {
+        "Category": "Endpoints",
+        "Name": "Endpoint failure",
+        "EventType": "Failure",
+        "Id": 3001,
+        "Message": "unauthorized_client",
+        "Details": {
+          "EndpointName": "authorize"
+        }
+      }
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      End Authorize Request. Result type: IdentityServer4.Core.Endpoints.Results.ErrorPageResult
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0296ms 302 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/ui/error?id=18e893bf99b1458f8cca8e5ed6812f8a  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0109ms 404 

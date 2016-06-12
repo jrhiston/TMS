@@ -1,0 +1,164 @@
+warn: Microsoft.Extensions.DependencyInjection.DataProtectionServices[0]
+      Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+warn: Microsoft.AspNet.DataProtection.Repositories.EphemeralXmlRepository[0]
+      Using an in-memory repository. Keys will not be persisted to storage.
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[4]
+      Hosting starting
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[5]
+      Hosting started
+Hosting environment: Production
+Now listening on: http://localhost:18885
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/connect/authorize?client_id=tmsclient_oauth&redirect_uri=http://www.tms.local/TMS&response_type=token&scope=tmsapi&state=14633463890070.38049292425174586  
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Start Authorize Request
+verb: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      No user present in authorize request
+info: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      Start authorize request protocol validation
+info: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      Authorize request validation success
+ {
+        "ClientId": "tmsclient_oauth",
+        "ClientName": "JavaScript OAuth 2.0 Client",
+        "RedirectUri": "http://www.tms.local/TMS",
+        "AllowedRedirectUris": [
+          "http://www.tms.local/TMS"
+        ],
+        "SubjectId": "unknown",
+        "ResponseType": "token",
+        "ResponseMode": "fragment",
+        "Flow": "Implicit",
+        "RequestedScopes": "tmsapi",
+        "State": "14633463890070.38049292425174586",
+        "Raw": {
+          "client_id": "tmsclient_oauth",
+          "redirect_uri": "http://www.tms.local/TMS",
+          "response_type": "token",
+          "scope": "tmsapi",
+          "state": "14633463890070.38049292425174586"
+        }
+      }
+info: IdentityServer4.Core.ResponseHandling.AuthorizeInteractionResponseGenerator[0]
+      User is not authenticated.
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Showing login page
+verb: Microsoft.AspNet.DataProtection.KeyManagement.DefaultKeyResolver[0]
+      Repository contains no viable default key. Caller should generate a key with immediate activation.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.KeyRingProvider[0]
+      Policy resolution states that a new key should be added to the key ring.
+info: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Creating key {686a676e-dc8a-4105-81a9-b7cb548eff20} with creation date 2016-05-15 21:06:30Z, activation date 2016-05-15 21:06:30Z, and expiration date 2016-08-13 21:06:30Z.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Descriptor deserializer type for key {686a676e-dc8a-4105-81a9-b7cb548eff20} is 'Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNet.DataProtection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      No key escrow sink found. Not writing key {686a676e-dc8a-4105-81a9-b7cb548eff20} to escrow.
+warn: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      No XML encryptor configured. Key {686a676e-dc8a-4105-81a9-b7cb548eff20} may be persisted to storage in unencrypted form.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Key cache expiration token triggered by 'CreateNewKey' operation.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Found key {686a676e-dc8a-4105-81a9-b7cb548eff20}.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.DefaultKeyResolver[0]
+      Considering key {686a676e-dc8a-4105-81a9-b7cb548eff20} with expiration date 2016-08-13 21:06:30Z as default key.
+verb: Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.CngCbcAuthenticatedEncryptorDescriptor[0]
+      Opening CNG algorithm 'AES' from provider '' with chaining mode CBC.
+verb: Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.CngCbcAuthenticatedEncryptorDescriptor[0]
+      Opening CNG algorithm 'SHA256' from provider '' with HMAC.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.KeyRingProvider[0]
+      Using key {686a676e-dc8a-4105-81a9-b7cb548eff20} as the default key.
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      End Authorize Request. Result type: IdentityServer4.Core.Endpoints.Results.LoginPageResult
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0281ms 302 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/ui/login?id=f15f7a78563d8a621fbfe8cb6182b863  
+verb: Microsoft.AspNet.Mvc.Routing.InnerAttributeRoute[0]
+      Request successfully matched the route with name 'Login' and template 'ui/login'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.DefaultActionSelector[0]
+      Action 'TMS.Web.IdentityServer.UI.Login.LoginController.Index' with id '4883bbac-cac9-4b01-af2c-9ac6b21d1765' did not match the constraint 'Microsoft.AspNet.Mvc.ActionConstraints.HttpMethodConstraint'
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[1]
+      Executing action TMS.Web.IdentityServer.UI.Login.LoginController.Index
+info: Microsoft.AspNet.Mvc.Controllers.ControllerActionInvoker[1]
+      Executing action method TMS.Web.IdentityServer.UI.Login.LoginController.Index with arguments (f15f7a78563d8a621fbfe8cb6182b863) - ModelState is Valid'
+verb: Microsoft.AspNet.Mvc.Controllers.ControllerActionInvoker[2]
+      Executed action method TMS.Web.IdentityServer.UI.Login.LoginController.Index, returned result Microsoft.AspNet.Mvc.ViewResult.'
+fail: Microsoft.AspNet.Diagnostics.DeveloperExceptionPageMiddleware[0]
+      An unhandled exception has occurred while executing the request
+      Microsoft.AspNet.Mvc.Razor.Compilation.CompilationFailedException: One or more compilation failures occurred:
+      Error @ (17:0,17)(31) - [Cannot resolve TagHelper containing assembly 'Microsoft.AspNet.Mvc.TagHelpers'. Error: Could not load file or assembly 'Microsoft.AspNet.Mvc.TagHelpers, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.] (0,17) Cannot resolve TagHelper containing assembly 'Microsoft.AspNet.Mvc.TagHelpers'. Error: Could not load file or assembly 'Microsoft.AspNet.Mvc.TagHelpers, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.
+      Error @ (68:1,17)(9) - [Cannot resolve TagHelper containing assembly 'IdSvrHost'. Error: Could not load file or assembly 'IdSvrHost, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.] (1,17) Cannot resolve TagHelper containing assembly 'IdSvrHost'. Error: Could not load file or assembly 'IdSvrHost, Culture=neutral, PublicKeyToken=null' or one of its dependencies. The system cannot find the file specified.
+         at Microsoft.AspNet.Mvc.Razor.Compilation.CompilationResult.EnsureSuccessful()
+         at Microsoft.AspNet.Mvc.Razor.Compilation.CompilerCache.CreateCacheEntry(String normalizedPath, Func`2 compile)
+         at Microsoft.AspNet.Mvc.Razor.Compilation.CompilerCache.GetOrAdd(String relativePath, Func`2 compile)
+         at Microsoft.AspNet.Mvc.Razor.VirtualPathRazorPageFactory.CreateInstance(String relativePath)
+         at Microsoft.AspNet.Mvc.Razor.RazorViewEngine.LocatePageFromViewLocations(ActionContext context, String pageName, Boolean isPartial)
+         at Microsoft.AspNet.Mvc.Razor.RazorViewEngine.GetRazorPageResult(ActionContext context, String pageName, Boolean isPartial)
+         at Microsoft.AspNet.Mvc.Razor.RazorViewEngine.FindView(ActionContext context, String viewName)
+         at Microsoft.AspNet.Mvc.ViewEngines.CompositeViewEngine.FindView(ActionContext context, String viewName, Boolean partial)
+         at Microsoft.AspNet.Mvc.ViewEngines.CompositeViewEngine.FindView(ActionContext context, String viewName)
+         at Microsoft.AspNet.Mvc.ViewFeatures.ViewResultExecutor.FindView(ActionContext actionContext, ViewResult viewResult)
+         at Microsoft.AspNet.Mvc.ViewResult.<ExecuteResultAsync>d__24.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at Microsoft.AspNet.Mvc.Controllers.FilterActionInvoker.<InvokeResultAsync>d__56.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+         at Microsoft.AspNet.Mvc.Controllers.FilterActionInvoker.<InvokeResultFilterAsync>d__55.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at Microsoft.AspNet.Mvc.Controllers.FilterActionInvoker.<InvokeAllResultFiltersAsync>d__54.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.ValidateEnd(Task task)
+         at Microsoft.AspNet.Mvc.Controllers.FilterActionInvoker.<InvokeResourceFilterAsync>d__49.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at Microsoft.AspNet.Mvc.Controllers.FilterActionInvoker.<InvokeAsync>d__44.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler.<RouteAsync>d__6.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at Microsoft.AspNet.Mvc.Routing.InnerAttributeRoute.<RouteAsync>d__10.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at Microsoft.AspNet.Routing.RouteCollection.<RouteAsync>d__9.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at Microsoft.AspNet.Builder.RouterMiddleware.<Invoke>d__4.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at IdentityServer4.Core.Hosting.IdentityServerMiddleware.<Invoke>d__3.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at IdentityServer4.Core.Hosting.BaseUrlMiddleware.<Invoke>d__2.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at Microsoft.AspNet.Authentication.AuthenticationMiddleware`1.<Invoke>d__18.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at Microsoft.AspNet.Authentication.AuthenticationMiddleware`1.<Invoke>d__18.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at Microsoft.AspNet.Cors.Infrastructure.CorsMiddleware.<Invoke>d__7.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at Microsoft.AspNet.IISPlatformHandler.IISPlatformHandlerMiddleware.<Invoke>d__8.MoveNext()
+      --- End of stack trace from previous location where exception was thrown ---
+         at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)
+         at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)
+         at Microsoft.AspNet.Diagnostics.DeveloperExceptionPageMiddleware.<Invoke>d__7.MoveNext()
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.061ms 500 text/html; charset=utf-8

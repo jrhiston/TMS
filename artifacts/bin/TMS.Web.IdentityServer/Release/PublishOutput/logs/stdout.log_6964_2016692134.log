@@ -1,0 +1,146 @@
+warn: Microsoft.Extensions.DependencyInjection.DataProtectionServices[0]
+      Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+warn: Microsoft.AspNet.DataProtection.Repositories.EphemeralXmlRepository[0]
+      Using an in-memory repository. Keys will not be persisted to storage.
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[4]
+      Hosting starting
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[5]
+      Hosting started
+Hosting environment: Production
+Now listening on: http://localhost:26747
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/connect/authorize?client_id=tmsclient_oauth&redirect_uri=http://www.tms.local/TMS&response_type=token&scope=tmsapi&state=14655061829600.9617563736094332  
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Start Authorize Request
+verb: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      No user present in authorize request
+info: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      Start authorize request protocol validation
+info: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      Authorize request validation success
+ {
+        "ClientId": "tmsclient_oauth",
+        "ClientName": "JavaScript OAuth 2.0 Client",
+        "RedirectUri": "http://www.tms.local/TMS",
+        "AllowedRedirectUris": [
+          "http://www.tms.local/TMS"
+        ],
+        "SubjectId": "unknown",
+        "ResponseType": "token",
+        "ResponseMode": "fragment",
+        "Flow": "Implicit",
+        "RequestedScopes": "tmsapi",
+        "State": "14655061829600.9617563736094332",
+        "Raw": {
+          "client_id": "tmsclient_oauth",
+          "redirect_uri": "http://www.tms.local/TMS",
+          "response_type": "token",
+          "scope": "tmsapi",
+          "state": "14655061829600.9617563736094332"
+        }
+      }
+info: IdentityServer4.Core.ResponseHandling.AuthorizeInteractionResponseGenerator[0]
+      User is not authenticated.
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Showing login page
+verb: Microsoft.AspNet.DataProtection.KeyManagement.DefaultKeyResolver[0]
+      Repository contains no viable default key. Caller should generate a key with immediate activation.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.KeyRingProvider[0]
+      Policy resolution states that a new key should be added to the key ring.
+info: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Creating key {c241c844-af67-42b6-a1e3-d4a6ecc51751} with creation date 2016-06-09 21:03:05Z, activation date 2016-06-09 21:03:05Z, and expiration date 2016-09-07 21:03:05Z.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Descriptor deserializer type for key {c241c844-af67-42b6-a1e3-d4a6ecc51751} is 'Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNet.DataProtection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      No key escrow sink found. Not writing key {c241c844-af67-42b6-a1e3-d4a6ecc51751} to escrow.
+warn: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      No XML encryptor configured. Key {c241c844-af67-42b6-a1e3-d4a6ecc51751} may be persisted to storage in unencrypted form.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Key cache expiration token triggered by 'CreateNewKey' operation.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Found key {c241c844-af67-42b6-a1e3-d4a6ecc51751}.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.DefaultKeyResolver[0]
+      Considering key {c241c844-af67-42b6-a1e3-d4a6ecc51751} with expiration date 2016-09-07 21:03:05Z as default key.
+verb: Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.CngCbcAuthenticatedEncryptorDescriptor[0]
+      Opening CNG algorithm 'AES' from provider '' with chaining mode CBC.
+verb: Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.CngCbcAuthenticatedEncryptorDescriptor[0]
+      Opening CNG algorithm 'SHA256' from provider '' with HMAC.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.KeyRingProvider[0]
+      Using key {c241c844-af67-42b6-a1e3-d4a6ecc51751} as the default key.
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      End Authorize Request. Result type: IdentityServer4.Core.Endpoints.Results.LoginPageResult
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0282ms 302 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/ui/login?id=7be33515fc776ecc5d541413717b9119  
+verb: Microsoft.AspNet.Mvc.Routing.InnerAttributeRoute[0]
+      Request successfully matched the route with name 'Login' and template 'ui/login'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.DefaultActionSelector[0]
+      Action 'TMS.Web.IdentityServer.UI.Login.LoginController.Index' with id '4e4df99d-2fdf-4390-8257-50941eece8bd' did not match the constraint 'Microsoft.AspNet.Mvc.ActionConstraints.HttpMethodConstraint'
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[1]
+      Executing action TMS.Web.IdentityServer.UI.Login.LoginController.Index
+info: Microsoft.AspNet.Mvc.Controllers.ControllerActionInvoker[1]
+      Executing action method TMS.Web.IdentityServer.UI.Login.LoginController.Index with arguments (7be33515fc776ecc5d541413717b9119) - ModelState is Valid'
+verb: Microsoft.AspNet.Mvc.Controllers.ControllerActionInvoker[2]
+      Executed action method TMS.Web.IdentityServer.UI.Login.LoginController.Index, returned result Microsoft.AspNet.Mvc.ViewResult.'
+verb: Microsoft.AspNet.Mvc.ViewFeatures.ViewResultExecutor[0]
+      The view 'Index' was found.
+info: Microsoft.AspNet.Mvc.ViewFeatures.ViewResultExecutor[1]
+      Executing ViewResult, running view at path /UI/Login/Views/Index.cshtml.
+info: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[2]
+      Executed action TMS.Web.IdentityServer.UI.Login.LoginController.Index in 0.0797ms
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0969ms 200 text/html; charset=utf-8
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/lib/bootstrap/css/bootstrap.css  
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/css/site.css  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/lib/jquery/jquery.js  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/lib/bootstrap/js/bootstrap.js  
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/icon.png  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/favicon.ico  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 

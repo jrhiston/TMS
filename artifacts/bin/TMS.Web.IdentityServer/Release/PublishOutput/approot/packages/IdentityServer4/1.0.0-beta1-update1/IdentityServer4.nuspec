@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>IdentityServer4</id>
+    <version>1.0.0-beta1-update1</version>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <authors>Brock Allen &amp; Dominick Baier</authors>
+    <owners>Brock Allen &amp; Dominick Baier</owners>
+    <licenseUrl>https://github.com/IdentityServer/IdentityServer4/blob/dev/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/IdentityServer/IdentityServer4</projectUrl>
+    <iconUrl>https://identityserver.github.io/Documentation/assets/images/icons/IDserver_icon128.jpg</iconUrl>
+    <description>OpenID Connect and OAuth 2.0 Framework for ASP.NET 5</description>
+    <summary>IdentityServer is a framework and a hostable component that allows implementing single sign-on and access control for modern web applications and APIs using protocols like OpenID Connect and OAuth2. It supports a wide range of clients like mobile, web, SPAs and desktop applications and is extensible to allow integration in new and existing architectures</summary>
+    <tags>IdentityServer OpenID Connect OIDC OAuth 2.0 ASP.NET WebApi SSO Federation Claims Identity</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1">
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.0.0-rc1-final" />
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="1.0.0-rc1-final" />
+        <dependency id="Microsoft.AspNet.Http.Abstractions" version="1.0.0-rc1-final" />
+        <dependency id="Microsoft.AspNet.Authentication.Cookies" version="1.0.0-rc1-final" />
+        <dependency id="Microsoft.AspNet.Cors" version="6.0.0-rc1-final" />
+        <dependency id="Newtonsoft.Json" version="8.0.2" />
+        <dependency id="IdentityModel" version="2.0.0-alpha3" />
+        <dependency id="System.IdentityModel.Tokens.Jwt" version="4.0.2.202250711" />
+      </group>
+      <group targetFramework=".NETPlatform5.4">
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="1.0.0-rc1-final" />
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="1.0.0-rc1-final" />
+        <dependency id="Microsoft.AspNet.Http.Abstractions" version="1.0.0-rc1-final" />
+        <dependency id="Microsoft.AspNet.Authentication.Cookies" version="1.0.0-rc1-final" />
+        <dependency id="Microsoft.AspNet.Cors" version="6.0.0-rc1-final" />
+        <dependency id="Newtonsoft.Json" version="8.0.2" />
+        <dependency id="IdentityModel" version="2.0.0-alpha3" />
+        <dependency id="Microsoft.CSharp" version="4.0.1-beta-23516" />
+        <dependency id="System.Collections" version="4.0.11-beta-23516" />
+        <dependency id="System.Collections.Specialized" version="4.0.1-beta-23516" />
+        <dependency id="System.Linq" version="4.0.1-beta-23516" />
+        <dependency id="System.Runtime" version="4.0.21-beta-23516" />
+        <dependency id="System.Threading" version="4.0.11-beta-23516" />
+        <dependency id="System.Net.Http" version="4.0.1-beta-23516" />
+        <dependency id="System.Security.Claims" version="4.0.1-beta-23516" />
+        <dependency id="System.Security.Cryptography.X509Certificates" version="4.0.0-beta-23516" />
+        <dependency id="System.Security.Cryptography.Algorithms" version="4.0.0-beta-23225" />
+        <dependency id="System.Security.Cryptography.Csp" version="4.0.0-beta-23225" />
+        <dependency id="System.IdentityModel.Tokens.Jwt" version="5.0.0-rc1-211161024" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="mscorlib" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.5.1" />
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.5.1" />
+    </frameworkAssemblies>
+  </metadata>
+</package>

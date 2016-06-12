@@ -1,0 +1,161 @@
+warn: Microsoft.Extensions.DependencyInjection.DataProtectionServices[0]
+      Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+warn: Microsoft.AspNet.DataProtection.Repositories.EphemeralXmlRepository[0]
+      Using an in-memory repository. Keys will not be persisted to storage.
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[4]
+      Hosting starting
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[5]
+      Hosting started
+Hosting environment: Production
+Now listening on: http://localhost:8100
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/connect/authorize  
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Start Authorize Request
+verb: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      No user present in authorize request
+info: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      Start authorize request protocol validation
+fail: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      client_id is missing or too long
+ {
+        "SubjectId": "unknown",
+        "Flow": "AuthorizationCode",
+        "RequestedScopes": "",
+        "Raw": {}
+      }
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Showing error page
+verb: Microsoft.AspNet.DataProtection.KeyManagement.DefaultKeyResolver[0]
+      Repository contains no viable default key. Caller should generate a key with immediate activation.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.KeyRingProvider[0]
+      Policy resolution states that a new key should be added to the key ring.
+info: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Creating key {f15650b7-7ad1-48a7-b3ad-bb7f4fed24f8} with creation date 2016-05-13 18:01:09Z, activation date 2016-05-13 18:01:09Z, and expiration date 2016-08-11 18:01:09Z.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Descriptor deserializer type for key {f15650b7-7ad1-48a7-b3ad-bb7f4fed24f8} is 'Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNet.DataProtection, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60'.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      No key escrow sink found. Not writing key {f15650b7-7ad1-48a7-b3ad-bb7f4fed24f8} to escrow.
+warn: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      No XML encryptor configured. Key {f15650b7-7ad1-48a7-b3ad-bb7f4fed24f8} may be persisted to storage in unencrypted form.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Key cache expiration token triggered by 'CreateNewKey' operation.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.XmlKeyManager[0]
+      Found key {f15650b7-7ad1-48a7-b3ad-bb7f4fed24f8}.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.DefaultKeyResolver[0]
+      Considering key {f15650b7-7ad1-48a7-b3ad-bb7f4fed24f8} with expiration date 2016-08-11 18:01:09Z as default key.
+verb: Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.CngCbcAuthenticatedEncryptorDescriptor[0]
+      Opening CNG algorithm 'AES' from provider '' with chaining mode CBC.
+verb: Microsoft.AspNet.DataProtection.AuthenticatedEncryption.ConfigurationModel.CngCbcAuthenticatedEncryptorDescriptor[0]
+      Opening CNG algorithm 'SHA256' from provider '' with HMAC.
+verb: Microsoft.AspNet.DataProtection.KeyManagement.KeyRingProvider[0]
+      Using key {f15650b7-7ad1-48a7-b3ad-bb7f4fed24f8} as the default key.
+info: IdentityServer4.Core.Services.Default.DefaultEventService[0]
+      {
+        "Category": "Endpoints",
+        "Name": "Endpoint failure",
+        "EventType": "Failure",
+        "Id": 3001,
+        "Message": "invalid_request",
+        "Details": {
+          "EndpointName": "authorize"
+        }
+      }
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      End Authorize Request. Result type: IdentityServer4.Core.Endpoints.Results.ErrorPageResult
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0797ms 302 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/ui/error?id=95d4619753a3f5f44a606a47d56520a8  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0141ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/connect  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/ui/error?id=95d4619753a3f5f44a606a47d56520a8  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/conntect/authorize  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/conntect/authorize  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/connect/authorize  
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Start Authorize Request
+verb: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      No user present in authorize request
+info: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      Start authorize request protocol validation
+fail: IdentityServer4.Core.Validation.AuthorizeRequestValidator[0]
+      client_id is missing or too long
+ {
+        "SubjectId": "unknown",
+        "Flow": "AuthorizationCode",
+        "RequestedScopes": "",
+        "Raw": {}
+      }
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      Showing error page
+info: IdentityServer4.Core.Services.Default.DefaultEventService[0]
+      {
+        "Category": "Endpoints",
+        "Name": "Endpoint failure",
+        "EventType": "Failure",
+        "Id": 3001,
+        "Message": "invalid_request",
+        "Details": {
+          "EndpointName": "authorize"
+        }
+      }
+info: IdentityServer4.Core.Endpoints.AuthorizeEndpoint[0]
+      End Authorize Request. Result type: IdentityServer4.Core.Endpoints.Results.ErrorPageResult
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 302 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/ui/error?id=b886cb52365486254a626793bde45ef1  
+verb: Microsoft.AspNet.Routing.Template.TemplateRoute[0]
+      Request successfully matched the route with name 'default' and template '{controller=Home}/{action=Index}/{id?}'.
+verb: Microsoft.AspNet.Mvc.Infrastructure.MvcRouteHandler[3]
+      No actions matched the current request
+verb: Microsoft.AspNet.Builder.RouterMiddleware[0]
+      Request did not match any routes.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 404 

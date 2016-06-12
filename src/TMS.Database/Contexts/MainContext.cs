@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Data.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenIddict;
 using TMS.Database.Entities.Activities;
 using TMS.Database.Entities.Areas;
 using TMS.Database.Entities.Identity;
@@ -8,11 +8,15 @@ using TMS.Database.Entities.PeopleAreas;
 
 namespace TMS.Database.Contexts
 {
-    public class MainContext : IdentityDbContext<ApplicationUser>
+    public class MainContext : OpenIddictContext<ApplicationUser, ApplicationRole>
     {
         public DbSet<PersonEntity> Persons { get; set; }
         public DbSet<AreaEntity> Areas { get; set; }
         public DbSet<ActivityEntity> Activities { get; set; }
+
+        public MainContext(DbContextOptions options) : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

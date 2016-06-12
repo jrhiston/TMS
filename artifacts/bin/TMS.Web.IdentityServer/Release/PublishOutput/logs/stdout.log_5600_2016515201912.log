@@ -1,0 +1,39 @@
+warn: Microsoft.Extensions.DependencyInjection.DataProtectionServices[0]
+      Neither user profile nor HKLM registry available. Using an ephemeral key repository. Protected data will be unavailable when application exits.
+warn: Microsoft.AspNet.DataProtection.Repositories.EphemeralXmlRepository[0]
+      Using an in-memory repository. Keys will not be persisted to storage.
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[4]
+      Hosting starting
+verb: Microsoft.AspNet.Hosting.Internal.HostingEngine[5]
+      Hosting started
+Hosting environment: Production
+Now listening on: http://localhost:9621
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/.well-known/openid-configuration  
+verb: IdentityServer4.Core.Endpoints.DiscoveryEndpoint[0]
+      Start discovery request
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0281ms 200 application/json
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/connect/token  
+verb: IdentityServer4.Core.Endpoints.TokenEndpoint[0]
+      Start token request.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0.0094ms 400 application/json
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/connect/userinfo  
+verb: IdentityServer4.Core.Endpoints.UserInfoEndpoint[0]
+      Start userinfo request
+fail: IdentityServer4.Core.Endpoints.UserInfoEndpoint[0]
+      No token found.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 401 
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[1]
+      Request starting HTTP/1.1 GET http://authserv.local/connect/userinfo  
+verb: IdentityServer4.Core.Endpoints.UserInfoEndpoint[0]
+      Start userinfo request
+fail: IdentityServer4.Core.Endpoints.UserInfoEndpoint[0]
+      No token found.
+info: Microsoft.AspNet.Hosting.Internal.HostingEngine[2]
+      Request finished in 0ms 401 

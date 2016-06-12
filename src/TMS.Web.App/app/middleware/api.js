@@ -23,6 +23,26 @@ export function login(username, password, callback){
     })
 }
 
+export function getToken() {
+    var authorizationUrl = 'http://authserv.local/connect/authorize'
+    var client_id = 'tmsclient_oauth'
+    var redirect_uri = 'http://www.tms.local/TMS'
+    var response_type = 'token'
+    var scope = 'tmsapi'
+    var state = Date.now() + "" + Math.random()
+
+    localStorage["state"] = state;
+
+    var url =
+        authorizationUrl + "?" +
+        "client_id=" + encodeURI(client_id) + "&" +
+        "redirect_uri=" + encodeURI(redirect_uri) + "&" +
+        "response_type=" + encodeURI(response_type) + "&" +
+        "scope=" + encodeURI(scope) + "&" +
+        "state=" + encodeURI(state);
+    window.location = url;
+}
+
 export function userHasValidAuthToken(){
     let authToken = sessionStorage.getItem('AuthToken')
 

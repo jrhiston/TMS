@@ -1,0 +1,14 @@
+{
+  "runtimes": {
+    "win7": {
+      "System.Net.Security": {
+        "runtime.win7.System.Net.Security": "4.0.0-beta-23516"
+      }
+    },
+    "unix": {
+      "System.Net.Security": {
+        "runtime.unix.System.Net.Security": "4.0.0-beta-23516"
+      }
+    }
+  }
+}
