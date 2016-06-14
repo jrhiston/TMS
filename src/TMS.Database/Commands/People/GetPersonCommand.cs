@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using TMS.Database.Contexts;
 using TMS.Database.Entities.People;
 using TMS.Layer;
 using TMS.Layer.Conversion;
@@ -10,10 +9,10 @@ namespace TMS.Database.Commands.People
 {
     public class GetPersonCommand : IQueryCommand<IPersonKey, IPerson>
     {
-        private readonly MainContext _personContext;
+        private readonly IPersonsContext _personContext;
         private readonly IConverter<PersonEntity, IPerson> _personConverter;
 
-        public GetPersonCommand(MainContext personContext, IConverter<PersonEntity, IPerson> personConverter)
+        public GetPersonCommand(IPersonsContext personContext, IConverter<PersonEntity, IPerson> personConverter)
         {
             _personContext = personContext;
             _personConverter = personConverter;

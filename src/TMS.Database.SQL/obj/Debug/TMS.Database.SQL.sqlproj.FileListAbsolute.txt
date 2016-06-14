@@ -1,0 +1,23 @@
+G:\C# Projects\TMS\TMS.Web\TMS.Database.SQL\bin\Debug\TMS.Database.SQL.dacpac
+G:\C# Projects\TMS\TMS.Web\TMS.Database.SQL\bin\Debug\TMS.Database.SQL.dll
+G:\C# Projects\TMS\TMS.Web\TMS.Database.SQL\bin\Debug\TMS.Database.SQL.pdb
+G:\C# Projects\TMS\TMS.Web\TMS.Database.SQL\obj\Debug\TMS.Database.SQL.dll
+G:\C# Projects\TMS\TMS.Web\TMS.Database.SQL\obj\Debug\TMS.Database.SQL.pdb
+G:\C# Projects\TMS\TMS.Web\TMS.Database.SQL\obj\Debug\Model.xml
+G:\C# Projects\TMS\TMS.Web\TMS.Database.SQL\obj\Debug\refactor.xml
+G:\C# Projects\TMS\TMS.Web\TMS.Database.SQL\obj\Debug\postdeploy.sql
+G:\C# Projects\TMS\TMS.Web\TMS.Database.SQL\obj\Debug\predeploy.sql
+G:\TMS.Web\TMS.Database.SQL\bin\Debug\TMS.Database.SQL.dacpac
+G:\TMS.Web\TMS.Database.SQL\bin\Debug\TMS.Database.SQL.dll
+G:\TMS.Web\TMS.Database.SQL\bin\Debug\TMS.Database.SQL.pdb
+G:\TMS.Web\TMS.Database.SQL\obj\Debug\TMS.Database.SQL.dll
+G:\TMS.Web\TMS.Database.SQL\obj\Debug\TMS.Database.SQL.pdb
+G:\TMS.Web\src\TMS.Database.SQL\bin\Debug\TMS.Database.SQL.dacpac
+G:\TMS.Web\src\TMS.Database.SQL\bin\Debug\TMS.Database.SQL.dll
+G:\TMS.Web\src\TMS.Database.SQL\bin\Debug\TMS.Database.SQL.pdb
+G:\TMS.Web\src\TMS.Database.SQL\obj\Debug\TMS.Database.SQL.dll
+G:\TMS.Web\src\TMS.Database.SQL\obj\Debug\TMS.Database.SQL.pdb
+G:\TMS.Web\src\TMS.Database.SQL\obj\Debug\Model.xml
+G:\TMS.Web\src\TMS.Database.SQL\obj\Debug\refactor.xml
+G:\TMS.Web\src\TMS.Database.SQL\obj\Debug\postdeploy.sql
+G:\TMS.Web\src\TMS.Database.SQL\obj\Debug\predeploy.sql

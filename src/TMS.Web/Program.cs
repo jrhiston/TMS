@@ -1,26 +1,18 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using System;
+﻿using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace TMS.Web
 {
     public class Program
     {
-        // Entry point for the application.
         public static void Main(string[] args)
         {
-            var config = new ConfigurationBuilder()
-                   .AddCommandLine(args)
-                   .AddEnvironmentVariables(prefix: "ASPNETCORE_")
-                   .Build();
-
-            var builder = new WebHostBuilder()
-                .UseConfiguration(config)
+            var host = new WebHostBuilder()
                 .UseKestrel()
+                .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
-                .UseStartup<Startup>();
-
-            var host = builder.Build();
+                .UseStartup<Startup>()
+                .Build();
 
             host.Run();
         }
