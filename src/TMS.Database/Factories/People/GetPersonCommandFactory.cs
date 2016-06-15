@@ -9,10 +9,10 @@ namespace TMS.Database.Factories.People
 {
     public class GetPersonCommandFactory : IQueryFactory<IQueryCommand<IPersonKey, IPerson>>
     {
-        private readonly IPersonsContext _personContext;
+        private readonly IDatabaseContext<PersonEntity> _personContext;
         private readonly IConverter<PersonEntity, IPerson> _personConverter;
 
-        public GetPersonCommandFactory(IPersonsContext personContext, IConverter<PersonEntity, IPerson> personConverter)
+        public GetPersonCommandFactory(IDatabaseContext<PersonEntity> personContext, IConverter<PersonEntity, IPerson> personConverter)
         {
             _personContext = personContext;
             _personConverter = personConverter;

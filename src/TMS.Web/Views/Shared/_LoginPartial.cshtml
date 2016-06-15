@@ -1,8 +1,8 @@
-﻿@using TMS.ModelLayerInterface.People.Decorators;
+﻿@using TMS.Database.Entities.People
 @using TMS.Web.Models
 
-@inject SignInManager<IPersistablePerson> SignInManager
-@inject UserManager<IPersistablePerson> UserManager
+@inject SignInManager<PersonEntity> SignInManager
+@inject UserManager<PersonEntity> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

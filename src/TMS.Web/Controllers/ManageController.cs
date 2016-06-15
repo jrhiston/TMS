@@ -9,21 +9,22 @@ using TMS.Web.Services;
 using TMS.ModelLayerInterface.People;
 using TMS.ModelLayerInterface.People.Decorators;
 using TMS.Web.Models.People;
+using TMS.Database.Entities.People;
 
 namespace TMS.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private readonly UserManager<IPersistablePerson> _userManager;
-        private readonly SignInManager<IPersistablePerson> _signInManager;
+        private readonly UserManager<PersonEntity> _userManager;
+        private readonly SignInManager<PersonEntity> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public ManageController(
-        UserManager<IPersistablePerson> userManager,
-        SignInManager<IPersistablePerson> signInManager,
+        UserManager<PersonEntity> userManager,
+        SignInManager<PersonEntity> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
         ILoggerFactory loggerFactory)
@@ -274,11 +275,11 @@ namespace TMS.Web.Controllers
                 return View("Error");
             }
 
-            var passwordHashViewModel = new PersonPasswordHashViewModel(user);
+            //var passwordHashViewModel = new PersonPasswordHashViewModel(user);
 
             var userLogins = await _userManager.GetLoginsAsync(user);
             var otherLogins = _signInManager.GetExternalAuthenticationSchemes().Where(auth => userLogins.All(ul => auth.AuthenticationScheme != ul.LoginProvider)).ToList();
-            ViewData["ShowRemoveButton"] = passwordHashViewModel.PasswordHash != null || userLogins.Count > 1;
+            ViewData["ShowRemoveButton"] = user.PasswordHash != null || userLogins.Count > 1;
             return View(new ManageLoginsViewModel
             {
                 CurrentLogins = userLogins,
@@ -340,7 +341,7 @@ namespace TMS.Web.Controllers
             Error
         }
 
-        private Task<IPersistablePerson> GetCurrentUserAsync()
+        private Task<PersonEntity> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
         }

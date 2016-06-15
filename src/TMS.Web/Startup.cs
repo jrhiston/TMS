@@ -7,12 +7,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TMS.Web.Services;
 using TMS.Web.Data;
-using TMS.ModelLayerInterface.People.Decorators;
 using TMS.Database.Entities.People;
+using TMS.Database;
+using TMS.Database.Entities.Areas;
+using System;
+using TMS.ModelLayerInterface.People.Decorators;
+using Microsoft.AspNetCore.Identity;
+using TMS.Web.DependencyResolution;
 
 namespace TMS.Web
 {
-    public class Startup
+    public class Startup : IDbContextTypeProvider
     {
         public Startup(IHostingEnvironment env)
         {
@@ -34,7 +39,7 @@ namespace TMS.Web
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddDbContext<MainContext>(options =>
@@ -44,11 +49,17 @@ namespace TMS.Web
                 .AddEntityFrameworkStores<MainContext, long>()
                 .AddDefaultTokenProviders();
 
+            services.AddTMSDatabaseServices(this);
+
             services.AddMvc();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            var container = IoC.Initialize(services);
+
+            return container.GetInstance<IServiceProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -81,5 +92,7 @@ namespace TMS.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+
+        public Type GetDbContextType() => typeof(MainContext);
     }
 }

@@ -142,8 +142,9 @@
 --reference:G:\TMS.Web\src\TMS.Layer\bin\Debug\netcoreapp1.0\TMS.Layer.dll
 --reference:G:\TMS.Web\src\TMS.LayerInterface\bin\Debug\netcoreapp1.0\TMS.LayerInterface.dll
 --reference:G:\TMS.Web\src\TMS.ModelLayerInterface\bin\Debug\netcoreapp1.0\TMS.ModelLayerInterface.dll
-G:\TMS.Web\src\TMS.Database\IAreasContext.cs
-G:\TMS.Web\src\TMS.Database\IPersonsContext.cs
+G:\TMS.Web\src\TMS.Database\DatabaseServicesInitialiser.cs
+G:\TMS.Web\src\TMS.Database\IDatabaseContext.cs
+G:\TMS.Web\src\TMS.Database\IDbContextTypeProvider.cs
 G:\TMS.Web\src\TMS.Database\Commands\GetByIdCommand.cs
 G:\TMS.Web\src\TMS.Database\Commands\Areas\GetAreaCommand.cs
 G:\TMS.Web\src\TMS.Database\Commands\People\GetPersonCommand.cs
@@ -155,6 +156,7 @@ G:\TMS.Web\src\TMS.Database\Entities\Activities\ActivityEntity.cs
 G:\TMS.Web\src\TMS.Database\Entities\Areas\AreaEntity.cs
 G:\TMS.Web\src\TMS.Database\Entities\People\PersonEntity.cs
 G:\TMS.Web\src\TMS.Database\Entities\PeopleAreas\PeopleAreasEntity.cs
+G:\TMS.Web\src\TMS.Database\Exceptions\DbContextMustBeProvidedException.cs
 G:\TMS.Web\src\TMS.Database\Factories\GetByIdCommandFactory.cs
 G:\TMS.Web\src\TMS.Database\Factories\Areas\GetAreaCommandFactory.cs
 G:\TMS.Web\src\TMS.Database\Factories\People\GetPersonCommandFactory.cs

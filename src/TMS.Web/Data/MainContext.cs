@@ -9,13 +9,15 @@ using TMS.Database.Entities.PeopleAreas;
 
 namespace TMS.Web.Data
 {
-    public class MainContext : IdentityDbContext<PersonEntity, IdentityRole<long>, long>, IAreasContext, IPersonsContext
+    public class MainContext : IdentityDbContext<PersonEntity, IdentityRole<long>, long>, 
+        IDatabaseContext<PersonEntity>,
+        IDatabaseContext<AreaEntity>
     {
         public DbSet<AreaEntity> Areas { get; set; }
         public DbSet<ActivityEntity> Activities { get; set; }
 
-        IEnumerable<AreaEntity> IAreasContext.Areas => Areas;
-        IEnumerable<PersonEntity> IPersonsContext.Persons => Users;
+        IEnumerable<PersonEntity> IDatabaseContext<PersonEntity>.Entities => Users;
+        IEnumerable<AreaEntity> IDatabaseContext<AreaEntity>.Entities => Areas;
 
         public MainContext(DbContextOptions options) : base(options)
         {

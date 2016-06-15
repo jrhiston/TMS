@@ -11,9 +11,9 @@ namespace TMS.Database.Commands.Areas
     public class GetAreaCommand : IQueryCommand<IAreaKey, IPersistableArea>
     {
         private readonly IConverter<AreaEntity, IPersistableArea> _areaEntityToPersistableAreaConverter;
-        private readonly IAreasContext _areasContext;
+        private readonly IDatabaseContext<AreaEntity> _areasContext;
 
-        public GetAreaCommand(IAreasContext areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
+        public GetAreaCommand(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
         {
             _areasContext = areasContext;
             _areaEntityToPersistableAreaConverter = areaEntityToPersistableAreaConverter;
@@ -21,7 +21,7 @@ namespace TMS.Database.Commands.Areas
 
         public Maybe<IPersistableArea> ExecuteCommand(IAreaKey data)
         {
-            var area = _areasContext.Areas.FirstOrDefault(item => item.Id == data.Identifier);
+            var area = _areasContext.Entities.FirstOrDefault(item => item.Id == data.Identifier);
 
             if (area != null)
                 return _areaEntityToPersistableAreaConverter.Convert(area);

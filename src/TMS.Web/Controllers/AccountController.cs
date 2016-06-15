@@ -12,36 +12,31 @@ using TMS.ModelLayerInterface.People.Decorators;
 using TMS.Layer.Factories;
 using TMS.ModelLayerInterface.People;
 using TMS.ModelLayerInterface.People.Data;
+using TMS.Database.Entities.People;
 
 namespace TMS.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<IPersistablePerson> _userManager;
-        private readonly SignInManager<IPersistablePerson> _signInManager;
+        private readonly UserManager<PersonEntity> _userManager;
+        private readonly SignInManager<PersonEntity> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-        private readonly IFactory<PersonData, IPerson> _personFactory;
-        private readonly IDecoratorFactory<PersistablePersonData, IPerson, IPersistablePerson> _peristablePersonFactory;
 
         public AccountController(
-            UserManager<IPersistablePerson> userManager,
-            SignInManager<IPersistablePerson> signInManager,
+            UserManager<PersonEntity> userManager,
+            SignInManager<PersonEntity> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory,
-            IFactory<PersonData, IPerson> personFactory,
-            IDecoratorFactory<PersistablePersonData, IPerson, IPersistablePerson> peristablePersonFactory)
+            ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
-            _personFactory = personFactory;
-            _peristablePersonFactory = peristablePersonFactory;
         }
 
         //
@@ -112,21 +107,27 @@ namespace TMS.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                // TODO finish this.
-                var person = _personFactory.Create(new PersonData
+                var personEntity = new PersonEntity
                 {
-                    FirstName = "",
-                    LastName = "",
-                    UserName = model.Email
-                });
+                    UserName = model.Email,
+                    Email = model.Email
+                };
 
-                var persistablePerson = _peristablePersonFactory.Create(new PersistablePersonData
-                {
+                //// TODO finish this.
+                //var person = _personFactory.Create(new PersonData
+                //{
+                //    FirstName = "",
+                //    LastName = "",
+                //    UserName = model.Email
+                //});
+
+                //var persistablePerson = _peristablePersonFactory.Create(new PersistablePersonData
+                //{
                     
-                }, person);
+                //}, person);
 
                 //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(persistablePerson, model.Password);
+                var result = await _userManager.CreateAsync(personEntity, model.Password);
                 if (result.Succeeded)
                 {
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
@@ -135,7 +136,7 @@ namespace TMS.Web.Controllers
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.SignInAsync(persistablePerson, isPersistent: false);
+                    await _signInManager.SignInAsync(personEntity, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -221,18 +222,23 @@ namespace TMS.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var personEntity = new PersonEntity
+                {
+                    Email = model.Email
+                };
+
                 // TODO finish this.
-                var person = _personFactory.Create(new PersonData
-                {
-                    FirstName = "",
-                    LastName = "",
-                    UserName = model.Email
-                });
+                //var person = _personFactory.Create(new PersonData
+                //{
+                //    FirstName = "",
+                //    LastName = "",
+                //    UserName = model.Email
+                //});
 
-                var persistablePerson = _peristablePersonFactory.Create(new PersistablePersonData
-                {
+                //var persistablePerson = _peristablePersonFactory.Create(new PersistablePersonData
+                //{
 
-                }, person);
+                //}, person);
 
                 // Get the information about the user from the external login provider
                 var info = await _signInManager.GetExternalLoginInfoAsync();
@@ -241,13 +247,13 @@ namespace TMS.Web.Controllers
                     return View("ExternalLoginFailure");
                 }
                 //var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(persistablePerson);
+                var result = await _userManager.CreateAsync(personEntity);
                 if (result.Succeeded)
                 {
-                    result = await _userManager.AddLoginAsync(persistablePerson, info);
+                    result = await _userManager.AddLoginAsync(personEntity, info);
                     if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(persistablePerson, isPersistent: false);
+                        await _signInManager.SignInAsync(personEntity, isPersistent: false);
                         _logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
                         return RedirectToLocal(returnUrl);
                     }
@@ -479,7 +485,7 @@ namespace TMS.Web.Controllers
             }
         }
 
-        private Task<IPersistablePerson> GetCurrentUserAsync()
+        private Task<PersonEntity> GetCurrentUserAsync()
         {
             return _userManager.GetUserAsync(HttpContext.User);
         }

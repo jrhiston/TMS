@@ -13,11 +13,9 @@ namespace TMS.Database.Entities.People
     public class PersonEntity : IdentityUser<long>
     {
         [MaxLength(255)]
-        [Required]
         public string FirstName { get; set; }
 
         [MaxLength(255)]
-        [Required]
         public string LastName { get; set; }
 
         public List<PeopleAreasEntity> PersonAreas { get; set; }
