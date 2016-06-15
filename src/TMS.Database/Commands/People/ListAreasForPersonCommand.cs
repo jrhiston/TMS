@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TMS.Database.Contexts;
 using TMS.Database.Entities.Areas;
 using TMS.Layer;
 using TMS.Layer.Conversion;
@@ -13,9 +12,9 @@ namespace TMS.Database.Commands.People
     public class ListAreasForPersonCommand : IQueryCommand<IPersonKey, IEnumerable<IPersistableArea>>
     {
         private readonly IConverter<AreaEntity, IPersistableArea> _areaEntityToPersistableAreaConverter;
-        private readonly MainContext _areasContext;
+        private readonly IDatabaseContext<AreaEntity> _areasContext;
 
-        public ListAreasForPersonCommand(MainContext areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
+        public ListAreasForPersonCommand(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
         {
             _areasContext = areasContext;
             _areaEntityToPersistableAreaConverter = areaEntityToPersistableAreaConverter;
@@ -26,7 +25,7 @@ namespace TMS.Database.Commands.People
             if (data == null)
                 return new Maybe<IEnumerable<IPersistableArea>>();
 
-            var areas = from area in _areasContext.Areas
+            var areas = from area in _areasContext.Entities
                         where area.AreaPersons.Any(a => a.PersonId == data.Identifier)
                         select area;
 

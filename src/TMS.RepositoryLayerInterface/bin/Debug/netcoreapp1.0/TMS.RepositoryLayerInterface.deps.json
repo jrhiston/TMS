@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0/",
-    "signature": "d0d39d7ce1eb1cb062e869e611f95031660f9ae1"
+    "signature": "ce4cac83f8777b1ba4612dd9cbaee703ec97bbe5"
   },
   "compilationOptions": {},
   "targets": {
@@ -17,6 +17,20 @@
         },
         "runtime": {
           "TMS.RepositoryLayerInterface.dll": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-final": {
+        "dependencies": {
+          "System.ComponentModel": "4.0.1-rc2-24027",
+          "System.Diagnostics.Debug": "4.0.11-rc2-24027",
+          "System.Globalization": "4.0.11-rc2-24027",
+          "System.Linq": "4.1.0-rc2-24027",
+          "System.Linq.Expressions": "4.0.11-rc2-24027",
+          "System.Reflection": "4.1.0-rc2-24027",
+          "System.Resources.ResourceManager": "4.0.1-rc2-24027"
+        },
+        "runtime": {
+          "lib/netstandard1.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
       },
       "Microsoft.NETCore.Platforms/1.0.1-rc2-24027": {
@@ -128,6 +142,14 @@
         },
         "runtime": {
           "lib/netstandard1.3/System.Collections.Concurrent.dll": {}
+        }
+      },
+      "System.ComponentModel/4.0.1-rc2-24027": {
+        "dependencies": {
+          "System.Runtime": "4.1.0-rc2-24027"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.ComponentModel.dll": {}
         }
       },
       "System.Console/4.0.0-rc2-24027": {
@@ -699,6 +721,7 @@
       },
       "TMS.Layer/1.0.0": {
         "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-final",
           "NETStandard.Library": "1.5.0-rc2-24027",
           "System.Linq.Expressions": "4.0.11-rc2-24027",
           "System.Reflection.TypeExtensions": "4.1.0-rc2-24027"
@@ -732,6 +755,11 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/1.0.0-rc2-final": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KRvRif+xioZSjml/O/Y6W/fksieNZ/hp+Bf/4Nau85gQleG8UJl+etaJXj18SWu8bQ3ApD4ikzq6qKXLlO8AMg=="
     },
     "Microsoft.NETCore.Platforms/1.0.1-rc2-24027": {
       "type": "package",
@@ -812,6 +840,11 @@
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-0XN+QpKMG5xHRZ50hV6Yn1ojqAhZ2CL8q4vT316ipEB3yEb/ROMjC18Html5QreF12ZS6Le1AWtIB1Qgi2FzvA=="
+    },
+    "System.ComponentModel/4.0.1-rc2-24027": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6ne+Yk/6J59NZ19jiKjxwRPS2VIofrps2xkGDxMpyiHzEk4xpIY0kzt0ZABvTpdOYpvOw7bz2Ls2/X0QiuSjQg=="
     },
     "System.Console/4.0.0-rc2-24027": {
       "type": "package",

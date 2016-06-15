@@ -1,80 +1,98 @@
-﻿
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System;
-using TMS.Database.Contexts;
-using TMS.Database.Entities.Identity;
-using TMS.Web.Configuration;
-using TMS.Web.Infrastructure.DependencyResolution;
 using TMS.Web.Services;
+using TMS.Web.Data;
+using TMS.Database.Entities.People;
+using TMS.Database;
+using TMS.Database.Entities.Areas;
+using System;
+using TMS.ModelLayerInterface.People.Decorators;
+using Microsoft.AspNetCore.Identity;
+using TMS.Web.DependencyResolution;
 
 namespace TMS.Web
 {
-    public class Startup
+    public class Startup : IDbContextTypeProvider
     {
         public Startup(IHostingEnvironment env)
         {
-            // Set up configuration sources.
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
-            if (env.IsEnvironment("Development"))
+            if (env.IsDevelopment())
             {
-                // This will push telemetry data through Application Insights pipeline faster, allowing you to view results immediately.
-                builder.AddApplicationInsightsSettings(developerMode: true);
+                // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+                builder.AddUserSecrets();
             }
 
             builder.AddEnvironmentVariables();
-
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; set; }
+        public IConfigurationRoot Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container
+        // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddApplicationInsightsTelemetry(Configuration);
+            services.AddDbContext<MainContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("TMSConnectionString")));
+
+            services.AddIdentity<PersonEntity, IdentityRole<long>>()
+                .AddEntityFrameworkStores<MainContext, long>()
+                .AddDefaultTokenProviders();
+
+            services.AddTMSDatabaseServices(this);
 
             services.AddMvc();
-            
+
+            // Add application services.
+            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<ISmsSender, AuthMessageSender>();
+
             var container = IoC.Initialize(services);
 
             return container.GetInstance<IServiceProvider>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseStaticFiles();
-
-            var dbSettings = app.ApplicationServices.GetService<IOptions<DbConfiguration>>();
-
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc(ConfigureRoutes);
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                app.UseBrowserLink();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
+
+            app.UseStaticFiles();
+
+            app.UseIdentity();
+
+            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
 
-        private void ConfigureRoutes(IRouteBuilder routes)
-        {
-            routes.MapRoute("React failover", "TMS/{*uri}", new { controller = "Home", action = "TMS" });
-
-            routes.MapRoute(
-                name: "Default",
-                template: "{controller}/{action}/{id?}",
-                defaults: new { controller = "Home", action = "Index" }
-            );
-        }
-
+        public Type GetDbContextType() => typeof(MainContext);
     }
 }

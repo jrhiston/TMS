@@ -1,3 +1,0 @@
-﻿CREATE TYPE [dbo].[INT_LIST] AS TABLE (
-    [Ids] INT NULL);
-

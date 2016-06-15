@@ -1,5 +1,4 @@
 ﻿using TMS.Database.Commands.Areas;
-using TMS.Database.Contexts;
 using TMS.Database.Entities.Areas;
 using TMS.Layer.Conversion;
 using TMS.Layer.Factories;
@@ -12,9 +11,9 @@ namespace TMS.Database.Factories.Areas
     public class GetAreaCommandFactory : IQueryFactory<IQueryCommand<IAreaKey, IPersistableArea>>
     {
         private readonly IConverter<AreaEntity, IPersistableArea> _areaEntityToPersistableAreaConverter;
-        private readonly MainContext _areasContext;
+        private readonly IDatabaseContext<AreaEntity> _areasContext;
 
-        public GetAreaCommandFactory(MainContext areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
+        public GetAreaCommandFactory(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
         {
             _areasContext = areasContext;
             _areaEntityToPersistableAreaConverter = areaEntityToPersistableAreaConverter;
