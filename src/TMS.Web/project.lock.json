@@ -3,50 +3,6 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.0": {
-      "AspNet.Security.OpenIdConnect.Extensions/1.0.0-beta5-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Authentication": "1.0.0-rc2-final",
-          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "2.0.0-rc2-305061149",
-          "System.Linq": "4.1.0-rc2-24027"
-        },
-        "compile": {
-          "lib/netstandard1.4/AspNet.Security.OpenIdConnect.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.4/AspNet.Security.OpenIdConnect.Extensions.dll": {}
-        }
-      },
-      "AspNet.Security.OpenIdConnect.Server/1.0.0-beta5-final": {
-        "type": "package",
-        "dependencies": {
-          "AspNet.Security.OpenIdConnect.Extensions": "1.0.0-beta5-final",
-          "Microsoft.AspNetCore.Authentication": "1.0.0-rc2-final",
-          "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0-rc2-final",
-          "Microsoft.Extensions.Caching.Abstractions": "1.0.0-rc2-final",
-          "Microsoft.Extensions.Logging.Abstractions": "1.0.0-rc2-final",
-          "Newtonsoft.Json": "8.0.3",
-          "System.Text.Encoding.Extensions": "4.0.11-rc2-24027"
-        },
-        "compile": {
-          "lib/netstandard1.4/AspNet.Security.OpenIdConnect.Server.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.4/AspNet.Security.OpenIdConnect.Server.dll": {}
-        }
-      },
-      "CryptoHelper/1.0.0-rc2-final": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Cryptography.KeyDerivation": "1.0.0-rc2-final"
-        },
-        "compile": {
-          "lib/netstandard1.3/CryptoHelper.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.3/CryptoHelper.dll": {}
-        }
-      },
       "Ix-Async/1.2.5": {
         "type": "package",
         "compile": {
@@ -1877,74 +1833,52 @@
           "lib/dotnet5.4/Microsoft.Extensions.WebEncoders.Core.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Logging/1.0.0-rc2-305061149": {
+      "Microsoft.IdentityModel.Logging/1.0.0-rc1-211161024": {
         "type": "package",
         "dependencies": {
-          "System.Diagnostics.Tracing": "4.1.0-rc2-24027",
-          "System.Globalization": "4.0.11-rc2-24027",
-          "System.IO": "4.1.0-rc2-24027",
-          "System.IO.FileSystem": "4.0.1-rc2-24027"
+          "System.Diagnostics.Tracing": "4.0.21-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.IO": "4.0.11-beta-23516",
+          "System.IO.FileSystem": "4.0.1-beta-23516"
         },
         "compile": {
-          "lib/netstandard1.4/Microsoft.IdentityModel.Logging.dll": {}
+          "lib/dotnet5.4/Microsoft.IdentityModel.Logging.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.4/Microsoft.IdentityModel.Logging.dll": {}
+          "lib/dotnet5.4/Microsoft.IdentityModel.Logging.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Protocols/2.0.0-rc2-305061149": {
+      "Microsoft.IdentityModel.Protocols/2.0.0-rc1-211161024": {
         "type": "package",
         "dependencies": {
-          "System.Collections.Specialized": "4.0.1-rc2-24027",
-          "System.Diagnostics.Contracts": "4.0.1-rc2-24027",
-          "System.IdentityModel.Tokens.Jwt": "5.0.0-rc2-305061149",
-          "System.Net.Http": "4.0.1-rc2-24027"
+          "System.Collections.Specialized": "4.0.1-beta-23516",
+          "System.Diagnostics.Contracts": "4.0.1-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.IO.FileSystem": "4.0.1-beta-23516",
+          "System.IdentityModel.Tokens.Jwt": "5.0.0-rc1-211161024",
+          "System.Net.Http": "4.0.1-beta-23516",
+          "System.Xml.ReaderWriter": "4.0.11-beta-23516"
         },
         "compile": {
-          "lib/netstandard1.4/Microsoft.IdentityModel.Protocols.dll": {}
+          "lib/dotnet5.4/Microsoft.IdentityModel.Protocols.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.4/Microsoft.IdentityModel.Protocols.dll": {}
+          "lib/dotnet5.4/Microsoft.IdentityModel.Protocols.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Protocols.OpenIdConnect/2.0.0-rc2-305061149": {
+      "Microsoft.IdentityModel.Protocols.OpenIdConnect/2.0.0-rc1-211161024": {
         "type": "package",
         "dependencies": {
-          "Microsoft.IdentityModel.Protocols": "2.0.0-rc2-305061149",
-          "System.Dynamic.Runtime": "4.0.11-rc2-24027"
+          "Microsoft.IdentityModel.Protocols": "2.0.0-rc1-211161024",
+          "System.Diagnostics.Tracing": "4.0.21-beta-23516",
+          "System.Dynamic.Runtime": "4.0.11-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516"
         },
         "compile": {
-          "lib/netstandard1.4/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {}
+          "lib/dotnet5.4/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.4/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {}
-        }
-      },
-      "Microsoft.IdentityModel.Tokens/5.0.0-rc2-305061149": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Logging": "1.0.0-rc2-305061149",
-          "Newtonsoft.Json": "8.0.3",
-          "System.Collections": "4.0.11-rc2-24027",
-          "System.Diagnostics.Tools": "4.0.1-rc2-24027",
-          "System.Runtime": "4.1.0-rc2-24027",
-          "System.Runtime.Extensions": "4.1.0-rc2-24027",
-          "System.Runtime.InteropServices": "4.1.0-rc2-24027",
-          "System.Runtime.InteropServices.RuntimeInformation": "4.0.0-rc2-24027",
-          "System.Security.Claims": "4.0.1-rc2-24027",
-          "System.Security.Cryptography.Algorithms": "4.1.0-rc2-24027",
-          "System.Security.Cryptography.Cng": "4.1.0-rc2-24027",
-          "System.Security.Cryptography.Csp": "4.0.0-rc2-24027",
-          "System.Security.Cryptography.X509Certificates": "4.1.0-rc2-24027",
-          "System.Text.RegularExpressions": "4.0.12-rc2-24027",
-          "System.Threading": "4.0.11-rc2-24027",
-          "System.Xml.ReaderWriter": "4.0.11-rc2-24027"
-        },
-        "compile": {
-          "lib/netstandard1.4/Microsoft.IdentityModel.Tokens.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.4/Microsoft.IdentityModel.Tokens.dll": {}
+          "lib/dotnet5.4/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll": {}
         }
       },
       "Microsoft.Net.Http.Headers/1.0.0-rc2-final": {
@@ -2500,46 +2434,6 @@
         },
         "runtime": {
           "lib/netstandard1.0/NuGet.Versioning.dll": {}
-        }
-      },
-      "OpenIddict/1.0.0-alpha2-0324": {
-        "type": "package",
-        "dependencies": {
-          "OpenIddict.EntityFramework": "1.0.0-alpha2-0324"
-        },
-        "compile": {
-          "lib/netstandard1.4/OpenIddict.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.4/OpenIddict.dll": {}
-        }
-      },
-      "OpenIddict.Core/1.0.0-alpha2-0315": {
-        "type": "package",
-        "dependencies": {
-          "AspNet.Security.OpenIdConnect.Server": "1.0.0-beta5-final",
-          "CryptoHelper": "1.0.0-rc2-final",
-          "Microsoft.AspNetCore.Identity": "1.0.0-rc2-final",
-          "Microsoft.Extensions.Caching.Memory": "1.0.0-rc2-final"
-        },
-        "compile": {
-          "lib/netstandard1.4/OpenIddict.Core.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.4/OpenIddict.Core.dll": {}
-        }
-      },
-      "OpenIddict.EntityFramework/1.0.0-alpha2-0315": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-rc2-final",
-          "OpenIddict.Core": "1.0.0-alpha2-0315"
-        },
-        "compile": {
-          "lib/netstandard1.4/OpenIddict.EntityFramework.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard1.4/OpenIddict.EntityFramework.dll": {}
         }
       },
       "Remotion.Linq/2.0.2": {
@@ -3109,16 +3003,56 @@
           }
         }
       },
-      "System.IdentityModel.Tokens.Jwt/5.0.0-rc2-305061149": {
+      "System.IdentityModel.Tokens/5.0.0-rc1-211161024": {
         "type": "package",
         "dependencies": {
-          "Microsoft.IdentityModel.Tokens": "5.0.0-rc2-305061149"
+          "Microsoft.IdentityModel.Logging": "1.0.0-rc1-211161024",
+          "Newtonsoft.Json": "6.0.6",
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Diagnostics.Tools": "4.0.1-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.IO": "4.0.11-beta-23516",
+          "System.Runtime.Extensions": "4.0.11-beta-23516",
+          "System.Runtime.InteropServices": "4.0.21-beta-23516",
+          "System.Security.Claims": "4.0.1-beta-23516",
+          "System.Security.Cryptography.Algorithms": "4.0.0-beta-23516",
+          "System.Security.Cryptography.Cng": "4.0.0-beta-23516",
+          "System.Security.Cryptography.Csp": "4.0.0-beta-23516",
+          "System.Security.Cryptography.X509Certificates": "4.0.0-beta-23516",
+          "System.Security.Principal": "4.0.1-beta-23516",
+          "System.Text.RegularExpressions": "4.0.11-beta-23516",
+          "System.Threading": "4.0.11-beta-23516",
+          "System.Xml.ReaderWriter": "4.0.11-beta-23516"
         },
         "compile": {
-          "lib/netstandard1.4/System.IdentityModel.Tokens.Jwt.dll": {}
+          "lib/dotnet5.4/System.IdentityModel.Tokens.dll": {}
         },
         "runtime": {
-          "lib/netstandard1.4/System.IdentityModel.Tokens.Jwt.dll": {}
+          "lib/dotnet5.4/System.IdentityModel.Tokens.dll": {}
+        }
+      },
+      "System.IdentityModel.Tokens.Jwt/5.0.0-rc1-211161024": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11-beta-23516",
+          "System.Diagnostics.Tools": "4.0.1-beta-23516",
+          "System.Globalization": "4.0.11-beta-23516",
+          "System.IO": "4.0.11-beta-23516",
+          "System.IdentityModel.Tokens": "5.0.0-rc1-211161024",
+          "System.Runtime.Extensions": "4.0.11-beta-23516",
+          "System.Runtime.InteropServices": "4.0.21-beta-23516",
+          "System.Security.Claims": "4.0.1-beta-23516",
+          "System.Security.Cryptography.Algorithms": "4.0.0-beta-23516",
+          "System.Security.Cryptography.X509Certificates": "4.0.0-beta-23516",
+          "System.Security.Principal": "4.0.1-beta-23516",
+          "System.Text.RegularExpressions": "4.0.11-beta-23516",
+          "System.Threading": "4.0.11-beta-23516"
+        },
+        "compile": {
+          "lib/dotnet5.4/System.IdentityModel.Tokens.Jwt.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet5.4/System.IdentityModel.Tokens.Jwt.dll": {}
         }
       },
       "System.IO/4.1.0-rc2-24027": {
@@ -4534,14 +4468,29 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "TMS.ApplicationLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v1.0",
+        "dependencies": {
+          "NETStandard.Library": "1.5.0-rc2-24027",
+          "TMS.Layer": "1.0.0",
+          "TMS.LayerInterface": "1.0.0",
+          "TMS.ViewModelLayer": "1.0.0"
+        },
+        "compile": {
+          "netcoreapp1.0/TMS.ApplicationLayer.dll": {}
+        },
+        "runtime": {
+          "netcoreapp1.0/TMS.ApplicationLayer.dll": {}
+        }
+      },
       "TMS.Database/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.0",
         "dependencies": {
           "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-rc2-final",
-          "OpenIddict": "1.0.0",
-          "OpenIddict.EntityFramework": "1.0.0-alpha2-0315",
+          "System.Reflection.TypeExtensions": "4.1.0-rc2-24027",
           "TMS.Layer": "1.0.0",
           "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0"
@@ -4647,50 +4596,29 @@
         "runtime": {
           "netcoreapp1.0/TMS.RepositoryLayerInterface.dll": {}
         }
+      },
+      "TMS.ViewModelLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v1.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity": "1.0.0-rc2-final",
+          "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0-rc2-final",
+          "NETStandard.Library": "1.5.0-rc2-24027",
+          "System.ComponentModel.Annotations": "4.1.0-rc2-24027",
+          "TMS.Layer": "1.0.0",
+          "TMS.LayerInterface": "1.0.0",
+          "TMS.ModelLayerInterface": "1.0.0"
+        },
+        "compile": {
+          "netcoreapp1.0/TMS.ViewModelLayer.dll": {}
+        },
+        "runtime": {
+          "netcoreapp1.0/TMS.ViewModelLayer.dll": {}
+        }
       }
     }
   },
   "libraries": {
-    "AspNet.Security.OpenIdConnect.Extensions/1.0.0-beta5-final": {
-      "sha512": "fTrQz+WjxcLLQ4ONuS6B4BA33I44WNmeFS1fNO3w4nnTS2bZQ+5NFi/+BQR7aVrBd7KvW7qXO1FfS9T8Vftuhg==",
-      "type": "package",
-      "files": [
-        "AspNet.Security.OpenIdConnect.Extensions.1.0.0-beta5-final.nupkg.sha512",
-        "AspNet.Security.OpenIdConnect.Extensions.nuspec",
-        "lib/net451/AspNet.Security.OpenIdConnect.Extensions.dll",
-        "lib/net451/AspNet.Security.OpenIdConnect.Extensions.xml",
-        "lib/netstandard1.4/AspNet.Security.OpenIdConnect.Extensions.dll",
-        "lib/netstandard1.4/AspNet.Security.OpenIdConnect.Extensions.xml"
-      ]
-    },
-    "AspNet.Security.OpenIdConnect.Server/1.0.0-beta5-final": {
-      "sha512": "yHBHRvRJr3KExXrbifDv05Tf2QHvLjzdXH1+RJcKm6cFG9h35DKvsWHRmnQzNnsELSY9EKDrEYyxOlggPueHuA==",
-      "type": "package",
-      "files": [
-        "AspNet.Security.OpenIdConnect.Server.1.0.0-beta5-final.nupkg.sha512",
-        "AspNet.Security.OpenIdConnect.Server.nuspec",
-        "lib/net451/AspNet.Security.OpenIdConnect.Server.dll",
-        "lib/net451/AspNet.Security.OpenIdConnect.Server.xml",
-        "lib/netstandard1.4/AspNet.Security.OpenIdConnect.Server.dll",
-        "lib/netstandard1.4/AspNet.Security.OpenIdConnect.Server.xml"
-      ]
-    },
-    "CryptoHelper/1.0.0-rc2-final": {
-      "sha512": "KcCBbs3HW6X0g2UrszlMdrTet38o2tJmuZ4RV2XBMweqAlXXf0GFgTWoNO78qLAqF5GPnOYK/PUi0WKXYn8nDg==",
-      "type": "package",
-      "files": [
-        "CryptoHelper.1.0.0-rc2-final.nupkg.sha512",
-        "CryptoHelper.nuspec",
-        "lib/net40/CryptoHelper.dll",
-        "lib/net40/CryptoHelper.xml",
-        "lib/net45/CryptoHelper.dll",
-        "lib/net45/CryptoHelper.xml",
-        "lib/net451/CryptoHelper.dll",
-        "lib/net451/CryptoHelper.xml",
-        "lib/netstandard1.3/CryptoHelper.dll",
-        "lib/netstandard1.3/CryptoHelper.xml"
-      ]
-    },
     "Ix-Async/1.2.5": {
       "sha512": "8EXO8q7cpDUH9G2q+UOPOO/6uZ9aN7mx/4xjFIfkp+qLWVJiYuglkRhjY8Ggs2CucXzHR8GHnovJKB5yQoYaJg==",
       "type": "package",
@@ -6052,44 +5980,40 @@
         "lib/net451/Microsoft.Extensions.WebEncoders.Core.xml"
       ]
     },
-    "Microsoft.IdentityModel.Logging/1.0.0-rc2-305061149": {
-      "sha512": "SmXdU8pZd6FqB2dyPZdABVXVW/g/AqE2dcKOpVW2/ILHnwRdXXkux8s0lnpPYtJPsuY3K/by6fGTBHKsB9lt9w==",
+    "Microsoft.IdentityModel.Logging/1.0.0-rc1-211161024": {
+      "sha512": "creXwpCysjVpRx+IsZSf8mxCT9lZ/VY1T6wR6zFFulPXV1UZysVURmLd/IgJg/p9pAtcrU5yIbRC9Az3j73+nA==",
       "type": "package",
       "files": [
-        "Microsoft.IdentityModel.Logging.1.0.0-rc2-305061149.nupkg.sha512",
+        "Microsoft.IdentityModel.Logging.1.0.0-rc1-211161024.nupkg.sha512",
         "Microsoft.IdentityModel.Logging.nuspec",
+        "lib/dotnet5.4/Microsoft.IdentityModel.Logging.dll",
+        "lib/dotnet5.4/Microsoft.IdentityModel.Logging.xml",
         "lib/net451/Microsoft.IdentityModel.Logging.dll",
-        "lib/netstandard1.4/Microsoft.IdentityModel.Logging.dll"
+        "lib/net451/Microsoft.IdentityModel.Logging.xml"
       ]
     },
-    "Microsoft.IdentityModel.Protocols/2.0.0-rc2-305061149": {
-      "sha512": "0JBLXTBiWSzBN5OkQ6UL11yF0o1xWxf4cqvLEQshpNXRGsBYjnkc7JzD4oXAHnW1wDgmZTPGSOGBcQQdPuMLvw==",
+    "Microsoft.IdentityModel.Protocols/2.0.0-rc1-211161024": {
+      "sha512": "1/I4nkZCKjNg9jIASv2sNIi8RvdsYLi/efbylZEw+zvtBgNfNEvdCeAsIVyX3A4pR0yQwtIdz+kTYRTs2diSEQ==",
       "type": "package",
       "files": [
-        "Microsoft.IdentityModel.Protocols.2.0.0-rc2-305061149.nupkg.sha512",
+        "Microsoft.IdentityModel.Protocols.2.0.0-rc1-211161024.nupkg.sha512",
         "Microsoft.IdentityModel.Protocols.nuspec",
+        "lib/dotnet5.4/Microsoft.IdentityModel.Protocols.dll",
+        "lib/dotnet5.4/Microsoft.IdentityModel.Protocols.xml",
         "lib/net451/Microsoft.IdentityModel.Protocols.dll",
-        "lib/netstandard1.4/Microsoft.IdentityModel.Protocols.dll"
+        "lib/net451/Microsoft.IdentityModel.Protocols.xml"
       ]
     },
-    "Microsoft.IdentityModel.Protocols.OpenIdConnect/2.0.0-rc2-305061149": {
-      "sha512": "bX6gdYIHM5P+IPV1KY9lLNS4qf/BmcIv8koPRWYkzFw3b/AF7EJ2ahEuYbNUGmJGUqz4Vs0YHBEbQIt169RYPg==",
+    "Microsoft.IdentityModel.Protocols.OpenIdConnect/2.0.0-rc1-211161024": {
+      "sha512": "4xW6TBJ4ys3p+KtHwzddq8pkdxFoUtRlHYcHECK9YtZxkp4omLA9NUGrHRZ57RGN31vPdSzX3u1ujiA2Bqpo+A==",
       "type": "package",
       "files": [
-        "Microsoft.IdentityModel.Protocols.OpenIdConnect.2.0.0-rc2-305061149.nupkg.sha512",
+        "Microsoft.IdentityModel.Protocols.OpenIdConnect.2.0.0-rc1-211161024.nupkg.sha512",
         "Microsoft.IdentityModel.Protocols.OpenIdConnect.nuspec",
+        "lib/dotnet5.4/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll",
+        "lib/dotnet5.4/Microsoft.IdentityModel.Protocols.OpenIdConnect.xml",
         "lib/net451/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll",
-        "lib/netstandard1.4/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll"
-      ]
-    },
-    "Microsoft.IdentityModel.Tokens/5.0.0-rc2-305061149": {
-      "sha512": "IaBBTV2Zg+vWkTWfb2AXShWmAMZsuzi9QwB7t/7wrFDGpN9TMoTWdRm1BK0NZT5s4VQ3hRkEY4I/5rFsaHz/Jw==",
-      "type": "package",
-      "files": [
-        "Microsoft.IdentityModel.Tokens.5.0.0-rc2-305061149.nupkg.sha512",
-        "Microsoft.IdentityModel.Tokens.nuspec",
-        "lib/net451/Microsoft.IdentityModel.Tokens.dll",
-        "lib/netstandard1.4/Microsoft.IdentityModel.Tokens.dll"
+        "lib/net451/Microsoft.IdentityModel.Protocols.OpenIdConnect.xml"
       ]
     },
     "Microsoft.Net.Http.Headers/1.0.0-rc2-final": {
@@ -6639,42 +6563,6 @@
         "lib/net45/NuGet.Versioning.xml",
         "lib/netstandard1.0/NuGet.Versioning.dll",
         "lib/netstandard1.0/NuGet.Versioning.xml"
-      ]
-    },
-    "OpenIddict/1.0.0-alpha2-0324": {
-      "sha512": "uEQvz8vB93eTP8UM1nlKfC/uXZ04FndTcDzbTi0LLLRmp7P/mNFyufvbcKLD4xYjCyI4ykCwXuJgKgDliqHRaQ==",
-      "type": "package",
-      "files": [
-        "OpenIddict.1.0.0-alpha2-0324.nupkg.sha512",
-        "OpenIddict.nuspec",
-        "lib/net451/OpenIddict.dll",
-        "lib/net451/OpenIddict.xml",
-        "lib/netstandard1.4/OpenIddict.dll",
-        "lib/netstandard1.4/OpenIddict.xml"
-      ]
-    },
-    "OpenIddict.Core/1.0.0-alpha2-0315": {
-      "sha512": "eOs0KO0iO//DUHyAhDnJ5qEmg34XJ9cmOeh9+iq4WtNdDPCz4WC0HTZci25GChvUuVYh576ATE4bRxilN6dhmw==",
-      "type": "package",
-      "files": [
-        "OpenIddict.Core.1.0.0-alpha2-0315.nupkg.sha512",
-        "OpenIddict.Core.nuspec",
-        "lib/net451/OpenIddict.Core.dll",
-        "lib/net451/OpenIddict.Core.xml",
-        "lib/netstandard1.4/OpenIddict.Core.dll",
-        "lib/netstandard1.4/OpenIddict.Core.xml"
-      ]
-    },
-    "OpenIddict.EntityFramework/1.0.0-alpha2-0315": {
-      "sha512": "X3582LB/oeLXVFP2tbz4OfHX7P1BGb+J6fHgVnyil0VYhWbmfvsGgk/6Y+G1KE6jJzfRkYhuy8v6Rz36zVTNsA==",
-      "type": "package",
-      "files": [
-        "OpenIddict.EntityFramework.1.0.0-alpha2-0315.nupkg.sha512",
-        "OpenIddict.EntityFramework.nuspec",
-        "lib/net451/OpenIddict.EntityFramework.dll",
-        "lib/net451/OpenIddict.EntityFramework.xml",
-        "lib/netstandard1.4/OpenIddict.EntityFramework.dll",
-        "lib/netstandard1.4/OpenIddict.EntityFramework.xml"
       ]
     },
     "Remotion.Linq/2.0.2": {
@@ -8033,14 +7921,28 @@
         "runtimes/win7/lib/netstandard1.3/System.Globalization.Extensions.dll"
       ]
     },
-    "System.IdentityModel.Tokens.Jwt/5.0.0-rc2-305061149": {
-      "sha512": "fEuQocKfmdwYd6nfCZKSK6BHx3we4F8VmRj5BgJB77j+KZ2TreQhvbDgoJuO+ZNrs+Tcm2BeIJWN69DW3isY7Q==",
+    "System.IdentityModel.Tokens/5.0.0-rc1-211161024": {
+      "sha512": "UbFu6NIPI8pDL/lZlajUQ06OQNJvkpUWYBDIZr+HaqiXseE0Jja1kXTFg2gxKpjuruRinR7e7+/qnAAE3/BPcw==",
       "type": "package",
       "files": [
-        "System.IdentityModel.Tokens.Jwt.5.0.0-rc2-305061149.nupkg.sha512",
+        "System.IdentityModel.Tokens.5.0.0-rc1-211161024.nupkg.sha512",
+        "System.IdentityModel.Tokens.nuspec",
+        "lib/dotnet5.4/System.IdentityModel.Tokens.dll",
+        "lib/dotnet5.4/System.IdentityModel.Tokens.xml",
+        "lib/net451/System.IdentityModel.Tokens.dll",
+        "lib/net451/System.IdentityModel.Tokens.xml"
+      ]
+    },
+    "System.IdentityModel.Tokens.Jwt/5.0.0-rc1-211161024": {
+      "sha512": "A/mqsC0pFbFnsZ6OR17PPkNz4OEu0Xt8wK83FNDLvsoWMhvKS2DDFnn9dqzUxKDLEIZUXwWWCJQJritmvXsf1g==",
+      "type": "package",
+      "files": [
+        "System.IdentityModel.Tokens.Jwt.5.0.0-rc1-211161024.nupkg.sha512",
         "System.IdentityModel.Tokens.Jwt.nuspec",
+        "lib/dotnet5.4/System.IdentityModel.Tokens.Jwt.dll",
+        "lib/dotnet5.4/System.IdentityModel.Tokens.Jwt.xml",
         "lib/net451/System.IdentityModel.Tokens.Jwt.dll",
-        "lib/netstandard1.4/System.IdentityModel.Tokens.Jwt.dll"
+        "lib/net451/System.IdentityModel.Tokens.Jwt.xml"
       ]
     },
     "System.IO/4.1.0-rc2-24027": {
@@ -11274,6 +11176,11 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
+    "TMS.ApplicationLayer/1.0.0": {
+      "type": "project",
+      "path": "../TMS.ApplicationLayer/project.json",
+      "msbuildProject": "../TMS.ApplicationLayer/TMS.ApplicationLayer.xproj"
+    },
     "TMS.Database/1.0.0": {
       "type": "project",
       "path": "../TMS.Database/project.json",
@@ -11308,6 +11215,11 @@
       "type": "project",
       "path": "../TMS.RepositoryLayerInterface/project.json",
       "msbuildProject": "../TMS.RepositoryLayerInterface/TMS.RepositoryLayerInterface.xproj"
+    },
+    "TMS.ViewModelLayer/1.0.0": {
+      "type": "project",
+      "path": "../TMS.ViewModelLayer/project.json",
+      "msbuildProject": "../TMS.ViewModelLayer/TMS.ViewModelLayer.xproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -11334,13 +11246,15 @@
       "Microsoft.VisualStudio.Web.CodeGeneration.Tools >= 1.0.0-preview1-final",
       "Microsoft.VisualStudio.Web.CodeGenerators.Mvc >= 1.0.0-preview1-final",
       "StructureMap.Dnx >= 0.5.1-rc2-final",
+      "TMS.ApplicationLayer >= 1.0.0-*",
       "TMS.Database >= 1.0.0-*",
       "TMS.Layer >= 1.0.0-*",
       "TMS.LayerInterface >= 1.0.0-*",
       "TMS.ModelLayer >= 1.0.0-*",
       "TMS.ModelLayerInterface >= 1.0.0-*",
       "TMS.RepositoryLayer >= 1.0.0-*",
-      "TMS.RepositoryLayerInterface >= 1.0.0-*"
+      "TMS.RepositoryLayerInterface >= 1.0.0-*",
+      "TMS.ViewModelLayer >= 1.0.0-*"
     ],
     ".NETCoreApp,Version=v1.0": []
   },

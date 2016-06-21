@@ -1,7 +1,8 @@
-﻿namespace TMS.ModelLayerInterface.People
+﻿using TMS.Layer.ModelObjects;
+
+namespace TMS.ModelLayerInterface.People
 {
-    public interface IPersonKey
+    public interface IPersonKey : IModelKey
     {
-        long Identifier { get; set; }
     }
 }

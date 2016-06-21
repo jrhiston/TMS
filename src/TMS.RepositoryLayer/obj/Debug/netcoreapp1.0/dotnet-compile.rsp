@@ -115,5 +115,6 @@
 G:\TMS.Web\src\TMS.RepositoryLayer\ModelMapper.cs
 G:\TMS.Web\src\TMS.RepositoryLayer\Properties\AssemblyInfo.cs
 G:\TMS.Web\src\TMS.RepositoryLayer\Repositories\FilterableRepository.cs
+G:\TMS.Web\src\TMS.RepositoryLayer\Repositories\PersistableRepository.cs
 G:\TMS.Web\src\TMS.RepositoryLayer\Repositories\QueryableEntityRepository.cs
 G:\TMS.Web\src\TMS.RepositoryLayer\Repositories\QueryableRepository.cs

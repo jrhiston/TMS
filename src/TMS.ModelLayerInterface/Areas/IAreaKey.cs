@@ -1,7 +1,8 @@
-﻿namespace TMS.ModelLayerInterface.Areas
+﻿using TMS.Layer.ModelObjects;
+
+namespace TMS.ModelLayerInterface.Areas
 {
-    public interface IAreaKey
+    public interface IAreaKey : IModelKey
     {
-        long Identifier { get; set; }
     }
 }

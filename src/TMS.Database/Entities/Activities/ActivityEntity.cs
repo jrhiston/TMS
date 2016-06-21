@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TMS.Database.Entities.Areas;
 using TMS.Database.Entities.People;
+using TMS.Layer.Visitors;
+using TMS.ModelLayerInterface.Areas.Data;
 
 namespace TMS.Database.Entities.Activities
 {
@@ -10,7 +12,7 @@ namespace TMS.Database.Entities.Activities
     public class ActivityEntity
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [MaxLength(255)]
         [Required]

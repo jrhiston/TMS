@@ -13,7 +13,7 @@ namespace TMS.Layer
 
         public Maybe(T value)
         {
-            if (!Equals(default(T), null))
+            if (!Equals(value, null))
                 values = new[] { value };
             else
                 values = new T[0];

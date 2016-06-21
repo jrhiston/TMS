@@ -21,7 +21,7 @@ namespace TMS.Database.Factories.Areas
 
         public IQueryCommand<IAreaKey, IPersistableArea> Create()
         {
-            return new GetAreaCommand(_areasContext, _areaEntityToPersistableAreaConverter);
+            return new GetPersistableAreaCommand(_areasContext, _areaEntityToPersistableAreaConverter);
         }
     }
 }

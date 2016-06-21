@@ -12,6 +12,7 @@ namespace TMS.Web.DependencyResolution.Registries
             Scan(scan =>
             {
                 scan.Assembly("TMS.ModelLayer");
+                scan.Assembly("TMS.ApplicationLayer");
                 scan.Assembly("TMS.RepositoryLayer");
                 scan.Assembly("TMS.Database");
                 scan.Convention<SingletonConvention>();

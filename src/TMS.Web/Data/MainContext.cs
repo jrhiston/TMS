@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TMS.Database;
@@ -16,8 +17,8 @@ namespace TMS.Web.Data
         public DbSet<AreaEntity> Areas { get; set; }
         public DbSet<ActivityEntity> Activities { get; set; }
 
-        IEnumerable<PersonEntity> IDatabaseContext<PersonEntity>.Entities => Users;
-        IEnumerable<AreaEntity> IDatabaseContext<AreaEntity>.Entities => Areas;
+        DbSet<PersonEntity> IDatabaseContext<PersonEntity>.Entities => Users;
+        DbSet<AreaEntity> IDatabaseContext<AreaEntity>.Entities => Areas;
 
         public MainContext(DbContextOptions options) : base(options)
         {

@@ -4,12 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using TMS.Web.Models.ManageViewModels;
 using TMS.Web.Services;
-using TMS.ModelLayerInterface.People;
-using TMS.ModelLayerInterface.People.Decorators;
-using TMS.Web.Models.People;
 using TMS.Database.Entities.People;
+using TMS.ViewModelLayer.Models.ManageViewModels;
 
 namespace TMS.Web.Controllers
 {

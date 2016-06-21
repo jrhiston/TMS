@@ -6,13 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using TMS.Web.Models.AccountViewModels;
 using TMS.Web.Services;
-using TMS.ModelLayerInterface.People.Decorators;
-using TMS.Layer.Factories;
-using TMS.ModelLayerInterface.People;
-using TMS.ModelLayerInterface.People.Data;
 using TMS.Database.Entities.People;
+using TMS.ViewModelLayer.Models.AccountViewModels;
 
 namespace TMS.Web.Controllers
 {

@@ -1,7 +1,9 @@
-﻿namespace TMS.Layer.Persistence
+﻿using TMS.Layer.ModelObjects;
+
+namespace TMS.Layer.Persistence
 {
-    public interface IWriter<T>
+    public interface IWriter<TModelObject, TModelObjectKey> where TModelObjectKey : IModelKey
     {
-        void Save(T objectToSave);
+        TModelObjectKey Save(TModelObject objectToSave);
     }
 }

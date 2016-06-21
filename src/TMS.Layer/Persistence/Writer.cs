@@ -1,17 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using TMS.Layer.ModelObjects;
+using TMS.Layer.Repositories;
 
 namespace TMS.Layer.Persistence
 {
-    public class Writer<T> : IWriter<T>
+    public class Writer<TModelObject, TModelObjectKey> : IWriter<TModelObject, TModelObjectKey> where TModelObjectKey : IModelKey
     {
+        private readonly IPersistableRepository<TModelObject, TModelObjectKey> _persistableRepository;
 
-
-        public void Save(T objectToSave)
+        public Writer(IPersistableRepository<TModelObject, TModelObjectKey> persistableRepository)
         {
-            throw new NotImplementedException();
+            _persistableRepository = persistableRepository;
+        }
+
+        public TModelObjectKey Save(TModelObject objectToSave)
+        {
+            var value = _persistableRepository.Save(objectToSave);
+
+            if (!value.Any())
+            {
+                throw new InvalidOperationException("Failed to save.");
+            }
+
+            return value.FirstOrDefault();
         }
     }
 }

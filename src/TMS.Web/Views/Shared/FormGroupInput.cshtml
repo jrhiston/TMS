@@ -1,0 +1,10 @@
+﻿@using TMS.ViewModelLayer.Models.Forms
+@model FormGroupInput
+
+<div class="form-group">
+    <label asp-for="Value" class="col-md-2 control-label"></label>
+    <div class="col-md-10">
+        <input asp-for="Value" class="form-control" />
+        <span asp-validation-for="Value" class="text-danger"></span>
+    </div>
+</div>

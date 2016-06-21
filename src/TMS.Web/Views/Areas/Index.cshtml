@@ -1,0 +1,32 @@
+﻿@model TMS.ViewModelLayer.Models.Areas.AreaPageModel
+@{
+    ViewData["Title"] = "Manage your areas";
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<h4>Areas</h4>
+<table class="table">
+    <tbody>
+        @foreach (var area in Model.Areas)
+        {
+            <tr>
+                <td>
+                    @area.Name
+                </td>
+                <td>
+                    @area.Description
+                </td>
+                <td>
+                    @area.Created
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-12">
+        <a asp-controller="Areas" asp-action="Create" class="btn btn-primary">Create Area</a>
+    </div>
+</div>

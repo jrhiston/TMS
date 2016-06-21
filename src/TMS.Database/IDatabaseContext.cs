@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace TMS.Database
 {
     public interface IDatabaseContext<TEntity> where TEntity : class
     {
-        IEnumerable<TEntity> Entities { get; }
+        DbSet<TEntity> Entities { get; }
+
+        int SaveChanges();
     }
 }

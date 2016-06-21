@@ -31,7 +31,8 @@ namespace TMS.Database.Commands.People
 
             return new Maybe<IEnumerable<IPersistableArea>>(areas
                 .Select(area => _areaEntityToPersistableAreaConverter.Convert(area))
-                .SelectMany(item => item));
+                .SelectMany(item => item)
+                .ToList());
         }
     }
 }

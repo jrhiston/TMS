@@ -7,6 +7,7 @@ using TMS.Layer.Factories;
 using TMS.Layer.Filters;
 using TMS.Layer.Readers;
 using TMS.Layer.Conversion;
+using TMS.Layer.Initialisers;
 
 namespace TMS.Web.DependencyResolution.Conventions
 {
@@ -33,7 +34,8 @@ namespace TMS.Web.DependencyResolution.Conventions
                    genericTypeDefinition == typeof(IFilterFactory<>) ||
                    genericTypeDefinition == typeof(IReader<,>) ||
                    genericTypeDefinition == typeof(IQueryFactory<>) ||
-                   genericTypeDefinition == typeof(IConverter<,>));
+                   genericTypeDefinition == typeof(IConverter<,>) ||
+                   genericTypeDefinition == typeof(IInitialiser<,>));
         }
     }
 }
