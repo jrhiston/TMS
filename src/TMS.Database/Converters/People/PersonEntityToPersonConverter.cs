@@ -8,7 +8,7 @@ using TMS.ModelLayerInterface.People.Decorators;
 
 namespace TMS.Database.Converters.People
 {
-    public class PersonEntityToPersonConverter : IConverter<PersonEntity, IPerson>
+    public class PersonEntityToPersonConverter : IConverter<PersonEntity, IPersistablePerson>
     {
         private readonly IDecoratorFactory<PersistablePersonData, IPerson, IPersistablePerson> _persistablePersonFactory;
         private readonly IFactory<PersonData, IPerson> _personFactory;
@@ -23,10 +23,10 @@ namespace TMS.Database.Converters.People
             _persistablePersonFactory = persistablePersonFactory;
         }
 
-        public Maybe<IPerson> Convert(PersonEntity input)
+        public Maybe<IPersistablePerson> Convert(PersonEntity input)
         {
             if (input == null)
-                return new Maybe<IPerson>();
+                return new Maybe<IPersistablePerson>();
 
             var key = _personKeyFactory.Create(new PersonKeyData
             {
@@ -40,7 +40,7 @@ namespace TMS.Database.Converters.People
                 UserName = input.UserName
             });
 
-            return new Maybe<IPerson>(_persistablePersonFactory.Create(new PersistablePersonData
+            return new Maybe<IPersistablePerson>(_persistablePersonFactory.Create(new PersistablePersonData
             {
                 PasswordHash = input.PasswordHash,
                 PersonKey = key

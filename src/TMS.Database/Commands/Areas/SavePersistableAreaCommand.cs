@@ -12,22 +12,22 @@ namespace TMS.Database.Commands.Areas
 {
     public class SavePersistableAreaCommand : IQueryCommand<IPersistableArea, IAreaKey>
     {
-        private readonly IConverter<IPersistableArea, AreaEntity> _areaEntityToPersistableAreaConverter;
+        private readonly IConverter<IPersistableArea, AreaEntity> _persistableAreaToEntityConverter;
         private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
         private readonly IDatabaseContext<AreaEntity> _areasContext;
 
         public SavePersistableAreaCommand(IDatabaseContext<AreaEntity> areasContext, 
-            IConverter<IPersistableArea, AreaEntity> areaEntityToPersistableAreaConverter,
+            IConverter<IPersistableArea, AreaEntity> persistableAreaToEntityConverter,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory)
         {
             _areasContext = areasContext;
-            _areaEntityToPersistableAreaConverter = areaEntityToPersistableAreaConverter;
+            _persistableAreaToEntityConverter = persistableAreaToEntityConverter;
             _areaKeyFactory = areaKeyFactory;
         }
 
         public Maybe<IAreaKey> ExecuteCommand(IPersistableArea data)
         {
-            var newEntity = _areaEntityToPersistableAreaConverter
+            var newEntity = _persistableAreaToEntityConverter
                 .Convert(data).FirstOrDefault();
 
             if (newEntity != null)

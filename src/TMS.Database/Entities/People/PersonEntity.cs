@@ -5,12 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using TMS.Database.Entities.PeopleAreas;
 using TMS.Layer.Attributes;
 using TMS.ModelLayerInterface.People;
+using TMS.ModelLayerInterface.People.Decorators;
+using TMS.Layer.Visitors;
+using TMS.ModelLayerInterface.People.Data;
 
 namespace TMS.Database.Entities.People
 {
     [Table("Person")]
     [LinkedTo(typeof(IPerson))]
-    public class PersonEntity : IdentityUser<long>
+    public sealed class PersonEntity : IdentityUser<long>, IVisitor<PersistablePersonData>, IVisitor<PersonData>
     {
         [MaxLength(255)]
         public string FirstName { get; set; }
@@ -19,5 +22,23 @@ namespace TMS.Database.Entities.People
         public string LastName { get; set; }
 
         public List<PeopleAreasEntity> PersonAreas { get; set; }
+
+        public void Visit(PersonData data)
+        {
+            FirstName = data.FirstName;
+            LastName = data.LastName;
+            UserName = data.UserName;
+        }
+
+        public void Visit(PersistablePersonData data)
+        {
+            Id = data.PersonKey?.Identifier ?? 0;
+            PasswordHash = data.PasswordHash;
+        }
+
+        internal void Accept(IPersistablePerson person)
+        {
+            person.Accept(() => this);
+        }
     }
 }

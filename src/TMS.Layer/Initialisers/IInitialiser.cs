@@ -1,7 +1,7 @@
 ﻿namespace TMS.Layer.Initialisers
 {
     /// <summary>
-    /// Creates and initialises an object of type <see cref="TInputData"/>. It should take the input data and initialise and return the given type.
+    /// Creates and initialises an object of type <see cref="TOutput"/>. It should take the input data and initialise and return the given type.
     /// </summary>
     /// <typeparam name="TInputData">Data to be used for initialisation.</typeparam>
     /// <typeparam name="TOutput">The output that has been initialised.</typeparam>

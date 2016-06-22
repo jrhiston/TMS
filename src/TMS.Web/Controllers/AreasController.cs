@@ -16,6 +16,10 @@ using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Decorators;
 using TMS.ModelLayerInterface.Areas;
 using TMS.Layer.Persistence;
+using TMS.ModelLayerInterface.People.Decorators;
+using System.Collections.Generic;
+using TMS.Layer.Readers;
+using System.Linq;
 
 namespace TMS.Web.Controllers
 {
@@ -28,6 +32,8 @@ namespace TMS.Web.Controllers
         private readonly IFactory<AreaData, IArea> _areaFactory;
         private readonly IDecoratorFactory<PersistableAreaData, IArea, IPersistableArea> _persistableAreaFactory;
         private readonly IWriter<IPersistableArea, IAreaKey> _areaWriter;
+        private readonly IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> _areaWithPeopleFactory;
+        private readonly IReader<IPersonKey, IPersistablePerson> _personReader;
 
         public AreasController(
             UserManager<PersonEntity> userManager,
@@ -35,7 +41,9 @@ namespace TMS.Web.Controllers
             IFactory<AreaData, IArea> areaFactory,
             IDecoratorFactory<PersistableAreaData, IArea, IPersistableArea> persistableAreaFactory,
             IInitialiser<AreaPageModelInitialiserData, AreaPageModel> areaPageModelInitialiser,
-            IWriter<IPersistableArea, IAreaKey> areaWriter) : base(userManager, personKeyFactory)
+            IWriter<IPersistableArea, IAreaKey> areaWriter,
+            IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> areaWithPeopleFactory,
+            IReader<IPersonKey, IPersistablePerson> personReader) : base(userManager, personKeyFactory)
         {
             _userManager = userManager;
             _personKeyFactory = personKeyFactory;
@@ -43,6 +51,8 @@ namespace TMS.Web.Controllers
             _areaFactory = areaFactory;
             _persistableAreaFactory = persistableAreaFactory;
             _areaWriter = areaWriter;
+            _areaWithPeopleFactory = areaWithPeopleFactory;
+            _personReader = personReader;
         }
 
         // GET: Areas
@@ -73,10 +83,14 @@ namespace TMS.Web.Controllers
         // POST: Areas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreateAreaPageModel model)
+        public async Task<ActionResult> Create(CreateAreaPageModel model)
         {
             try
             {
+                var personKey = await GetPersonKey();
+
+                var person = _personReader.Read(personKey);
+
                 var area = _areaFactory.Create(new AreaData
                 {
                     Name = model.Name,
@@ -84,12 +98,14 @@ namespace TMS.Web.Controllers
                     Created = DateTime.UtcNow
                 });
 
-                var persistableArea = _persistableAreaFactory.Create(new PersistableAreaData
+                var persistableArea = _persistableAreaFactory.Create(new PersistableAreaData(), area);
+
+                var areaWithPeople = _areaWithPeopleFactory.Create(new AreaWithPeopleData
                 {
+                    People = new List<IPersistablePerson> { person.FirstOrDefault() }
+                }, persistableArea);
 
-                }, area);
-
-                _areaWriter.Save(persistableArea);
+                _areaWriter.Save(areaWithPeople);
 
                 return RedirectToAction("Index");
             }

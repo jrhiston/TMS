@@ -4,3 +4,22 @@
 
 /src/TMS.Web.App/node_modules
 /.vs
+/src/TMS.Web/bin/
+/src/TMS.Web/obj/
+/src/TMS.ModelLayer/bin/
+/src/TMS.ModelLayer/obj/
+/src/TMS.ModelLayerInterface/bin/
+/src/TMS.RepositoryLayerInterface/obj/
+/src/TMS.RepositoryLayerInterface/bin/
+/src/TMS.RepositoryLayer/bin/
+/src/TMS.RepositoryLayer/obj/
+/src/TMS.LayerInterface/obj/
+/src/TMS.LayerInterface/bin/
+/src/TMS.ApplicationLayer/bin/
+/src/TMS.ApplicationLayer/obj/
+/src/TMS.Layer/bin/
+/src/TMS.Layer/bin/
+/src/TMS.Database/bin/
+/src/TMS.Database/obj/
+/src/TMS.ViewModelLayer/obj/
+/src/TMS.ViewModelLayer/bin/

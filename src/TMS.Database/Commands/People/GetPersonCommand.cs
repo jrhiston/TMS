@@ -4,21 +4,22 @@ using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Repositories;
 using TMS.ModelLayerInterface.People;
+using TMS.ModelLayerInterface.People.Decorators;
 
 namespace TMS.Database.Commands.People
 {
-    public class GetPersonCommand : IQueryCommand<IPersonKey, IPerson>
+    public class GetPersonCommand : IQueryCommand<IPersonKey, IPersistablePerson>
     {
         private readonly IDatabaseContext<PersonEntity> _personContext;
-        private readonly IConverter<PersonEntity, IPerson> _personConverter;
+        private readonly IConverter<PersonEntity, IPersistablePerson> _personConverter;
 
-        public GetPersonCommand(IDatabaseContext<PersonEntity> personContext, IConverter<PersonEntity, IPerson> personConverter)
+        public GetPersonCommand(IDatabaseContext<PersonEntity> personContext, IConverter<PersonEntity, IPersistablePerson> personConverter)
         {
             _personContext = personContext;
             _personConverter = personConverter;
         }
 
-        public Maybe<IPerson> ExecuteCommand(IPersonKey data)
+        public Maybe<IPersistablePerson> ExecuteCommand(IPersonKey data)
         {
             var matchingEntity = _personContext.Entities.FirstOrDefault(item => item.Id == data.Identifier);
 
