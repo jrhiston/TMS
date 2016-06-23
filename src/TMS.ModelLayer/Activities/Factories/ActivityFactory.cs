@@ -6,6 +6,6 @@ namespace TMS.ModelLayer.Activities.Factories
 {
     public class ActivityFactory : IFactory<ActivityData, IActivity>
     {
-        public IActivity Create(ActivityData data) => new Activity(data.Title, data.Description, data.CreationDate);
+        public IActivity Create(ActivityData data) => new Activity(data.Title, data.Description, data.Created);
     }
 }

@@ -20,6 +20,7 @@ using TMS.ModelLayerInterface.People.Decorators;
 using System.Collections.Generic;
 using TMS.Layer.Readers;
 using System.Linq;
+using TMS.ApplicationLayer.Areas.Data;
 
 namespace TMS.Web.Controllers
 {
@@ -34,6 +35,9 @@ namespace TMS.Web.Controllers
         private readonly IWriter<IPersistableArea, IAreaKey> _areaWriter;
         private readonly IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> _areaWithPeopleFactory;
         private readonly IReader<IPersonKey, IPersistablePerson> _personReader;
+        private readonly IInitialiser<DeleteAreaPageModelInitialiserData, DeleteAreaPageModel> _deleteAreaPageModelInitialiser;
+        private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
+        private readonly IInitialiser<AreaEditPageModelInitialiserData, AreaEditPageModel> _areaEditPageModelInitialiser;
 
         public AreasController(
             UserManager<PersonEntity> userManager,
@@ -43,7 +47,10 @@ namespace TMS.Web.Controllers
             IInitialiser<AreaPageModelInitialiserData, AreaPageModel> areaPageModelInitialiser,
             IWriter<IPersistableArea, IAreaKey> areaWriter,
             IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> areaWithPeopleFactory,
-            IReader<IPersonKey, IPersistablePerson> personReader) : base(userManager, personKeyFactory)
+            IReader<IPersonKey, IPersistablePerson> personReader,
+            IInitialiser<DeleteAreaPageModelInitialiserData, DeleteAreaPageModel> deleteAreaPageModelInitialiser,
+            IInitialiser<AreaEditPageModelInitialiserData, AreaEditPageModel> areaEditPageModelInitialiser,
+            IFactory<AreaKeyData, IAreaKey> areaKeyFactory) : base(userManager, personKeyFactory)
         {
             _userManager = userManager;
             _personKeyFactory = personKeyFactory;
@@ -53,6 +60,9 @@ namespace TMS.Web.Controllers
             _areaWriter = areaWriter;
             _areaWithPeopleFactory = areaWithPeopleFactory;
             _personReader = personReader;
+            _deleteAreaPageModelInitialiser = deleteAreaPageModelInitialiser;
+            _areaKeyFactory = areaKeyFactory;
+            _areaEditPageModelInitialiser = areaEditPageModelInitialiser;
         }
 
         // GET: Areas
@@ -118,7 +128,12 @@ namespace TMS.Web.Controllers
         // GET: Areas/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var pageModel = _areaEditPageModelInitialiser.Initialise(new AreaEditPageModelInitialiserData
+            {
+                AreaId = id
+            });
+
+            return View(pageModel);
         }
 
         // POST: Areas/Edit/5
@@ -139,19 +154,32 @@ namespace TMS.Web.Controllers
         }
 
         // GET: Areas/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(long id)
         {
-            return View();
+            var personKey = await GetPersonKey();
+
+            var model = _deleteAreaPageModelInitialiser.Initialise(new DeleteAreaPageModelInitialiserData
+            {
+                AreaId = id,
+                PersonId = personKey.Identifier
+            });
+
+            return View(model);
         }
 
         // POST: Areas/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(DeleteAreaPageModel model)
         {
             try
             {
-                // TODO: Add delete logic here
+                var areaKey = _areaKeyFactory.Create(new AreaKeyData
+                {
+                    Identifier = model.Id
+                });
+
+                _areaWriter.Delete(areaKey);
 
                 return RedirectToAction("Index");
             }

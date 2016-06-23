@@ -2,7 +2,7 @@
 using TMS.ModelLayerInterface.People;
 using TMS.ViewModelLayer.Models.Areas;
 
-namespace TMS.ApplicationLayer.Areas
+namespace TMS.ApplicationLayer.Areas.Data
 {
     public class AreaPageModelInitialiserData : IInitialiserData<AreaPageModel>
     {

@@ -7,6 +7,6 @@ namespace TMS.ModelLayerInterface.Activities.Data
     {
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime CreationDate { get; set; }
+        public DateTime Created { get; set; }
     }
 }

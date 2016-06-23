@@ -24,7 +24,7 @@ namespace TMS.ModelLayer.Activities
         {
             return new ActivityData
             {
-                CreationDate = _creationDate,
+                Created = _creationDate,
                 Description = _description,
                 Title = _title
             };

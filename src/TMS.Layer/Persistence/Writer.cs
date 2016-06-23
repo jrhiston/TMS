@@ -25,5 +25,7 @@ namespace TMS.Layer.Persistence
 
             return value.FirstOrDefault();
         }
+
+        public void Delete(TModelObjectKey objectToDeleteKey) => _persistableRepository.Delete(objectToDeleteKey);
     }
 }

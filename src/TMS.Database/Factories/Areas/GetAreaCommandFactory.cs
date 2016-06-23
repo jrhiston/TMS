@@ -3,25 +3,22 @@ using TMS.Database.Entities.Areas;
 using TMS.Layer.Conversion;
 using TMS.Layer.Factories;
 using TMS.Layer.Repositories;
+using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas;
-using TMS.ModelLayerInterface.Areas.Decorators;
 
 namespace TMS.Database.Factories.Areas
 {
-    public class GetAreaCommandFactory : IQueryFactory<IQueryCommand<IAreaKey, IPersistableArea>>
+    public class GetAreaCommandFactory : IQueryFactory<IQueryCommand<IAreaKey, IArea>>
     {
-        private readonly IConverter<AreaEntity, IPersistableArea> _areaEntityToPersistableAreaConverter;
+        private readonly IConverter<AreaEntity, IArea> _areaEntityToAreaConverter;
         private readonly IDatabaseContext<AreaEntity> _areasContext;
 
-        public GetAreaCommandFactory(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
+        public GetAreaCommandFactory(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IArea> areaEntityToAreaConverter)
         {
             _areasContext = areasContext;
-            _areaEntityToPersistableAreaConverter = areaEntityToPersistableAreaConverter;
+            _areaEntityToAreaConverter = areaEntityToAreaConverter;
         }
 
-        public IQueryCommand<IAreaKey, IPersistableArea> Create()
-        {
-            return new GetPersistableAreaCommand(_areasContext, _areaEntityToPersistableAreaConverter);
-        }
+        public IQueryCommand<IAreaKey, IArea> Create() => new GetAreaCommand(_areasContext, _areaEntityToAreaConverter);
     }
 }
