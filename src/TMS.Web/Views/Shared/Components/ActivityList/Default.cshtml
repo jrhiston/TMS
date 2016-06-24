@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TMS.ViewModelLayer.Models.Activities.ActivityListItemViewModel>
+
+<table class="table table-striped">
+    <tbody>
+        @foreach (var activity in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-controller="Activities" asp-route-id="@activity.Id">@activity.Name</a>
+                </td>
+                <td>
+                    @activity.Description
+                </td>
+                <td>
+                    @activity.Created
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-controller="Activities" asp-route-id="@activity.Id" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

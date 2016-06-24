@@ -1,46 +1,34 @@
-﻿@model TMS.ViewModelLayer.Models.Areas.Pages.AreaDetailsPageModel
+﻿@using TMS.ViewModelLayer.Models.Activities
+@using TMS.Web.Components.Activities
+@model TMS.ViewModelLayer.Models.Areas.Pages.AreaDetailsPageModel
 
 <div style="display: flex; align-items: center; justify-content:space-between">
     <h2>@Model.AreaName</h2>
     <div>
+        <a asp-action="Edit" asp-controller="Areas" asp-route-id="@Model.AreaId">Edit</a> |
         <a asp-action="Index" asp-controller="Areas">Back To Areas</a>
     </div>
 </div>
 
 <hr/>
-
-<h3>Description</h3>
-<p>@Model.AreaDescription</p>
-<hr/>
-<h3>People Involved</h3>
-@foreach (var person in Model.AssociatedPeople)
-{
-    <span>@person.UserName</span>
-}
-
-<hr/>
-<h3>Activities</h3>
-<table class="table">
-    <tbody>
-        @foreach (var activity in Model.Activities)
+<div class="row">
+    <div class="col-md-6">
+        <h3>Description</h3>
+        <p>@Model.AreaDescription</p>
+    </div>
+    <div class="col-md-6">
+        <h3>People Involved</h3>
+        @foreach (var person in Model.AssociatedPeople)
         {
-            <tr>
-                <td>
-                    <a asp-action="Details" asp-controller="Activities" asp-route-id="@activity.Id">@activity.Name</a>
-                </td>
-                <td>
-                    @activity.Description
-                </td>
-                <td>
-                    @activity.Created
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-controller="Activities" asp-route-id="@activity.Id" class="btn btn-primary">Delete</a>
-                </td>
-            </tr>
+            <span>@person.UserName</span>
         }
-    </tbody>
-</table>
+    </div>
+</div>
+<hr/>
+
+<h3>Activities</h3>
+
+@await Component.InvokeAsync(nameof(ActivityList), new { data = new ActivityListFilterData { AreaId = Model.AreaId } })
 
 <div class="row">
     <div class="col-md-12">

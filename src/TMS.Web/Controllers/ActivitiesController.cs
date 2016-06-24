@@ -55,7 +55,7 @@ namespace TMS.Web.Controllers
 
                 _activityCreator.Create(new Tuple<CreateActivityPageModel, IPersonKey>(model, personKey));
 
-                return RedirectToAction("Edit", "Areas", new { id = model.AreaId });
+                return RedirectToAction("Details", "Areas", new { id = model.AreaId });
             }
             catch (Exception ex)
             {
