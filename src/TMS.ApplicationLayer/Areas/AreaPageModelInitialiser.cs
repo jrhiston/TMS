@@ -9,6 +9,7 @@ using TMS.Layer.Readers;
 using TMS.ModelLayerInterface.Areas.Decorators;
 using TMS.ModelLayerInterface.People;
 using TMS.ViewModelLayer.Models.Areas;
+using TMS.ViewModelLayer.Models.Areas.Pages;
 
 namespace TMS.ApplicationLayer.Areas
 {

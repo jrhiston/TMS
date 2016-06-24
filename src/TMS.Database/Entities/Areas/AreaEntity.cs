@@ -7,6 +7,7 @@ using TMS.Database.Entities.Activities;
 using TMS.Database.Entities.People;
 using TMS.Database.Entities.PeopleAreas;
 using TMS.Layer.Visitors;
+using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
 using TMS.ModelLayerInterface.Areas.Decorators;
 using TMS.ModelLayerInterface.People.Decorators;
@@ -40,7 +41,7 @@ namespace TMS.Database.Entities.Areas
             Created = area.Created;
         }
 
-        internal void Accept(IPersistableArea persistableArea) => persistableArea.Accept(() => this);
+        internal void Accept(IArea persistableArea) => persistableArea.Accept(() => this);
 
         public void Visit(AreaData data)
         {

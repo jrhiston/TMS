@@ -49,7 +49,7 @@ namespace TMS.Database.Converters.Activities
             {
                 OwnerKey = _personKeyFactory.Create(new PersonKeyData
                 {
-                    Identifier = input.Owner.Id
+                    Identifier = input.OwnerId
                 })
             }, activity);
 

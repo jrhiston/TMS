@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TMS.ViewModelLayer.Models.Areas
+namespace TMS.ViewModelLayer.Models.Areas.Pages
 {
     public class AreaPageModel
     {

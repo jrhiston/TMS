@@ -1,7 +1,8 @@
-﻿namespace TMS.ModelLayerInterface.Activities
+﻿using TMS.Layer.ModelObjects;
+
+namespace TMS.ModelLayerInterface.Activities
 {
-    public interface IActivityKey
+    public interface IActivityKey : IModelKey
     {
-        long Identifier { get; set; }
     }
 }

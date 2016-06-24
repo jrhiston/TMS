@@ -12,13 +12,15 @@ namespace TMS.Web.Data
 {
     public class MainContext : IdentityDbContext<PersonEntity, IdentityRole<long>, long>, 
         IDatabaseContext<PersonEntity>,
-        IDatabaseContext<AreaEntity>
+        IDatabaseContext<AreaEntity>,
+        IDatabaseContext<ActivityEntity>
     {
         public DbSet<AreaEntity> Areas { get; set; }
         public DbSet<ActivityEntity> Activities { get; set; }
 
         DbSet<PersonEntity> IDatabaseContext<PersonEntity>.Entities => Users;
         DbSet<AreaEntity> IDatabaseContext<AreaEntity>.Entities => Areas;
+        DbSet<ActivityEntity> IDatabaseContext<ActivityEntity>.Entities => Activities;
 
         public MainContext(DbContextOptions options) : base(options)
         {

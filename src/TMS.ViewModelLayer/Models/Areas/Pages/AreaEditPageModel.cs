@@ -2,10 +2,11 @@
 using TMS.ViewModelLayer.Models.Activities;
 using TMS.ViewModelLayer.Models.People;
 
-namespace TMS.ViewModelLayer.Models.Areas
+namespace TMS.ViewModelLayer.Models.Areas.Pages
 {
-    public class AreaEditPageModel
+    public class AreaDetailsPageModel
     {
+        public long AreaId { get; set; }
         public string AreaName { get; set; }
         public string AreaDescription { get; set; }
 
@@ -13,7 +14,7 @@ namespace TMS.ViewModelLayer.Models.Areas
 
         public List<ActivityListItemViewModel> Activities { get; set; }
 
-        public AreaEditPageModel()
+        public AreaDetailsPageModel()
         {
             AssociatedPeople = new List<PersonListItemViewModel>();
             Activities = new List<ActivityListItemViewModel>();

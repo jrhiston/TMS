@@ -8,6 +8,7 @@ using TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
 using TMS.ModelLayerInterface.Areas.Decorators;
 using TMS.ViewModelLayer.Models.Areas;
+using TMS.ViewModelLayer.Models.Areas.Pages;
 
 namespace TMS.ApplicationLayer.Areas
 {

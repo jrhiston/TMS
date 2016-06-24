@@ -9,22 +9,23 @@ using TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
 using TMS.ModelLayerInterface.Areas.Decorators;
 using TMS.ViewModelLayer.Models.Areas;
+using TMS.ViewModelLayer.Models.Areas.Pages;
 
 namespace TMS.ApplicationLayer.Areas
 {
-    public class AreaEditPageModelInitialiser : IInitialiser<AreaEditPageModelInitialiserData, AreaEditPageModel>
+    public class AreaDetailsPageModelInitialiser : IInitialiser<AreaDetailsPageModelInitialiserData, AreaDetailsPageModel>
     {
         private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
         private readonly IReader<IAreaKey, IArea> _areaReader;
 
-        public AreaEditPageModelInitialiser(IReader<IAreaKey, IArea> areaReader,
+        public AreaDetailsPageModelInitialiser(IReader<IAreaKey, IArea> areaReader,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory)
         {
             _areaReader = areaReader;
             _areaKeyFactory = areaKeyFactory;
         }
 
-        public AreaEditPageModel Initialise(AreaEditPageModelInitialiserData data)
+        public AreaDetailsPageModel Initialise(AreaDetailsPageModelInitialiserData data)
         {
             var areaKey = _areaKeyFactory.Create(new AreaKeyData
             {
@@ -38,8 +39,9 @@ namespace TMS.ApplicationLayer.Areas
 
             var areaViewModel = new AreaViewModel(area.FirstOrDefault());
 
-            return new AreaEditPageModel
+            return new AreaDetailsPageModel
             {
+                AreaId = areaViewModel.Id,
                 AreaName = areaViewModel.Name,
                 AreaDescription = areaViewModel.Description,
                 Activities = areaViewModel.Activities,

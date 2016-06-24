@@ -12,7 +12,6 @@ using TMS.ModelLayerInterface.People.Data;
 namespace TMS.Database.Entities.People
 {
     [Table("Person")]
-    [LinkedTo(typeof(IPerson))]
     public sealed class PersonEntity : IdentityUser<long>, IVisitor<PersistablePersonData>, IVisitor<PersonData>
     {
         [MaxLength(255)]

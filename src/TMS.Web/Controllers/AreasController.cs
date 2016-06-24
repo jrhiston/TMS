@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using TMS.Layer.Readers;
 using System.Linq;
 using TMS.ApplicationLayer.Areas.Data;
+using TMS.ViewModelLayer.Models.Areas.Pages;
 
 namespace TMS.Web.Controllers
 {
@@ -37,7 +38,7 @@ namespace TMS.Web.Controllers
         private readonly IReader<IPersonKey, IPersistablePerson> _personReader;
         private readonly IInitialiser<DeleteAreaPageModelInitialiserData, DeleteAreaPageModel> _deleteAreaPageModelInitialiser;
         private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
-        private readonly IInitialiser<AreaEditPageModelInitialiserData, AreaEditPageModel> _areaEditPageModelInitialiser;
+        private readonly IInitialiser<AreaDetailsPageModelInitialiserData, AreaDetailsPageModel> _areaEditPageModelInitialiser;
 
         public AreasController(
             UserManager<PersonEntity> userManager,
@@ -49,7 +50,7 @@ namespace TMS.Web.Controllers
             IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> areaWithPeopleFactory,
             IReader<IPersonKey, IPersistablePerson> personReader,
             IInitialiser<DeleteAreaPageModelInitialiserData, DeleteAreaPageModel> deleteAreaPageModelInitialiser,
-            IInitialiser<AreaEditPageModelInitialiserData, AreaEditPageModel> areaEditPageModelInitialiser,
+            IInitialiser<AreaDetailsPageModelInitialiserData, AreaDetailsPageModel> areaEditPageModelInitialiser,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory) : base(userManager, personKeyFactory)
         {
             _userManager = userManager;
@@ -76,12 +77,6 @@ namespace TMS.Web.Controllers
             });
 
             return View(model);
-        }
-
-        // GET: Areas/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: Areas/Create
@@ -126,31 +121,14 @@ namespace TMS.Web.Controllers
         }
 
         // GET: Areas/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Details(int id)
         {
-            var pageModel = _areaEditPageModelInitialiser.Initialise(new AreaEditPageModelInitialiserData
+            var pageModel = _areaEditPageModelInitialiser.Initialise(new AreaDetailsPageModelInitialiserData
             {
                 AreaId = id
             });
 
             return View(pageModel);
-        }
-
-        // POST: Areas/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Areas/Delete/5

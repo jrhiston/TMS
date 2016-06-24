@@ -18,16 +18,18 @@ namespace TMS.ViewModelLayer.Models.Areas
         public string Name { get; set; }
         public string Description { get; set; }
         public DateTime Created { get; set; }
-        public List<ActivityListItemViewModel> Activities => new List<ActivityListItemViewModel>();
-        public List<PersonListItemViewModel> AssociatedPeople => new List<PersonListItemViewModel>();
+        public List<ActivityListItemViewModel> Activities { get; }
+        public List<PersonListItemViewModel> AssociatedPeople { get; }
 
         public long Id { get; set; }
 
         public AreaViewModel()
         {
+            Activities = new List<ActivityListItemViewModel>();
+            AssociatedPeople = new List<PersonListItemViewModel>();
         }
 
-        public AreaViewModel(IArea area)
+        public AreaViewModel(IArea area) : this()
         {
             area.Accept(() => this);
         }

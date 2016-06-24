@@ -1,4 +1,4 @@
-﻿namespace TMS.ViewModelLayer.Models.Areas
+﻿namespace TMS.ViewModelLayer.Models.Areas.Pages
 {
     public class DeleteAreaPageModel
     {

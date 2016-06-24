@@ -1,4 +1,4 @@
-﻿@model TMS.ViewModelLayer.Models.Areas.AreaPageModel
+﻿@model TMS.ViewModelLayer.Models.Areas.Pages.AreaPageModel
 @{
     ViewData["Title"] = "Manage Your Areas";
 }
@@ -11,7 +11,7 @@
         {
             <tr>
                 <td>
-                    <a asp-action="Edit" asp-controller="Areas" asp-route-id="@area.Id">@area.Name</a>
+                    <a asp-action="Details" asp-controller="Areas" asp-route-id="@area.Id">@area.Name</a>
                 </td>
                 <td>
                     @area.Description

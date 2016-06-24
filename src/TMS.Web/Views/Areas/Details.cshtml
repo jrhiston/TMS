@@ -1,0 +1,49 @@
+﻿@model TMS.ViewModelLayer.Models.Areas.Pages.AreaDetailsPageModel
+
+<div style="display: flex; align-items: center; justify-content:space-between">
+    <h2>@Model.AreaName</h2>
+    <div>
+        <a asp-action="Index" asp-controller="Areas">Back To Areas</a>
+    </div>
+</div>
+
+<hr/>
+
+<h3>Description</h3>
+<p>@Model.AreaDescription</p>
+<hr/>
+<h3>People Involved</h3>
+@foreach (var person in Model.AssociatedPeople)
+{
+    <span>@person.UserName</span>
+}
+
+<hr/>
+<h3>Activities</h3>
+<table class="table">
+    <tbody>
+        @foreach (var activity in Model.Activities)
+        {
+            <tr>
+                <td>
+                    <a asp-action="Details" asp-controller="Activities" asp-route-id="@activity.Id">@activity.Name</a>
+                </td>
+                <td>
+                    @activity.Description
+                </td>
+                <td>
+                    @activity.Created
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-controller="Activities" asp-route-id="@activity.Id" class="btn btn-primary">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-md-12">
+        <a asp-controller="Activities" asp-action="Create" asp-route-id="@Model.AreaId" class="btn btn-primary">Create Activity</a>
+    </div>
+</div>

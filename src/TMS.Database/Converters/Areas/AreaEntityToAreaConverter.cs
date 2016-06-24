@@ -8,11 +8,14 @@ using TMS.Database.Entities.People;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Factories;
+using TMS.Layer.Repositories;
 using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Activities.Decorators;
 using TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
 using TMS.ModelLayerInterface.Areas.Decorators;
+using TMS.ModelLayerInterface.People;
+using TMS.ModelLayerInterface.People.Data;
 using TMS.ModelLayerInterface.People.Decorators;
 
 namespace TMS.Database.Converters.Areas
@@ -23,9 +26,11 @@ namespace TMS.Database.Converters.Areas
         private readonly IFactory<AreaData, IArea> _areaFactory;
         private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
         private readonly IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> _areaWithPeopleFactory;
+        private readonly IQueryFactory<IQueryCommand<IPersonKey, IPersistablePerson>> _getPersonCommandFactory;
         private readonly IDecoratorFactory<PersistableActivitiesAreaData, IPersistableArea, IPersistableActivitiesArea> _persistableActivitiesAreaFactory;
         private readonly IDecoratorFactory<PersistableAreaData, IArea, IPersistableArea> _persistableAreaFactory;
         private readonly IConverter<PersonEntity, IPersistablePerson> _persistablePersonConverter;
+        private readonly IFactory<PersonKeyData, IPersonKey> _personKeyFactory;
 
         public AreaEntityToAreaConverter(IFactory<AreaKeyData, IAreaKey> areaKeyFactory,
             IFactory<AreaData, IArea> areaFactory,
@@ -33,7 +38,9 @@ namespace TMS.Database.Converters.Areas
             IDecoratorFactory<PersistableActivitiesAreaData, IPersistableArea, IPersistableActivitiesArea> persistableActivitiesAreaFactory,
             IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> areaWithPeopleFactory,
             IConverter<ActivityEntity, IPersistableActivity> activityEntityToPersistableActivityConverter,
-            IConverter<PersonEntity, IPersistablePerson> persistablePersonConverter)
+            IConverter<PersonEntity, IPersistablePerson> persistablePersonConverter,
+            IQueryFactory<IQueryCommand<IPersonKey, IPersistablePerson>> getPersonCommandFactory,
+            IFactory<PersonKeyData, IPersonKey> personKeyFactory)
         {
             _areaKeyFactory = areaKeyFactory;
             _areaFactory = areaFactory;
@@ -42,6 +49,8 @@ namespace TMS.Database.Converters.Areas
             _activityEntityToPersistableActivityConverter = activityEntityToPersistableActivityConverter;
             _areaWithPeopleFactory = areaWithPeopleFactory;
             _persistablePersonConverter = persistablePersonConverter;
+            _getPersonCommandFactory = getPersonCommandFactory;
+            _personKeyFactory = personKeyFactory;
         }
 
         public Maybe<IArea> Convert(AreaEntity input)
@@ -71,15 +80,35 @@ namespace TMS.Database.Converters.Areas
                     .ToList() ?? new List<IPersistableActivity>()
             }, persistableArea);
 
+            var listOfPeople = GetListOfPeople(input);
+
             var areaWithPeople = _areaWithPeopleFactory.Create(new AreaWithPeopleData
             {
-                People = input.AreaPersons?
-                    .Select(item => _persistablePersonConverter.Convert(item.Person))
-                    .SelectMany(item => item)
-                    .ToList()
+                People = listOfPeople
             }, areaWithActivities);
 
             return new Maybe<IArea>(areaWithPeople);
+        }
+
+        private List<IPersistablePerson> GetListOfPeople(AreaEntity input)
+        {
+            var getPersonCommand = _getPersonCommandFactory.Create();
+
+            var listOfPeople = new List<IPersistablePerson>();
+            foreach (var personKey in input.AreaPersons?.Select(item => item.PersonId))
+            {
+                if (personKey > 0)
+                {
+                    var matchingPerson = getPersonCommand.ExecuteCommand(_personKeyFactory.Create(new PersonKeyData { Identifier = personKey }));
+
+                    var person = matchingPerson.FirstOrDefault();
+
+                    if (person != null)
+                        listOfPeople.Add(person);
+                }
+            }
+
+            return listOfPeople;
         }
     }
 }

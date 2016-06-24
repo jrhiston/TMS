@@ -1,14 +1,15 @@
-﻿@model TMS.ViewModelLayer.Models.Areas.Pages.CreateAreaPageModel
+﻿@model TMS.ViewModelLayer.Models.Activities.Pages.CreateActivityPageModel
 
 @{
-    ViewData["Title"] = "Create Area";
+    ViewData["Title"] = "Create Activity";
 }
 
 <h2>@ViewData["Title"].</h2>
 
-<form asp-controller="Areas" asp-action="Create" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-    <h4>Create a new area.</h4>
+<form asp-controller="Activities" asp-action="Create" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+    <h4>Create a new activity.</h4>
     <hr />
+    <input type="hidden" asp-for="AreaId"/>
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Name" class="col-md-2 control-label"></label>
