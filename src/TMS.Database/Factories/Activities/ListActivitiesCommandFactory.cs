@@ -11,16 +11,16 @@ namespace TMS.Database.Factories.Activities
 {
     public class ListActivitiesCommandFactory : IQueryFactory<IQueryCommand<ActivityFilterData, IEnumerable<IPersistableActivity>>>
     {
-        private readonly IDatabaseContext<ActivityEntity> _activitiesContext;
+        private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
         private readonly IConverter<ActivityEntity, IPersistableActivity> _entityToPersistableActivityConverter;
 
-        public ListActivitiesCommandFactory(IDatabaseContext<ActivityEntity> activitiesContext,
+        public ListActivitiesCommandFactory(IDatabaseContextFactory<ActivityEntity> contextFactory,
             IConverter<ActivityEntity, IPersistableActivity> entityToPersistableActivityConverter)
         {
-            _activitiesContext = activitiesContext;
+            _contextFactory = contextFactory;
             _entityToPersistableActivityConverter = entityToPersistableActivityConverter;
         }
 
-        public IQueryCommand<ActivityFilterData, IEnumerable<IPersistableActivity>> Create() => new ListActivitiesCommand(_activitiesContext, _entityToPersistableActivityConverter);
+        public IQueryCommand<ActivityFilterData, IEnumerable<IPersistableActivity>> Create() => new ListActivitiesCommand(_contextFactory, _entityToPersistableActivityConverter);
     }
 }

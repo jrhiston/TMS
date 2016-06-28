@@ -11,14 +11,14 @@ namespace TMS.Database.Factories.Areas
     public class GetAreaCommandFactory : IQueryFactory<IQueryCommand<IAreaKey, IArea>>
     {
         private readonly IConverter<AreaEntity, IArea> _areaEntityToAreaConverter;
-        private readonly IDatabaseContext<AreaEntity> _areasContext;
+        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public GetAreaCommandFactory(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IArea> areaEntityToAreaConverter)
+        public GetAreaCommandFactory(IDatabaseContextFactory<AreaEntity> contextFactory, IConverter<AreaEntity, IArea> areaEntityToAreaConverter)
         {
-            _areasContext = areasContext;
+            _contextFactory = contextFactory;
             _areaEntityToAreaConverter = areaEntityToAreaConverter;
         }
 
-        public IQueryCommand<IAreaKey, IArea> Create() => new GetAreaCommand(_areasContext, _areaEntityToAreaConverter);
+        public IQueryCommand<IAreaKey, IArea> Create() => new GetAreaCommand(_contextFactory, _areaEntityToAreaConverter);
     }
 }

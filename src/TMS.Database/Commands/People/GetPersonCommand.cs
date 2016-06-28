@@ -10,20 +10,23 @@ namespace TMS.Database.Commands.People
 {
     public class GetPersonCommand : IQueryCommand<IPersonKey, IPersistablePerson>
     {
-        private readonly IDatabaseContext<PersonEntity> _personContext;
+        private readonly IDatabaseContextFactory<PersonEntity> _contextFactory;
         private readonly IConverter<PersonEntity, IPersistablePerson> _personConverter;
 
-        public GetPersonCommand(IDatabaseContext<PersonEntity> personContext, IConverter<PersonEntity, IPersistablePerson> personConverter)
+        public GetPersonCommand(IDatabaseContextFactory<PersonEntity> contextFactory, IConverter<PersonEntity, IPersistablePerson> personConverter)
         {
-            _personContext = personContext;
+            _contextFactory = contextFactory;
             _personConverter = personConverter;
         }
 
         public Maybe<IPersistablePerson> ExecuteCommand(IPersonKey data)
         {
-            var matchingEntity = _personContext.Entities.FirstOrDefault(item => item.Id == data.Identifier);
+            using (var context = _contextFactory.Create())
+            {
+                var matchingEntity = context.Entities.FirstOrDefault(item => item.Id == data.Identifier);
 
-            return _personConverter.Convert(matchingEntity);
+                return _personConverter.Convert(matchingEntity);
+            }
         }
     }
 }

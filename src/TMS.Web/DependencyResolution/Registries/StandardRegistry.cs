@@ -11,6 +11,7 @@ namespace TMS.Web.DependencyResolution.Registries
 
             Scan(scan =>
             {
+                scan.AssemblyContainingType<Startup>();
                 scan.Assembly("TMS.ModelLayer");
                 scan.Assembly("TMS.ApplicationLayer");
                 scan.Assembly("TMS.RepositoryLayer");

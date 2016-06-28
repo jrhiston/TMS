@@ -12,11 +12,11 @@ namespace TMS.Database.Commands.People
     public class ListAreasForPersonCommand : IQueryCommand<IPersonKey, IEnumerable<IPersistableArea>>
     {
         private readonly IConverter<AreaEntity, IPersistableArea> _areaEntityToPersistableAreaConverter;
-        private readonly IDatabaseContext<AreaEntity> _areasContext;
+        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public ListAreasForPersonCommand(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
+        public ListAreasForPersonCommand(IDatabaseContextFactory<AreaEntity> contextFactory, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
         {
-            _areasContext = areasContext;
+            _contextFactory = contextFactory;
             _areaEntityToPersistableAreaConverter = areaEntityToPersistableAreaConverter;
         }
 
@@ -25,14 +25,17 @@ namespace TMS.Database.Commands.People
             if (data == null)
                 return new Maybe<IEnumerable<IPersistableArea>>();
 
-            var areas = from area in _areasContext.Entities
-                        where area.AreaPersons.Any(a => a.PersonId == data.Identifier)
-                        select area;
+            using (var context = _contextFactory.Create())
+            {
+                var areas = from area in context.Entities
+                            where area.AreaPersons.Any(a => a.PersonId == data.Identifier)
+                            select area;
 
-            return new Maybe<IEnumerable<IPersistableArea>>(areas
-                .Select(area => _areaEntityToPersistableAreaConverter.Convert(area))
-                .SelectMany(item => item)
-                .ToList());
+                return new Maybe<IEnumerable<IPersistableArea>>(areas
+                    .Select(area => _areaEntityToPersistableAreaConverter.Convert(area))
+                    .SelectMany(item => item)
+                    .ToList());
+            }
         }
     }
 }

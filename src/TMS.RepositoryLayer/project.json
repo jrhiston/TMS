@@ -4,8 +4,8 @@
   "authors": [ "Jack" ],
 
   "dependencies": {
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-rc2-final",
-    "NETStandard.Library": "1.5.0-rc2-24027",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "NETStandard.Library": "1.6.0",
     "TMS.Layer": "1.0.0-*",
     "TMS.LayerInterface": "1.0.0-*",
     "TMS.ModelLayerInterface": "1.0.0-*",
@@ -13,8 +13,8 @@
   },
 
   "frameworks": {
-    "netcoreapp1.0": {
-      "imports": [ "dnxcore50", "portable-net45+win8" ]
+    "netstandard1.6": {
+      "imports": "dnxcore50"
     }
   }
 }

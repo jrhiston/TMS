@@ -8,23 +8,26 @@ namespace TMS.Database.Commands.Areas
 {
     public class DeleteAreaCommand : INonQueryCommand<IAreaKey>
     {
-        private readonly IDatabaseContext<AreaEntity> _areasContext;
+        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public DeleteAreaCommand(IDatabaseContext<AreaEntity> areasContext)
+        public DeleteAreaCommand(IDatabaseContextFactory<AreaEntity> contextFactory)
         {
-            _areasContext = areasContext;
+            _contextFactory = contextFactory;
         }
 
         public void ExecuteCommand(IAreaKey data)
         {
-            var existingItem = _areasContext.Entities.FirstOrDefault(item => item.Id == data.Identifier);
+            using (var context = _contextFactory.Create())
+            {
+                var existingItem = context.Entities.FirstOrDefault(item => item.Id == data.Identifier);
 
-            if (existingItem == null)
-                throw new InvalidOperationException($"Can not delete an entity if it does not exist. Area with id: {data.Identifier}");
+                if (existingItem == null)
+                    throw new InvalidOperationException($"Can not delete an entity if it does not exist. Area with id: {data.Identifier}");
 
-            _areasContext.Entities.Remove(existingItem);
+                context.Entities.Remove(existingItem);
 
-            _areasContext.SaveChanges();
+                context.SaveChanges();
+            }
         }
     }
 }

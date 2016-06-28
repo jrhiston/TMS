@@ -11,17 +11,17 @@ namespace TMS.Database.Factories.Areas
     public class GetPersistableAreaCommandFactory : IQueryFactory<IQueryCommand<IAreaKey, IPersistableArea>>
     {
         private readonly IConverter<AreaEntity, IPersistableArea> _areaEntityToPersistableAreaConverter;
-        private readonly IDatabaseContext<AreaEntity> _areasContext;
+        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public GetPersistableAreaCommandFactory(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
+        public GetPersistableAreaCommandFactory(IDatabaseContextFactory<AreaEntity> contextFactory, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
         {
-            _areasContext = areasContext;
+            _contextFactory = contextFactory;
             _areaEntityToPersistableAreaConverter = areaEntityToPersistableAreaConverter;
         }
 
         public IQueryCommand<IAreaKey, IPersistableArea> Create()
         {
-            return new GetPersistableAreaCommand(_areasContext, _areaEntityToPersistableAreaConverter);
+            return new GetPersistableAreaCommand(_contextFactory, _areaEntityToPersistableAreaConverter);
         }
     }
 }

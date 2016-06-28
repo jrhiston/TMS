@@ -12,14 +12,14 @@ namespace TMS.Database.Factories.People
     public class ListAreasForPersonCommandFactory : IQueryFactory<IQueryCommand<IPersonKey, IEnumerable<IPersistableArea>>>
     {
         private readonly IConverter<AreaEntity, IPersistableArea> _areaEntityToPersistableAreaConverter;
-        private readonly IDatabaseContext<AreaEntity> _areasContext;
+        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public ListAreasForPersonCommandFactory(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
+        public ListAreasForPersonCommandFactory(IDatabaseContextFactory<AreaEntity> contextFactory, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
         {
-            _areasContext = areasContext;
+            _contextFactory = contextFactory;
             _areaEntityToPersistableAreaConverter = areaEntityToPersistableAreaConverter;
         }
 
-        public IQueryCommand<IPersonKey, IEnumerable<IPersistableArea>> Create() => new ListAreasForPersonCommand(_areasContext, _areaEntityToPersistableAreaConverter);
+        public IQueryCommand<IPersonKey, IEnumerable<IPersistableArea>> Create() => new ListAreasForPersonCommand(_contextFactory, _areaEntityToPersistableAreaConverter);
     }
 }

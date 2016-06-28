@@ -11,19 +11,19 @@ namespace TMS.Database.Factories.Activities
 {
     public class SavePersistableActivityCommandFactory : IQueryFactory<IQueryCommand<IPersistableActivity, IActivityKey>>
     {
-        private readonly IDatabaseContext<ActivityEntity> _activitiesContext;
+        private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
         private readonly IFactory<ActivityKeyData, IActivityKey> _activityKeyFactory;
         private readonly IConverter<IPersistableActivity, ActivityEntity> _activityToEntityConverter;
 
-        public SavePersistableActivityCommandFactory(IDatabaseContext<ActivityEntity> activitiesContext,
+        public SavePersistableActivityCommandFactory(IDatabaseContextFactory<ActivityEntity> contextFactory,
             IConverter<IPersistableActivity, ActivityEntity> activityToEntityConverter,
             IFactory<ActivityKeyData, IActivityKey> activityKeyFactory)
         {
-            _activitiesContext = activitiesContext;
+            _contextFactory = contextFactory;
             _activityToEntityConverter = activityToEntityConverter;
             _activityKeyFactory = activityKeyFactory;
         }
 
-        public IQueryCommand<IPersistableActivity, IActivityKey> Create() => new SavePersistableActivityCommand(_activitiesContext, _activityToEntityConverter, _activityKeyFactory);
+        public IQueryCommand<IPersistableActivity, IActivityKey> Create() => new SavePersistableActivityCommand(_contextFactory, _activityToEntityConverter, _activityKeyFactory);
     }
 }

@@ -14,13 +14,13 @@ namespace TMS.Database.Commands.Areas
     {
         private readonly IConverter<IPersistableArea, AreaEntity> _persistableAreaToEntityConverter;
         private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
-        private readonly IDatabaseContext<AreaEntity> _areasContext;
+        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public SavePersistableAreaCommand(IDatabaseContext<AreaEntity> areasContext, 
+        public SavePersistableAreaCommand(IDatabaseContextFactory<AreaEntity> contextFactory, 
             IConverter<IPersistableArea, AreaEntity> persistableAreaToEntityConverter,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory)
         {
-            _areasContext = areasContext;
+            _contextFactory = contextFactory;
             _persistableAreaToEntityConverter = persistableAreaToEntityConverter;
             _areaKeyFactory = areaKeyFactory;
         }
@@ -32,23 +32,26 @@ namespace TMS.Database.Commands.Areas
 
             if (newEntity != null)
             {
-                var matchingEntity = _areasContext.Entities.FirstOrDefault(item => item.Id == newEntity.Id);
-
-                if (matchingEntity != null)
+                using (var context = _contextFactory.Create())
                 {
-                    matchingEntity.Accept(newEntity);
+                    var matchingEntity = context.Entities.FirstOrDefault(item => item.Id == newEntity.Id);
+
+                    if (matchingEntity != null)
+                    {
+                        matchingEntity.Accept(newEntity);
+                    }
+                    else
+                    {
+                        newEntity = context.Entities.Add(newEntity).Entity;
+                    }
+
+                    context.SaveChanges();
+
+                    return new Maybe<IAreaKey>(_areaKeyFactory.Create(new AreaKeyData
+                    {
+                        Identifier = newEntity.Id
+                    }));
                 }
-                else
-                {
-                    newEntity = _areasContext.Entities.Add(newEntity).Entity;
-                }
-
-                _areasContext.SaveChanges();
-
-                return new Maybe<IAreaKey>(_areaKeyFactory.Create(new AreaKeyData
-                {
-                    Identifier = newEntity.Id
-                }));
             }
 
             return new Maybe<IAreaKey>();

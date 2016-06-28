@@ -1,19 +1,18 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using TMS.Web.Services;
 using TMS.Web.Data;
 using TMS.Database.Entities.People;
 using TMS.Database;
-using TMS.Database.Entities.Areas;
 using System;
-using TMS.ModelLayerInterface.People.Decorators;
-using Microsoft.AspNetCore.Identity;
 using TMS.Web.DependencyResolution;
+using NLog.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using TMS.Web.Options;
+using Microsoft.EntityFrameworkCore;
 
 namespace TMS.Web
 {
@@ -41,6 +40,13 @@ namespace TMS.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            // Setup options with DI.
+            services.AddOptions();
+
+            services.Configure<ApplicationConfigurations>(Configuration);
+
+            services.AddLogging();
+
             // Add framework services.
             services.AddDbContext<MainContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("TMSConnectionString")));
@@ -49,7 +55,7 @@ namespace TMS.Web
                 .AddEntityFrameworkStores<MainContext, long>()
                 .AddDefaultTokenProviders();
 
-            services.AddTMSDatabaseServices(this);
+            //services.AddTMSDatabaseServices(this);
 
             services.AddMvc();
 
@@ -67,6 +73,9 @@ namespace TMS.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddNLog();
+
+            env.ConfigureNLog("nlog.config");
 
             if (env.IsDevelopment())
             {

@@ -2,10 +2,7 @@
 
 namespace TMS.ViewModelLayer.Models.Areas.Pages
 {
-    public class CreateAreaPageModel
+    public class CreateAreaPageModel : AreaPageModelBase
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public DateTime Created { get; set; }
     }
 }

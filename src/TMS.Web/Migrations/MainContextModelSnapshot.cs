@@ -123,7 +123,7 @@ namespace TMS.Web.Migrations
 
             modelBuilder.Entity("TMS.Database.Entities.Activities.ActivityEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<long>("AreaId");
@@ -135,8 +135,7 @@ namespace TMS.Web.Migrations
                     b.Property<string>("Description")
                         .HasAnnotation("MaxLength", 255);
 
-                    b.Property<long?>("OwnerId")
-                        .IsRequired();
+                    b.Property<long>("OwnerId");
 
                     b.Property<string>("Title")
                         .IsRequired()

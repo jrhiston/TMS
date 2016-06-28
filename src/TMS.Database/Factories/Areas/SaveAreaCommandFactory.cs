@@ -13,17 +13,17 @@ namespace TMS.Database.Factories.Areas
     {
         private readonly IConverter<IPersistableArea, AreaEntity> _persistableAreaToEntityConverter;
         private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
-        private readonly IDatabaseContext<AreaEntity> _areasContext;
+        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public SaveAreaCommandFactory(IDatabaseContext<AreaEntity> areasContext,
+        public SaveAreaCommandFactory(IDatabaseContextFactory<AreaEntity> contextFactory,
             IConverter<IPersistableArea, AreaEntity> persistableAreaToEntityConverter,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory)
         {
-            _areasContext = areasContext;
+            _contextFactory = contextFactory;
             _persistableAreaToEntityConverter = persistableAreaToEntityConverter;
             _areaKeyFactory = areaKeyFactory;
         }
 
-        public IQueryCommand<IPersistableArea, IAreaKey> Create() => new SavePersistableAreaCommand(_areasContext, _persistableAreaToEntityConverter, _areaKeyFactory);
+        public IQueryCommand<IPersistableArea, IAreaKey> Create() => new SavePersistableAreaCommand(_contextFactory, _persistableAreaToEntityConverter, _areaKeyFactory);
     }
 }

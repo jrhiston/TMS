@@ -13,27 +13,30 @@ namespace TMS.Database.Commands.Activities
 {
     public class ListActivitiesCommand : IQueryCommand<ActivityFilterData, IEnumerable<IPersistableActivity>>
     {
-        private readonly IDatabaseContext<ActivityEntity> _activitiesContext;
+        private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
         private readonly IConverter<ActivityEntity, IPersistableActivity> _entityToPersistableActivityConverter;
 
-        public ListActivitiesCommand(IDatabaseContext<ActivityEntity> activitiesContext,
+        public ListActivitiesCommand(IDatabaseContextFactory<ActivityEntity> contextFactory,
             IConverter<ActivityEntity,IPersistableActivity> entityToPersistableActivityConverter)
         {
-            _activitiesContext = activitiesContext;
+            _contextFactory = contextFactory;
             _entityToPersistableActivityConverter = entityToPersistableActivityConverter;
         }
 
         public Maybe<IEnumerable<IPersistableActivity>> ExecuteCommand(ActivityFilterData data)
         {
-            if (data == null)
-                return new Maybe<IEnumerable<IPersistableActivity>>();
+            using (var context = _contextFactory.Create())
+            {
+                if (data == null)
+                    return new Maybe<IEnumerable<IPersistableActivity>>();
 
-            var areas = _activitiesContext.Entities.Where(item => item.AreaId == data.AreaKey.Identifier);
+                var areas = context.Entities.Where(item => item.AreaId == data.AreaKey.Identifier);
 
-            return new Maybe<IEnumerable<IPersistableActivity>>(areas
-                .Select(area => _entityToPersistableActivityConverter.Convert(area))
-                .SelectMany(item => item)
-                .ToList());
+                return new Maybe<IEnumerable<IPersistableActivity>>(areas
+                    .Select(area => _entityToPersistableActivityConverter.Convert(area))
+                    .SelectMany(item => item)
+                    .ToList());
+            }
         }
     }
 }

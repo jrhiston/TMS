@@ -8,13 +8,13 @@ namespace TMS.Database.Factories.Activities
 {
     public class DeleteActivityCommandFactory : IQueryFactory<INonQueryCommand<IActivityKey>>
     {
-        private readonly IDatabaseContext<ActivityEntity> _activitiesContext;
+        private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
 
-        public DeleteActivityCommandFactory(IDatabaseContext<ActivityEntity> activitiesContext)
+        public DeleteActivityCommandFactory(IDatabaseContextFactory<ActivityEntity> contextFactory)
         {
-            _activitiesContext = activitiesContext;
+            _contextFactory = contextFactory;
         }
 
-        public INonQueryCommand<IActivityKey> Create() => new DeleteActivityCommand(_activitiesContext);
+        public INonQueryCommand<IActivityKey> Create() => new DeleteActivityCommand(_contextFactory);
     }
 }

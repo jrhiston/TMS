@@ -19,7 +19,9 @@ namespace TMS.Web.DependencyResolution
             {
                 c.Populate(services);
 
-                c.AddRegistry(new StandardRegistry(container));
+                var standardRegistry = new StandardRegistry(container);
+
+                c.AddRegistry(standardRegistry);
 
                 c.For(typeof(IQueryableRepository<,>)).Singleton().Use(typeof(QueryableRepository<,>));
                 c.For(typeof(IFilterableRepository<,>)).Singleton().Use(typeof(FilterableRepository<,>));

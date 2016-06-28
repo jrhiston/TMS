@@ -8,13 +8,13 @@ namespace TMS.Database.Factories.Areas
 {
     public class DeleteAreaCommandFactory : IQueryFactory<INonQueryCommand<IAreaKey>>
     {
-        private readonly IDatabaseContext<AreaEntity> _areasContext;
+        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public DeleteAreaCommandFactory(IDatabaseContext<AreaEntity> areasContext)
+        public DeleteAreaCommandFactory(IDatabaseContextFactory<AreaEntity> contextFactory)
         {
-            _areasContext = areasContext;
+            _contextFactory = contextFactory;
         }
 
-        public INonQueryCommand<IAreaKey> Create() => new DeleteAreaCommand(_areasContext);
+        public INonQueryCommand<IAreaKey> Create() => new DeleteAreaCommand(_contextFactory);
     }
 }

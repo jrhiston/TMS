@@ -12,19 +12,25 @@ namespace TMS.Database.Commands.Areas
     public class GetAreaCommand : IQueryCommand<IAreaKey, IArea>
     {
         private readonly IConverter<AreaEntity, IArea> _areaEntityToAreaConverter;
-        private readonly IDatabaseContext<AreaEntity> _areasContext;
+        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public GetAreaCommand(IDatabaseContext<AreaEntity> areasContext, IConverter<AreaEntity, IArea> areaEntityToAreaConveter)
+        public GetAreaCommand(IDatabaseContextFactory<AreaEntity> contextFactory, IConverter<AreaEntity, IArea> areaEntityToAreaConveter)
         {
-            _areasContext = areasContext;
+            _contextFactory = contextFactory;
             _areaEntityToAreaConverter = areaEntityToAreaConveter;
         }
 
-        public Maybe<IArea> ExecuteCommand(IAreaKey data) => _areaEntityToAreaConverter
-            .Convert(_areasContext
-            .Entities
-            .Include(area => area.Activities)
-            .Include(area => area.AreaPersons)
-            .Single(item => item.Id == data.Identifier));
+        public Maybe<IArea> ExecuteCommand(IAreaKey data)
+        {
+            using (var context = _contextFactory.Create())
+            {
+                return _areaEntityToAreaConverter
+                    .Convert(context
+                    .Entities
+                    .Include(area => area.Activities)
+                    .Include(area => area.AreaPersons)
+                    .Single(item => item.Id == data.Identifier));
+            }
+        }
     }
 }

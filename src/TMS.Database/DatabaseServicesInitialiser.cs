@@ -17,8 +17,8 @@ namespace TMS.Database
             if (dbContextType == null)
                 throw new DbContextMustBeProvidedException();
 
-            services.AddTransient(typeof(IDatabaseContext<AreaEntity>), dbContextType);
-            services.AddTransient(typeof(IDatabaseContext<PersonEntity>), dbContextType);
+            services.AddTransient(typeof(IDatabaseContextFactory<AreaEntity>), dbContextType);
+            services.AddTransient(typeof(IDatabaseContextFactory<PersonEntity>), dbContextType);
         }
     }
 

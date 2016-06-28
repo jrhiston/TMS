@@ -9,9 +9,9 @@ namespace TMS.Database.Commands
 {
     //public class SaveCommand<TData, TReturnKey> : ISaveCommand where TData : IData
     //{
-    //    private readonly IDatabaseContext<TEntity> _databaseContext;
+    //    private readonly IDatabaseContextFactory<TEntity> _databaseContext;
 
-    //    public SaveCommand(IDatabaseContext<TEntity> databaseContext)
+    //    public SaveCommand(IDatabaseContextFactory<TEntity> databaseContext)
     //    {
     //        _databaseContext = databaseContext;
     //    }

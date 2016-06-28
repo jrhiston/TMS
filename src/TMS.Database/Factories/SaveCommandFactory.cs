@@ -12,7 +12,7 @@ namespace TMS.Database.Factories
     //public class SaveCommandFactory<TData, TReturnKey> : IQueryFactory<ISaveCommand>
     //    where TData : IData
     //{
-    //    private readonly IDatabaseContext<TEntity> _databaseContext;
+    //    private readonly IDatabaseContextFactory<TEntity> _databaseContext;
 
     //    private static readonly Dictionary<Type, Type> s_EntityMappings = new Dictionary<Type, Type>
     //    {
@@ -22,7 +22,7 @@ namespace TMS.Database.Factories
     //        }
     //    };
 
-    //    public SaveCommandFactory(IDatabaseContext<TEntity> databaseContext)
+    //    public SaveCommandFactory(IDatabaseContextFactory<TEntity> databaseContext)
     //    {
     //        _databaseContext = databaseContext;
     //    }

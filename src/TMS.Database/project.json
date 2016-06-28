@@ -5,28 +5,21 @@
   "authors": [ "Jack" ],
 
   "dependencies": {
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
     "TMS.Layer": "1.0.0-*",
     "TMS.LayerInterface": "1.0.0-*",
     "TMS.ModelLayerInterface": "1.0.0-*",
-    "Microsoft.AspNet.Authentication.JwtBearer": "1.0.0-*",
-    "System.Reflection.TypeExtensions": "4.1.0-rc2-24027",
-    "Microsoft.EntityFrameworkCore": "1.0.0-rc2-final"
+    "System.Reflection.TypeExtensions": "4.1.0",
+    "Microsoft.EntityFrameworkCore": "1.0.0"
   },
 
   "frameworks": {
-    "netcoreapp1.0": {
-      "imports": [ "dnxcore50", "portable-net45+win8" ]
+    "netstandard1.6": {
+      "imports": "dnxcore50"
     }
   },
 
   "tools": {
-    "Microsoft.EntityFrameworkCore.Tools": {
-      "version": "1.0.0-preview1-final",
-      "imports": [
-        "portable-net45+win8+dnxcore50",
-        "portable-net45+win8"
-      ]
-    }
+    "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview2-final"
   }
 }

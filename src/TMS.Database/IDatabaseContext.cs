@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using System;
 
 namespace TMS.Database
 {
-    public interface IDatabaseContext<TEntity> where TEntity : class
+    public interface IDatabaseContext<TEntity> : IDisposable where TEntity : class
     {
         DbSet<TEntity> Entities { get; }
 
