@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TMS.Database.Entities.Activities;
 using TMS.Layer;
@@ -7,7 +6,6 @@ using TMS.Layer.Conversion;
 using TMS.Layer.Repositories;
 using TMS.ModelLayerInterface.Activities.Data;
 using TMS.ModelLayerInterface.Activities.Decorators;
-using TMS.ModelLayerInterface.Areas;
 
 namespace TMS.Database.Commands.Activities
 {
@@ -17,7 +15,7 @@ namespace TMS.Database.Commands.Activities
         private readonly IConverter<ActivityEntity, IPersistableActivity> _entityToPersistableActivityConverter;
 
         public ListActivitiesCommand(IDatabaseContextFactory<ActivityEntity> contextFactory,
-            IConverter<ActivityEntity,IPersistableActivity> entityToPersistableActivityConverter)
+            IConverter<ActivityEntity, IPersistableActivity> entityToPersistableActivityConverter)
         {
             _contextFactory = contextFactory;
             _entityToPersistableActivityConverter = entityToPersistableActivityConverter;

@@ -32,6 +32,11 @@ namespace TMS.ViewModelLayer.Models.Areas
         public AreaViewModel(IArea area) : this()
         {
             area.Accept(() => this);
+
+            foreach (var activity in Activities)
+            {
+                activity.AreaId = Id;
+            }
         }
 
         public void Visit(AreaData data)

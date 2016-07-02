@@ -16,10 +16,11 @@ using TMS.ViewModelLayer.Models.Activities.Pages;
 
 namespace TMS.ApplicationLayer.Activities
 {
-    public class ActivityCreator : ICreator<Tuple<CreateActivityPageModel, IPersonKey>>
+    public class ActivityCreator : ICreator<Tuple<ActivityPageModelBase, IPersonKey>>
     {
         private readonly IDecoratorFactory<ActivityAreaData, IActivity, IActivityArea> _activityAreaFactory;
         private readonly IFactory<ActivityData, IActivity> _activityFactory;
+        private readonly IFactory<ActivityKeyData, IActivityKey> _activityKeyFactory;
         private readonly IWriter<IPersistableActivity, IActivityKey> _activityWriter;
         private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
         private readonly IReader<IAreaKey, IPersistableArea> _areaReader;
@@ -34,7 +35,8 @@ namespace TMS.ApplicationLayer.Activities
             IDecoratorFactory<ActivityAreaData, IActivity, IActivityArea> activityAreaFactory,
             IReader<IAreaKey, IPersistableArea> areaReader,
             IFactory<AreaKeyData, IAreaKey> areaKeyFactory,
-            IWriter<IPersistableActivity, IActivityKey> activityWriter)
+            IWriter<IPersistableActivity, IActivityKey> activityWriter,
+            IFactory<ActivityKeyData, IActivityKey> activityKeyFactory)
         {
             _personReader = personReader;
             _activityFactory = activityFactory;
@@ -44,21 +46,23 @@ namespace TMS.ApplicationLayer.Activities
             _areaReader = areaReader;
             _areaKeyFactory = areaKeyFactory;
             _activityWriter = activityWriter;
+            _activityKeyFactory = activityKeyFactory;
         }
 
-        public void Create(Tuple<CreateActivityPageModel, IPersonKey> input)
+        public void Create(Tuple<ActivityPageModelBase, IPersonKey> input)
         {
             var model = input.Item1;
             var personKey = input.Item2;
 
             var person = _personReader.Read(personKey);
 
-            var activity = _activityFactory.Create(new ActivityData
+            var activityData = new ActivityData
             {
                 Title = model.Name,
-                Description = model.Description,
-                Created = DateTime.UtcNow
-            });
+                Description = model.Description
+            };
+
+            var activity = _activityFactory.Create(activityData);
 
             var areaKey = _areaKeyFactory.Create(new AreaKeyData
             {
@@ -77,12 +81,14 @@ namespace TMS.ApplicationLayer.Activities
                 OwnerKey = personKey
             }, activityArea);
 
-            var persistableArea = _persistableActivityFactory.Create(new PersistableActivityData(), ownedActivity);
+            var persistableArea = _persistableActivityFactory.Create(new PersistableActivityData {
+                Key = _activityKeyFactory.Create(new ActivityKeyData { Identifier = model.Id })
+            }, ownedActivity);
 
             _activityWriter.Save(persistableArea);
         }
 
-        private IPersistableArea GetArea(CreateActivityPageModel model, IAreaKey areaKey)
+        private IPersistableArea GetArea(ActivityPageModelBase model, IAreaKey areaKey)
         {
             var area = _areaReader.Read(areaKey).FirstOrDefault();
 

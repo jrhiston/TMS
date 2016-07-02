@@ -1,0 +1,24 @@
+﻿@model TMS.ViewModelLayer.Models.Activities.Pages.DeleteActivityPageModel
+
+@{
+    ViewData["Title"] = "Delete Activity: " + Model.Name;
+}
+
+<h2>@ViewData["Title"].</h2>
+<hr />
+
+<form asp-controller="Activities" asp-action="Delete" method="post" class="form-horizontal">
+    <input hidden="hidden" asp-for="Id"/>
+    <input hidden="hidden" asp-for="AreaId"/>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <p>Are you sure you would like to delete the activity <b>@Model.Name</b>?</p>
+    <div class="form-group">
+        <div class="col-md-12">
+            <button type="submit" class="btn btn-primary">Delete</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

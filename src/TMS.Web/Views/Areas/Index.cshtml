@@ -20,7 +20,10 @@
                     @area.Created
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-controller="Areas" asp-route-id="@area.Id" class="btn btn-primary">Delete</a>
+                    <a asp-action="Edit" asp-controller="Areas" asp-route-id="@area.Id">Edit</a>
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-controller="Areas" asp-route-id="@area.Id">Delete</a>
                 </td>
             </tr>
         }

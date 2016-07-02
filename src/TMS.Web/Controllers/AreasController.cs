@@ -95,7 +95,7 @@ namespace TMS.Web.Controllers
 
                 _logger.LogInformation(LoggingEvents.UPDATE_ITEM, $"Saved area {model.AreaId}: {model.Name}");
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details");
             }
             catch (Exception ex)
             {

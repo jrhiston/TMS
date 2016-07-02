@@ -11,7 +11,7 @@ using TMS.ModelLayerInterface.Areas.Data;
 namespace TMS.Database.Entities.Activities
 {
     [Table("Activity")]
-    public class ActivityEntity : IVisitor<ActivityData>, IVisitor<ActivityAreaData>, IVisitor<OwnedActivityData>
+    public class ActivityEntity : IVisitor<ActivityData>, IVisitor<ActivityAreaData>, IVisitor<OwnedActivityData>, IVisitor<PersistableActivityData>
     {
         [Key]
         public long Id { get; set; }
@@ -39,7 +39,6 @@ namespace TMS.Database.Entities.Activities
         internal void Accept(ActivityEntity newEntity)
         {
             Title = newEntity.Title;
-            Created = newEntity.Created;
             DeliveryTime = newEntity.DeliveryTime;
             Description = newEntity.Description;
             Owner = newEntity.Owner;
@@ -53,7 +52,6 @@ namespace TMS.Database.Entities.Activities
         {
             Title = data.Title;
             Description = data.Description;
-            Created = data.Created;
         }
 
         public void Visit(ActivityAreaData data)
@@ -67,6 +65,14 @@ namespace TMS.Database.Entities.Activities
         public void Visit(OwnedActivityData data)
         {
             OwnerId = data.OwnerKey.Identifier;
+        }
+
+        public void Visit(PersistableActivityData data)
+        {
+            if (data.Key != null && data.Key.Identifier > 0)
+                Id = data.Key.Identifier;
+            else
+                Created = DateTime.UtcNow;
         }
     }
 }

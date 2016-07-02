@@ -38,7 +38,6 @@ namespace TMS.Database.Entities.Areas
         {
             Name = area.Name;
             Description = area.Description;
-            Created = area.Created;
         }
 
         internal void Accept(IArea persistableArea) => persistableArea.Accept(() => this);
@@ -47,12 +46,14 @@ namespace TMS.Database.Entities.Areas
         {
             Name = data.Name;
             Description = data.Description;
-            Created = data.Created;
         }
 
         public void Visit(PersistableAreaData data)
         {
-            Id = data.AreaKey?.Identifier ?? 0;
+            if (data.AreaKey != null && data.AreaKey.Identifier > 0)
+                Id = data.AreaKey.Identifier;
+            else
+                Created = DateTime.UtcNow;
         }
 
         public void Visit(AreaWithPeopleData data)

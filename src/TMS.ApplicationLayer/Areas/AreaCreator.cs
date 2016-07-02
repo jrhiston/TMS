@@ -49,8 +49,7 @@ namespace TMS.ApplicationLayer.Areas
             var area = _areaFactory.Create(new AreaData
             {
                 Name = model.Name,
-                Description = model.Description,
-                Created = DateTime.UtcNow
+                Description = model.Description
             });
 
             var persistableArea = _persistableAreaFactory.Create(new PersistableAreaData

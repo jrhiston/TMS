@@ -43,7 +43,7 @@ namespace TMS.Web.Components.Activities
 
             var activityViewModels = activities
                 .SelectMany(item => item)
-                .Select(activity => new ActivityListItemViewModel(activity));
+                .Select(activity => new ActivityListItemViewModel(activity) { AreaId = data.AreaId });
 
             return View(activityViewModels);
         }
