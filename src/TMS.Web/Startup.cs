@@ -20,6 +20,8 @@ namespace TMS.Web
     {
         public Startup(IHostingEnvironment env)
         {
+            CurrentEnvironment = env;
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -36,6 +38,7 @@ namespace TMS.Web
         }
 
         public IConfigurationRoot Configuration { get; }
+        public IHostingEnvironment CurrentEnvironment { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -47,9 +50,18 @@ namespace TMS.Web
 
             services.AddLogging();
 
-            // Add framework services.
-            services.AddDbContext<MainContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("TMSConnectionString")));
+            if (CurrentEnvironment.IsEnvironment("Testing"))
+            {
+                // Add framework services.
+                services.AddDbContext<MainContext>(options =>
+                    options.UseInMemoryDatabase());
+            }
+            else
+            {
+                // Add framework services.
+                services.AddDbContext<MainContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("TMSConnectionString")));
+            }
 
             services.AddIdentity<PersonEntity, IdentityRole<long>>()
                 .AddEntityFrameworkStores<MainContext, long>()

@@ -23,3 +23,5 @@
 /src/TMS.Database/obj/
 /src/TMS.ViewModelLayer/obj/
 /src/TMS.ViewModelLayer/bin/
+/src/TMS.Web/node_modules
+/Logging

@@ -75,6 +75,7 @@ G:\TMS.Web\src\TMS.Layer\ErrorHandling\IErrorWriter.cs
 G:\TMS.Web\src\TMS.Layer\ErrorHandling\IPropertyError.cs
 G:\TMS.Web\src\TMS.Layer\ErrorHandling\IValidationResult.cs
 G:\TMS.Web\src\TMS.Layer\ErrorHandling\IValidator.cs
+G:\TMS.Web\src\TMS.Layer\Exceptions\IdentifierNotSpecifiedException.cs
 G:\TMS.Web\src\TMS.Layer\Exceptions\MustProvideInitialiserDataException.cs
 G:\TMS.Web\src\TMS.Layer\Extensions\EnumerableExtensions.cs
 G:\TMS.Web\src\TMS.Layer\Factories\IDecoratorFactory.cs

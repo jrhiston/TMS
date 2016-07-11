@@ -110,6 +110,7 @@ G:\TMS.Web\src\TMS.ModelLayerInterface\Tags\Data\ReusableTagData.cs
 G:\TMS.Web\src\TMS.ModelLayerInterface\Tags\Data\TagData.cs
 G:\TMS.Web\src\TMS.ModelLayerInterface\Tags\Data\TagFilterData.cs
 G:\TMS.Web\src\TMS.ModelLayerInterface\Tags\Data\TaggableTagData.cs
+G:\TMS.Web\src\TMS.ModelLayerInterface\Tags\Data\TagKeyData.cs
 G:\TMS.Web\src\TMS.ModelLayerInterface\Tags\Decorators\IDeletedTag.cs
 G:\TMS.Web\src\TMS.ModelLayerInterface\Tags\Decorators\IOwnedTag.cs
 G:\TMS.Web\src\TMS.ModelLayerInterface\Tags\Decorators\IPersistableTag.cs
