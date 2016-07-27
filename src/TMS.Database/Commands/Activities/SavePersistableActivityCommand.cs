@@ -42,7 +42,7 @@ namespace TMS.Database.Commands.Activities
                     }
                     else
                     {
-                        newEntity = context.Entities.Add(newEntity).Entity;
+                        context.Entities.Add(newEntity);
                     }
 
                     context.SaveChanges();

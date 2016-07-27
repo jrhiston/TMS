@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TMS.Database.Entities.Activities;
 using TMS.Database.Entities.Areas;
 using TMS.Database.Entities.People;
@@ -9,7 +7,6 @@ using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Factories;
 using TMS.Layer.Repositories;
-using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Activities.Decorators;
 using TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
@@ -26,7 +23,7 @@ namespace TMS.Database.Converters.Areas
         private readonly IFactory<AreaData, IArea> _areaFactory;
         private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
         private readonly IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> _areaWithPeopleFactory;
-        private readonly IQueryFactory<IQueryCommand<IPersonKey, IPersistablePerson>> _getPersonCommandFactory;
+        private readonly IQueryCommand<IPersonKey, IPersistablePerson> _getPersonCommand;
         private readonly IDecoratorFactory<PersistableActivitiesAreaData, IPersistableArea, IPersistableActivitiesArea> _persistableActivitiesAreaFactory;
         private readonly IDecoratorFactory<PersistableAreaData, IArea, IPersistableArea> _persistableAreaFactory;
         private readonly IConverter<PersonEntity, IPersistablePerson> _persistablePersonConverter;
@@ -39,7 +36,7 @@ namespace TMS.Database.Converters.Areas
             IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> areaWithPeopleFactory,
             IConverter<ActivityEntity, IPersistableActivity> activityEntityToPersistableActivityConverter,
             IConverter<PersonEntity, IPersistablePerson> persistablePersonConverter,
-            IQueryFactory<IQueryCommand<IPersonKey, IPersistablePerson>> getPersonCommandFactory,
+            IQueryCommand<IPersonKey, IPersistablePerson> getPersonCommand,
             IFactory<PersonKeyData, IPersonKey> personKeyFactory)
         {
             _areaKeyFactory = areaKeyFactory;
@@ -49,7 +46,7 @@ namespace TMS.Database.Converters.Areas
             _activityEntityToPersistableActivityConverter = activityEntityToPersistableActivityConverter;
             _areaWithPeopleFactory = areaWithPeopleFactory;
             _persistablePersonConverter = persistablePersonConverter;
-            _getPersonCommandFactory = getPersonCommandFactory;
+            _getPersonCommand = getPersonCommand;
             _personKeyFactory = personKeyFactory;
         }
 
@@ -92,14 +89,12 @@ namespace TMS.Database.Converters.Areas
 
         private List<IPersistablePerson> GetListOfPeople(AreaEntity input)
         {
-            var getPersonCommand = _getPersonCommandFactory.Create();
-
             var listOfPeople = new List<IPersistablePerson>();
             foreach (var personKey in input.AreaPersons?.Select(item => item.PersonId))
             {
                 if (personKey > 0)
                 {
-                    var matchingPerson = getPersonCommand.ExecuteCommand(_personKeyFactory.Create(new PersonKeyData { Identifier = personKey }));
+                    var matchingPerson = _getPersonCommand.ExecuteCommand(_personKeyFactory.Create(new PersonKeyData { Identifier = personKey }));
 
                     var person = matchingPerson.FirstOrDefault();
 

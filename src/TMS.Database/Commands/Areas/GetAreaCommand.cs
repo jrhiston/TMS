@@ -4,7 +4,6 @@ using TMS.Database.Entities.Areas;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Repositories;
-using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas;
 
 namespace TMS.Database.Commands.Areas

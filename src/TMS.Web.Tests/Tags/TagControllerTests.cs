@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
+using System.Threading.Tasks;
 using TMS.ApplicationLayer.Tags.Data;
 using TMS.Database.Entities.People;
 using TMS.Layer.Creators;
@@ -149,7 +150,7 @@ namespace TMS.Web.Tests.Tags
         }
 
         [Fact]
-        public void CreateForActivityPost_SavesAgainstPerson_GivenModelData()
+        public async Task CreateForActivityPost_SavesAgainstPerson_GivenModelData()
         {
             var initialiser = GetCreateTagPageModelInitialiser();
             var mockCreator = GetMockCreator();
@@ -171,7 +172,7 @@ namespace TMS.Web.Tests.Tags
                 initialiser.Object,
                 mockCreator.Object);
 
-            var result = controller.CreateForActivity(pageModel);
+            var result = await controller.CreateForActivity(pageModel);
 
             mockCreator.Verify(c => c.Create(It.Is<Tuple<CreateTagForActivityPageModel, IPersonKey>>(m => ReferenceEquals(m.Item2, mockPersonKey))), Times.Once);
         }

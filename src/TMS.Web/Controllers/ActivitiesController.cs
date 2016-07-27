@@ -26,14 +26,12 @@ namespace TMS.Web.Controllers
     public class ActivitiesController : ControllerBase
     {
         private readonly ICreator<Tuple<ActivityPageModelBase, IPersonKey>> _activityCreator;
-        private readonly IFactory<ActivityData, IActivity> _activityFactory;
         private readonly IFactory<ActivityKeyData, IActivityKey> _activityKeyFactory;
         private readonly IWriter<IPersistableActivity, IActivityKey> _activityWriter;
         private readonly IInitialiser<CreateActivityPageModelInitialiserData, CreateActivityPageModel> _createInitialiser;
         private readonly IInitialiser<DeleteActivityPageModelInitialiserData, DeleteActivityPageModel> _deleteInitialiser;
         private readonly IInitialiser<EditActivityPageModelInitialiserData, EditActivityPageModel> _editInitialiser;
         private readonly ILogger<ActivitiesController> _logger;
-        private readonly IReader<IPersonKey, IPersistablePerson> _personReader;
 
         public ActivitiesController(UserManager<PersonEntity> userManager, 
             IFactory<PersonKeyData, IPersonKey> personKeyFactory,

@@ -2,7 +2,6 @@
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Factories;
-using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
 using TMS.ModelLayerInterface.Areas.Decorators;
@@ -26,6 +25,7 @@ namespace TMS.Database.Converters.Areas
 
         public Maybe<IPersistableArea> Convert(AreaEntity input)
         {
+            
             var areaKey = _areaKeyFactory.Create(new AreaKeyData
             {
                 Identifier = input.Id

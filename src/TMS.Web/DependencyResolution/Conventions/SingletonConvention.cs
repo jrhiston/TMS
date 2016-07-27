@@ -10,6 +10,7 @@ using TMS.Layer.Conversion;
 using TMS.Layer.Initialisers;
 using TMS.Layer.Creators;
 using TMS.Database;
+using TMS.Layer.Repositories;
 
 namespace TMS.Web.DependencyResolution.Conventions
 {
@@ -29,17 +30,15 @@ namespace TMS.Web.DependencyResolution.Conventions
 
         private static bool TypeIsToBeRegistered(System.Type contract)
         {
-            var genericTypeDefinition = contract.GetGenericTypeDefinition();
+            var definition = contract.GetGenericTypeDefinition();
 
-            return (genericTypeDefinition == typeof(IFactory<,>) ||
-                   genericTypeDefinition == typeof(IDecoratorFactory<,,>) ||
-                   genericTypeDefinition == typeof(IFilterFactory<>) ||
-                   genericTypeDefinition == typeof(IReader<,>) ||
-                   genericTypeDefinition == typeof(IQueryFactory<>) ||
-                   genericTypeDefinition == typeof(IConverter<,>) ||
-                   genericTypeDefinition == typeof(IInitialiser<,>) ||
-                   genericTypeDefinition == typeof(ICreator<>) ||
-                   genericTypeDefinition == typeof(IDatabaseContextFactory<>));
+            return (definition == typeof(IConverter<,>) ||
+                   definition == typeof(IInitialiser<,>) ||
+                   definition == typeof(ICreator<>) ||
+                   definition == typeof(IDatabaseContextFactory<>) ||
+                   definition == typeof(INonQueryCommand<>) ||
+                   definition == typeof(IQueryCommand<,>) || 
+                   definition == typeof(ISaveCommand));
         }
     }
 }

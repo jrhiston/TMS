@@ -9,7 +9,6 @@ namespace TMS.ModelLayer.Tags.Decorators
     public class DeletedTag : DecoratorBase<DeletedTagData, TagData>, IDeletedTag
     {
         private readonly bool _deleted;
-        private readonly ITag _tag;
 
         public DeletedTag(ITag tag, DeletedTagData data) : base(tag)
         {

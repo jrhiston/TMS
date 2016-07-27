@@ -10,7 +10,6 @@ namespace TMS.ModelLayer.Tags.Decorators
     public class OwnedTag : DecoratorBase<OwnedTagData, TagData>, IOwnedTag
     {
         private readonly IPersonKey _owner;
-        private readonly ITag _tag;
 
         public OwnedTag(ITag tag, IPersonKey owner) : base(tag)
         {

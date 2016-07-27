@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TMS.Database.Entities.Areas;
 using TMS.Database.Entities.People;
+using TMS.Database.Entities.Tags;
 using TMS.Layer.Visitors;
 using TMS.ModelLayerInterface.Activities;
 using TMS.ModelLayerInterface.Activities.Data;
@@ -35,6 +38,8 @@ namespace TMS.Database.Entities.Activities
         [Required]
         public long AreaId { get; set; }
         public AreaEntity Area { get; set; }
+
+        public ICollection<TagActivityEntity> Tags { get; set; }
 
         internal void Accept(ActivityEntity newEntity)
         {

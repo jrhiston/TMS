@@ -5,7 +5,7 @@ using TMS.ModelLayerInterface.Activities.Data;
 
 namespace TMS.ModelLayer.Activities
 {
-    public class Activity : ModelObjectBase<ActivityData>, IActivity
+    internal class Activity : ModelObjectBase<ActivityData>, IActivity
     {
         private string _title;
         private string _description;

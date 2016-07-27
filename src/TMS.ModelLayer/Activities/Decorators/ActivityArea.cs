@@ -1,9 +1,9 @@
 ﻿using System;
 using TMS.Layer.ModelObjects;
-using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Activities;
 using TMS.ModelLayerInterface.Activities.Data;
 using TMS.ModelLayerInterface.Activities.Decorators;
+using TMS.ModelLayerInterface.Areas;
 
 namespace TMS.ModelLayer.Activities.Decorators
 {

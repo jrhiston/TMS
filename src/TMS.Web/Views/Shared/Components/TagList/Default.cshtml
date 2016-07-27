@@ -1,0 +1,13 @@
+﻿@model IEnumerable<TMS.ViewModelLayer.Models.Tags.TagListItemViewModel>
+
+@if (Model.Any())
+{
+    @foreach (var tag in Model)
+    {
+        <a asp-action="Edit" asp-controller="Tag" asp-route-id="@tag.Id">@tag.Name</a>
+    }
+}
+else
+{
+    <p class="text-center">No tags found.</p>
+}

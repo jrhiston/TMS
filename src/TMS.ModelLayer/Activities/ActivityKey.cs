@@ -2,7 +2,7 @@
 
 namespace TMS.ModelLayer.Activities
 {
-    public class ActivityKey : IActivityKey
+    internal class ActivityKey : IActivityKey
     {
         public long Identifier { get; set; }
     }

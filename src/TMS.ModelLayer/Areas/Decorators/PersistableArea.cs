@@ -1,6 +1,5 @@
 ﻿using System;
 using TMS.Layer.ModelObjects;
-using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
 using TMS.ModelLayerInterface.Areas.Decorators;

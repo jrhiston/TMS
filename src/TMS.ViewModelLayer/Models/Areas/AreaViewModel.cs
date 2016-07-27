@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMS.Layer.Visitors;
-using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
+using TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
 using TMS.ViewModelLayer.Models.Activities;
 using TMS.ViewModelLayer.Models.People;

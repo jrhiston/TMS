@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using TMS.Layer.Factories;
 using TMS.ModelLayerInterface.People.Data;
 using TMS.Database.Entities.People;
+using System.Threading.Tasks;
 
 namespace TMS.Web.Controllers
 {
@@ -37,9 +38,12 @@ namespace TMS.Web.Controllers
             return View(model);
         }
 
-        public RedirectToActionResult CreateForActivity(CreateTagForActivityPageModel model)
+        [HttpPost]
+        public async Task<RedirectToActionResult> CreateForActivity(CreateTagForActivityPageModel model)
         {
-            _tagCreator.Create(new Tuple<CreateTagForActivityPageModel, IPersonKey>(model, null));
+            var personKey = await GetPersonKey();
+
+            _tagCreator.Create(new Tuple<CreateTagForActivityPageModel, IPersonKey>(model, personKey));
 
             return RedirectToAction("Edit", "Activities", new { id = model.ActivityId });
         }

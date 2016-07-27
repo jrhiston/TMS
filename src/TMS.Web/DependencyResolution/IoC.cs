@@ -1,15 +1,16 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StructureMap;
-using TMS.Layer.Creators;
+using TMS.Layer.Factories;
 using TMS.Layer.Persistence;
 using TMS.Layer.Readers;
 using TMS.Layer.Repositories;
+using TMS.ModelLayer;
 using TMS.RepositoryLayer.Repositories;
 using TMS.Web.DependencyResolution.Registries;
 
 namespace TMS.Web.DependencyResolution
 {
-    public class IoC
+    public static class IoC
     {
         public static IContainer Initialize(IServiceCollection services)
         {
@@ -29,7 +30,12 @@ namespace TMS.Web.DependencyResolution
                 c.For(typeof(IReader<,>)).Singleton().Use(typeof(Reader<,>));
                 c.For(typeof(IListReader<,>)).Singleton().Use(typeof(ListReader<,>));
                 c.For(typeof(IWriter<,>)).Singleton().Use(typeof(Writer<,>));
+                c.For(typeof(IFactoryRegistrar)).Singleton().Use(typeof(FactoryRegistrar));
+                c.For(typeof(IFactory<,>)).Singleton().Use(typeof(Factory<,>));
+                c.For(typeof(IDecoratorFactory<,,>)).Singleton().Use(typeof(DecoratorFactory<,,>));
             });
+
+            container.GetInstance<IFactoryRegistrar>().InitialiseModelLayer();
 
             return container;
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 using TMS.Layer.Visitors;
-using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
+using TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
 
 namespace TMS.ViewModelLayer.Models.Areas

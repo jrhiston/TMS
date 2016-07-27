@@ -5,7 +5,6 @@ using TMS.Layer.Creators;
 using TMS.Layer.Factories;
 using TMS.Layer.Persistence;
 using TMS.Layer.Readers;
-using TMS.ModelLayer.TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas;
 using TMS.ModelLayerInterface.Areas.Data;
 using TMS.ModelLayerInterface.Areas.Decorators;
