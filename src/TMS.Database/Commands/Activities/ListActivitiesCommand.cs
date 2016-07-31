@@ -6,18 +6,22 @@ using TMS.Layer.Conversion;
 using TMS.Layer.Repositories;
 using TMS.ModelLayerInterface.Activities.Data;
 using TMS.ModelLayerInterface.Activities.Decorators;
+using Utility.StructureMap;
 
 namespace TMS.Database.Commands.Activities
 {
     public class ListActivitiesCommand : IQueryCommand<ActivityFilterData, IEnumerable<IPersistableActivity>>
     {
+        private readonly IObjectComposer<ActivityEntity, IPersistableActivity> _composer;
         private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
         private readonly IConverter<ActivityEntity, IPersistableActivity> _entityToPersistableActivityConverter;
 
         public ListActivitiesCommand(IDatabaseContextFactory<ActivityEntity> contextFactory,
+            IObjectComposer<ActivityEntity, IPersistableActivity> composer,
             IConverter<ActivityEntity, IPersistableActivity> entityToPersistableActivityConverter)
         {
             _contextFactory = contextFactory;
+            _composer = composer;
             _entityToPersistableActivityConverter = entityToPersistableActivityConverter;
         }
 

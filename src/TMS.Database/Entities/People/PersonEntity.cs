@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TMS.Database.Entities.PeopleAreas;
-using TMS.Layer.Attributes;
-using TMS.ModelLayerInterface.People;
 using TMS.ModelLayerInterface.People.Decorators;
 using TMS.Layer.Visitors;
 using TMS.ModelLayerInterface.People.Data;

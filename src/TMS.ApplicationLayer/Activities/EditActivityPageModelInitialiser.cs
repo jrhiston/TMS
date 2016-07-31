@@ -32,6 +32,10 @@ namespace TMS.ApplicationLayer.Activities
 
             var area = _areaReader.Read(areaKey);
 
+            _composer.Read(areaKey)
+                .Include<IPersistableTag>()
+                .GetResult();
+
             if (!area.Any())
                 throw new InvalidOperationException($"Failed to find activity for given identifier {data.ActivityId}");
 
@@ -43,6 +47,7 @@ namespace TMS.ApplicationLayer.Activities
                 AreaId = data.AreaId,
                 Name = activityViewModel.Title,
                 Description = activityViewModel.Description,
+                Tags = activityViewModel.Tags
             };
         }
     }

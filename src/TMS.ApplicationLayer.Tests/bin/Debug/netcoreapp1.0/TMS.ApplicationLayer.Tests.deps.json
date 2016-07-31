@@ -632,7 +632,6 @@
       "TMS.ApplicationLayer/1.0.0": {
         "dependencies": {
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ViewModelLayer": "1.0.0"
         },
         "runtime": {
@@ -647,15 +646,9 @@
           "TMS.Layer.dll": {}
         }
       },
-      "TMS.LayerInterface/1.0.0": {
-        "runtime": {
-          "TMS.LayerInterface.dll": {}
-        }
-      },
       "TMS.ModelLayerInterface/1.0.0": {
         "dependencies": {
-          "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0"
+          "TMS.Layer": "1.0.0"
         },
         "runtime": {
           "TMS.ModelLayerInterface.dll": {}
@@ -666,7 +659,6 @@
           "Microsoft.AspNetCore.Identity": "1.0.0",
           "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0"
         },
         "runtime": {
@@ -1047,11 +1039,6 @@
       "sha512": ""
     },
     "TMS.Layer/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "TMS.LayerInterface/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

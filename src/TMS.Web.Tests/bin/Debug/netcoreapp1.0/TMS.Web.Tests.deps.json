@@ -1146,7 +1146,6 @@
       "TMS.ApplicationLayer/1.0.0": {
         "dependencies": {
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ViewModelLayer": "1.0.0"
         },
         "runtime": {
@@ -1157,7 +1156,6 @@
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0",
           "Microsoft.EntityFrameworkCore": "1.0.0"
         },
@@ -1173,15 +1171,9 @@
           "TMS.Layer.dll": {}
         }
       },
-      "TMS.LayerInterface/1.0.0": {
-        "runtime": {
-          "TMS.LayerInterface.dll": {}
-        }
-      },
       "TMS.ModelLayer/1.0.0": {
         "dependencies": {
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0"
         },
         "runtime": {
@@ -1190,8 +1182,7 @@
       },
       "TMS.ModelLayerInterface/1.0.0": {
         "dependencies": {
-          "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0"
+          "TMS.Layer": "1.0.0"
         },
         "runtime": {
           "TMS.ModelLayerInterface.dll": {}
@@ -1201,23 +1192,10 @@
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
-          "TMS.ModelLayerInterface": "1.0.0",
-          "TMS.RepositoryLayerInterface": "1.0.0"
-        },
-        "runtime": {
-          "TMS.RepositoryLayer.dll": {}
-        }
-      },
-      "TMS.RepositoryLayerInterface/1.0.0": {
-        "dependencies": {
-          "System.Data.Common": "4.1.0",
-          "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0"
         },
         "runtime": {
-          "TMS.RepositoryLayerInterface.dll": {}
+          "TMS.RepositoryLayer.dll": {}
         }
       },
       "TMS.ViewModelLayer/1.0.0": {
@@ -1225,7 +1203,6 @@
           "Microsoft.AspNetCore.Identity": "1.0.0",
           "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0"
         },
         "runtime": {
@@ -1253,11 +1230,9 @@
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
           "TMS.Database": "1.0.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayer": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0",
           "TMS.RepositoryLayer": "1.0.0",
-          "TMS.RepositoryLayerInterface": "1.0.0",
           "StructureMap.Dnx": "0.5.1-rc2-final",
           "TMS.ApplicationLayer": "1.0.0",
           "TMS.ViewModelLayer": "1.0.0",
@@ -1921,11 +1896,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "TMS.LayerInterface/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "TMS.ModelLayer/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -1937,11 +1907,6 @@
       "sha512": ""
     },
     "TMS.RepositoryLayer/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "TMS.RepositoryLayerInterface/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

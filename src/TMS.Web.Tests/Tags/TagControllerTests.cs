@@ -1,7 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TMS.ApplicationLayer.Tags.Data;
 using TMS.Database.Entities.People;
@@ -107,7 +112,7 @@ namespace TMS.Web.Tests.Tags
         [InlineData(1)]
         [InlineData(2)]
         [InlineData(3)]
-        public void CreateForActivityPost_RedirectsToActivity_GivenModelData(long activityId)
+        public async Task CreateForActivityPost_RedirectsToActivity_GivenModelData(long activityId)
         {
             var initialiser = GetCreateTagPageModelInitialiser();
             var mockCreator = GetMockCreator();
@@ -120,7 +125,12 @@ namespace TMS.Web.Tests.Tags
                 ActivityId = activityId
             };
 
-            var result = controller.CreateForActivity(pageModel);
+            controller.ControllerContext.HttpContext = Mock.Of<HttpContext>(c => c.User == new ClaimsPrincipal(new[]
+            {
+                new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, "1") })
+            }));
+
+            var result = await controller.CreateForActivity(pageModel);
 
             var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
 
@@ -144,6 +154,11 @@ namespace TMS.Web.Tests.Tags
 
             var controller = new TagController(userManager, personKeyFactory.Object, initialiser.Object, mockCreator.Object);
 
+            controller.ControllerContext.HttpContext = Mock.Of<HttpContext>(c => c.User == new ClaimsPrincipal(new[]
+            {
+                new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, "1") })
+            }));
+
             var result = controller.CreateForActivity(pageModel);
 
             mockCreator.Verify(c => c.Create(It.Is<Tuple<CreateTagForActivityPageModel, IPersonKey>>(m => ReferenceEquals(m.Item1, pageModel))), Times.Once);
@@ -155,7 +170,7 @@ namespace TMS.Web.Tests.Tags
             var initialiser = GetCreateTagPageModelInitialiser();
             var mockCreator = GetMockCreator();
             var userManager = GetUserManager();
-            
+
             var personKeyFactory = GetPersonKeyFactory();
 
             var mockPersonKey = Mock.Of<IPersonKey>();
@@ -172,9 +187,15 @@ namespace TMS.Web.Tests.Tags
                 initialiser.Object,
                 mockCreator.Object);
 
+            controller.ControllerContext.HttpContext = Mock.Of<HttpContext>(c => c.User == new ClaimsPrincipal(new[] 
+            {
+                new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, "1") })
+            }));
+
             var result = await controller.CreateForActivity(pageModel);
 
             mockCreator.Verify(c => c.Create(It.Is<Tuple<CreateTagForActivityPageModel, IPersonKey>>(m => ReferenceEquals(m.Item2, mockPersonKey))), Times.Once);
+            Assert.True(userManager.FindByIdAsyncCalled);
         }
 
         private static Mock<IFactory<PersonKeyData, IPersonKey>> GetPersonKeyFactory()
@@ -182,10 +203,38 @@ namespace TMS.Web.Tests.Tags
             return new Mock<IFactory<PersonKeyData, IPersonKey>>();
         }
 
-        private static UserManager<PersonEntity> GetUserManager()
+        private static FakeUserManager GetUserManager()
         {
-            var userStore = new Mock<IUserStore<PersonEntity>>();
-            return new UserManager<PersonEntity>(userStore.Object,null, null, null, null, null, null, null, null);
+            return new FakeUserManager();
+        }
+
+        public class FakeUserManager : UserManager<PersonEntity>
+        {
+            public bool FindByIdAsyncCalled { get; set; }
+
+            public FakeUserManager()
+                : base(new Mock<IUserStore<PersonEntity>>().Object,
+                      new Mock<IOptions<IdentityOptions>>().Object,
+                      new Mock<IPasswordHasher<PersonEntity>>().Object,
+                      new IUserValidator<PersonEntity>[0],
+                      new IPasswordValidator<PersonEntity>[0],
+                      new Mock<ILookupNormalizer>().Object,
+                      new Mock<IdentityErrorDescriber>().Object,
+                      new Mock<IServiceProvider>().Object,
+                      new Mock<ILogger<UserManager<PersonEntity>>>().Object)
+            { }
+
+            public override Task<IdentityResult> CreateAsync(PersonEntity user, string password)
+            {
+                return Task.FromResult(IdentityResult.Success);
+            }
+
+            public override async Task<PersonEntity> FindByIdAsync(string userId)
+            {
+                FindByIdAsyncCalled = true;
+
+                return await Task.Run(() => new PersonEntity());
+            }
         }
 
         private static Mock<IInitialiser<CreateTagForActivityPageModelInitialiserData, CreateTagForActivityPageModel>> GetCreateTagPageModelInitialiser()

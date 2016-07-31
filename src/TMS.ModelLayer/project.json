@@ -6,7 +6,6 @@
   "dependencies": {
     "NETStandard.Library": "1.6.0",
     "TMS.Layer": "1.0.0-*",
-    "TMS.LayerInterface": "1.0.0-*",
     "TMS.ModelLayerInterface": "1.0.0-*"
   },
 

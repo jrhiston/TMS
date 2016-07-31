@@ -216,11 +216,9 @@
 --reference:G:\TMS.Web\src\TMS.ApplicationLayer\bin\Debug\netstandard1.6\TMS.ApplicationLayer.dll
 --reference:G:\TMS.Web\src\TMS.Database\bin\Debug\netstandard1.6\TMS.Database.dll
 --reference:G:\TMS.Web\src\TMS.Layer\bin\Debug\netstandard1.6\TMS.Layer.dll
---reference:G:\TMS.Web\src\TMS.LayerInterface\bin\Debug\netstandard1.6\TMS.LayerInterface.dll
 --reference:G:\TMS.Web\src\TMS.ModelLayer\bin\Debug\netstandard1.6\TMS.ModelLayer.dll
 --reference:G:\TMS.Web\src\TMS.ModelLayerInterface\bin\Debug\netstandard1.6\TMS.ModelLayerInterface.dll
 --reference:G:\TMS.Web\src\TMS.RepositoryLayer\bin\Debug\netstandard1.6\TMS.RepositoryLayer.dll
---reference:G:\TMS.Web\src\TMS.RepositoryLayerInterface\bin\Debug\netstandard1.6\TMS.RepositoryLayerInterface.dll
 --reference:G:\TMS.Web\src\TMS.ViewModelLayer\bin\Debug\netstandard1.6\TMS.ViewModelLayer.dll
 --reference:G:\TMS.Web\src\TMS.Web\bin\Debug\netcoreapp1.0\TMS.Web.dll
 G:\TMS.Web\src\TMS.Web.Tests\Integration\TagControllerIntegrationTests.cs

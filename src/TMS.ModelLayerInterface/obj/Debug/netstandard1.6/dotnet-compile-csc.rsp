@@ -57,7 +57,6 @@
 -r:"C:\Users\Jack\.nuget\packages\System.Xml.ReaderWriter\4.0.11\ref\netstandard1.3\System.Xml.ReaderWriter.dll"
 -r:"C:\Users\Jack\.nuget\packages\System.Xml.XDocument\4.0.11\ref\netstandard1.3\System.Xml.XDocument.dll"
 -r:"G:\TMS.Web\src\TMS.Layer\bin\Debug\netstandard1.6\TMS.Layer.dll"
--r:"G:\TMS.Web\src\TMS.LayerInterface\bin\Debug\netstandard1.6\TMS.LayerInterface.dll"
 "G:\TMS.Web\src\TMS.ModelLayerInterface\Activities\IActionable.cs"
 "G:\TMS.Web\src\TMS.ModelLayerInterface\Activities\IActivity.cs"
 "G:\TMS.Web\src\TMS.ModelLayerInterface\Activities\IActivityKey.cs"

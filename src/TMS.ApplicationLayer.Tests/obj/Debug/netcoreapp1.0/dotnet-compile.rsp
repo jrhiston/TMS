@@ -161,9 +161,9 @@
 --reference:C:\Users\Jack\.nuget\packages\xunit.runner.utility\2.2.0-beta2-build3300\lib\netstandard1.1\xunit.runner.utility.dotnet.dll
 --reference:G:\TMS.Web\src\TMS.ApplicationLayer\bin\Debug\netstandard1.6\TMS.ApplicationLayer.dll
 --reference:G:\TMS.Web\src\TMS.Layer\bin\Debug\netstandard1.6\TMS.Layer.dll
---reference:G:\TMS.Web\src\TMS.LayerInterface\bin\Debug\netstandard1.6\TMS.LayerInterface.dll
 --reference:G:\TMS.Web\src\TMS.ModelLayerInterface\bin\Debug\netstandard1.6\TMS.ModelLayerInterface.dll
 --reference:G:\TMS.Web\src\TMS.ViewModelLayer\bin\Debug\netstandard1.6\TMS.ViewModelLayer.dll
+G:\TMS.Web\src\TMS.ApplicationLayer.Tests\Activities\EditActivityPageModelInitialiserTests.cs
 G:\TMS.Web\src\TMS.ApplicationLayer.Tests\Properties\AssemblyInfo.cs
 G:\TMS.Web\src\TMS.ApplicationLayer.Tests\Tags\CreateTagPageModelInitialiserTests.cs
 G:\TMS.Web\src\TMS.ApplicationLayer.Tests\Tags\EditTagPageModelInitialiserTests.cs

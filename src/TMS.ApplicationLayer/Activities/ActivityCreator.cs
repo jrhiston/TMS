@@ -54,6 +54,8 @@ namespace TMS.ApplicationLayer.Activities
             var model = input.Item1;
             var personKey = input.Item2;
 
+
+
             var person = _personReader.Read(personKey);
 
             var activityData = new ActivityData

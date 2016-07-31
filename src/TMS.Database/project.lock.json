@@ -708,6 +708,44 @@
           "lib/netstandard1.0/_._": {}
         }
       },
+      "structuremap/4.2.0.402": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.10",
+          "System.Collections.Concurrent": "4.0.10",
+          "System.Diagnostics.Debug": "4.0.10",
+          "System.Globalization": "4.0.10",
+          "System.IO": "4.0.10",
+          "System.Linq": "4.0.0",
+          "System.Linq.Expressions": "4.0.10",
+          "System.Reflection": "4.0.10",
+          "System.Reflection.Extensions": "4.0.0",
+          "System.Reflection.TypeExtensions": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Threading": "4.0.10",
+          "System.Threading.Tasks": "4.0.10"
+        },
+        "compile": {
+          "lib/dotnet/StructureMap.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/StructureMap.dll": {}
+        }
+      },
+      "StructureMap.Dnx/1.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
+          "structuremap": "4.2.0.402"
+        },
+        "compile": {
+          "lib/netstandard1.0/StructureMap.Dnx.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/StructureMap.Dnx.dll": {}
+        }
+      },
       "System.AppContext/4.1.0": {
         "type": "package",
         "dependencies": {
@@ -1977,32 +2015,33 @@
           "netstandard1.6/TMS.Layer.dll": {}
         }
       },
-      "TMS.LayerInterface/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v1.6",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0"
-        },
-        "compile": {
-          "netstandard1.6/TMS.LayerInterface.dll": {}
-        },
-        "runtime": {
-          "netstandard1.6/TMS.LayerInterface.dll": {}
-        }
-      },
       "TMS.ModelLayerInterface/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0"
+          "TMS.Layer": "1.0.0"
         },
         "compile": {
           "netstandard1.6/TMS.ModelLayerInterface.dll": {}
         },
         "runtime": {
           "netstandard1.6/TMS.ModelLayerInterface.dll": {}
+        }
+      },
+      "Utility.StructureMap/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "StructureMap.Dnx": "1.0.0",
+          "TMS.Layer": "1.0.0"
+        },
+        "compile": {
+          "netstandard1.6/Utility.StructureMap.dll": {}
+        },
+        "runtime": {
+          "netstandard1.6/Utility.StructureMap.dll": {}
         }
       }
     }
@@ -2599,6 +2638,41 @@
         "lib/netstandard1.0/_._",
         "runtime.native.System.Security.Cryptography.4.0.0.nupkg.sha512",
         "runtime.native.System.Security.Cryptography.nuspec"
+      ]
+    },
+    "structuremap/4.2.0.402": {
+      "sha512": "KVANHSAE77vwEE9K0iroD/JyEUX/Xoxby6ME+i+n9UhRyO3UjTm88/sbA8oI/iM0xZOuqb36RGeOwRhVJjwIAg==",
+      "type": "package",
+      "path": "structuremap/4.2.0.402",
+      "files": [
+        "lib/dotnet/StructureMap.dll",
+        "lib/dotnet/StructureMap.pdb",
+        "lib/net40/StructureMap.Net4.dll",
+        "lib/net40/StructureMap.Net4.pdb",
+        "lib/net40/StructureMap.dll",
+        "lib/net40/StructureMap.pdb",
+        "lib/net40/StructureMap.xml",
+        "lib/portable-net40+wp8+win8/StructureMap.dll",
+        "lib/portable-net40+wp8+win8/StructureMap.pdb",
+        "lib/portable-net40+wp8+win8/StructureMap.xml",
+        "lib/portable-net45+wp81+win81/StructureMap.dll",
+        "lib/portable-net45+wp81+win81/StructureMap.pdb",
+        "lib/portable-net45+wp81+win81/StructureMap.xml",
+        "structuremap.4.2.0.402.nupkg.sha512",
+        "structuremap.nuspec"
+      ]
+    },
+    "StructureMap.Dnx/1.0.0": {
+      "sha512": "FgcpPpF3IOwBu7Ihb+6SFE7szX4VbfEwlPd1hv5+aMf70+R+TNC6WVnhYLSbW+OeCaxMOikqMVY4hpgbqU4rNQ==",
+      "type": "package",
+      "path": "StructureMap.Dnx/1.0.0",
+      "files": [
+        "StructureMap.Dnx.1.0.0.nupkg.sha512",
+        "StructureMap.Dnx.nuspec",
+        "lib/netcore50/StructureMap.Dnx.dll",
+        "lib/netcore50/StructureMap.Dnx.xml",
+        "lib/netstandard1.0/StructureMap.Dnx.dll",
+        "lib/netstandard1.0/StructureMap.Dnx.xml"
       ]
     },
     "System.AppContext/4.1.0": {
@@ -6156,15 +6230,15 @@
       "path": "../TMS.Layer/project.json",
       "msbuildProject": "../TMS.Layer/TMS.Layer.xproj"
     },
-    "TMS.LayerInterface/1.0.0": {
-      "type": "project",
-      "path": "../TMS.LayerInterface/project.json",
-      "msbuildProject": "../TMS.LayerInterface/TMS.LayerInterface.xproj"
-    },
     "TMS.ModelLayerInterface/1.0.0": {
       "type": "project",
       "path": "../TMS.ModelLayerInterface/project.json",
       "msbuildProject": "../TMS.ModelLayerInterface/TMS.ModelLayerInterface.xproj"
+    },
+    "Utility.StructureMap/1.0.0": {
+      "type": "project",
+      "path": "../Utilities/Utility.StructureMap/project.json",
+      "msbuildProject": "../Utilities/Utility.StructureMap/Utility.StructureMap.xproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -6173,8 +6247,8 @@
       "Microsoft.EntityFrameworkCore >= 1.0.0",
       "System.Reflection.TypeExtensions >= 4.1.0",
       "TMS.Layer >= 1.0.0-*",
-      "TMS.LayerInterface >= 1.0.0-*",
-      "TMS.ModelLayerInterface >= 1.0.0-*"
+      "TMS.ModelLayerInterface >= 1.0.0-*",
+      "Utility.StructureMap >= 1.0.0-*"
     ],
     ".NETStandard,Version=v1.6": []
   },

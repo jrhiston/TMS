@@ -2163,10 +2163,10 @@
           "lib/dotnet/StructureMap.dll": {}
         }
       },
-      "StructureMap.Dnx/0.5.1-rc2-final": {
+      "StructureMap.Dnx/1.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0-rc2-final",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
           "structuremap": "4.2.0.402"
         },
         "compile": {
@@ -4342,8 +4342,8 @@
         "dependencies": {
           "NETStandard.Library": "1.6.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
-          "TMS.ViewModelLayer": "1.0.0"
+          "TMS.ViewModelLayer": "1.0.0",
+          "Utility.StructureMap": "1.0.0"
         },
         "compile": {
           "netstandard1.6/TMS.ApplicationLayer.dll": {}
@@ -4360,8 +4360,8 @@
           "Microsoft.EntityFrameworkCore": "1.0.0",
           "System.Reflection.TypeExtensions": "4.1.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
-          "TMS.ModelLayerInterface": "1.0.0"
+          "TMS.ModelLayerInterface": "1.0.0",
+          "Utility.StructureMap": "1.0.0"
         },
         "compile": {
           "netstandard1.6/TMS.Database.dll": {}
@@ -4386,26 +4386,12 @@
           "netstandard1.6/TMS.Layer.dll": {}
         }
       },
-      "TMS.LayerInterface/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v1.6",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0"
-        },
-        "compile": {
-          "netstandard1.6/TMS.LayerInterface.dll": {}
-        },
-        "runtime": {
-          "netstandard1.6/TMS.LayerInterface.dll": {}
-        }
-      },
       "TMS.ModelLayer/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0"
         },
         "compile": {
@@ -4420,8 +4406,7 @@
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0"
+          "TMS.Layer": "1.0.0"
         },
         "compile": {
           "netstandard1.6/TMS.ModelLayerInterface.dll": {}
@@ -4437,32 +4422,13 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
           "NETStandard.Library": "1.6.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
-          "TMS.ModelLayerInterface": "1.0.0",
-          "TMS.RepositoryLayerInterface": "1.0.0"
-        },
-        "compile": {
-          "netstandard1.6/TMS.RepositoryLayer.dll": {}
-        },
-        "runtime": {
-          "netstandard1.6/TMS.RepositoryLayer.dll": {}
-        }
-      },
-      "TMS.RepositoryLayerInterface/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v1.6",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "System.Data.Common": "4.1.0",
-          "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0"
         },
         "compile": {
-          "netstandard1.6/TMS.RepositoryLayerInterface.dll": {}
+          "netstandard1.6/TMS.RepositoryLayer.dll": {}
         },
         "runtime": {
-          "netstandard1.6/TMS.RepositoryLayerInterface.dll": {}
+          "netstandard1.6/TMS.RepositoryLayer.dll": {}
         }
       },
       "TMS.ViewModelLayer/1.0.0": {
@@ -4474,7 +4440,6 @@
           "NETStandard.Library": "1.6.0",
           "System.ComponentModel.Annotations": "4.1.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0"
         },
         "compile": {
@@ -4508,22 +4473,36 @@
           "Microsoft.NETCore.App": "1.0.0",
           "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
           "NLog.Extensions.Logging": "1.0.0-rtm-alpha1",
-          "StructureMap.Dnx": "0.5.1-rc2-final",
+          "StructureMap.Dnx": "1.0.0",
           "TMS.ApplicationLayer": "1.0.0",
           "TMS.Database": "1.0.0",
           "TMS.Layer": "1.0.0",
-          "TMS.LayerInterface": "1.0.0",
           "TMS.ModelLayer": "1.0.0",
           "TMS.ModelLayerInterface": "1.0.0",
           "TMS.RepositoryLayer": "1.0.0",
-          "TMS.RepositoryLayerInterface": "1.0.0",
-          "TMS.ViewModelLayer": "1.0.0"
+          "TMS.ViewModelLayer": "1.0.0",
+          "Utility.StructureMap": "1.0.0"
         },
         "compile": {
           "netcoreapp1.0/TMS.Web.dll": {}
         },
         "runtime": {
           "netcoreapp1.0/TMS.Web.dll": {}
+        }
+      },
+      "Utility.StructureMap/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "StructureMap.Dnx": "1.0.0",
+          "TMS.Layer": "1.0.0"
+        },
+        "compile": {
+          "netstandard1.6/Utility.StructureMap.dll": {}
+        },
+        "runtime": {
+          "netstandard1.6/Utility.StructureMap.dll": {}
         }
       }
     }
@@ -6301,12 +6280,12 @@
         "structuremap.nuspec"
       ]
     },
-    "StructureMap.Dnx/0.5.1-rc2-final": {
-      "sha512": "3Y5Jsh2YtcxnIyE0f39sabR+Ukp5ru3Q9uc5XCJnCOUMvJD8CWNteRlyKD3t1aeE2bQGaW1eq6cXi9it9V9Y6w==",
+    "StructureMap.Dnx/1.0.0": {
+      "sha512": "FgcpPpF3IOwBu7Ihb+6SFE7szX4VbfEwlPd1hv5+aMf70+R+TNC6WVnhYLSbW+OeCaxMOikqMVY4hpgbqU4rNQ==",
       "type": "package",
-      "path": "StructureMap.Dnx/0.5.1-rc2-final",
+      "path": "StructureMap.Dnx/1.0.0",
       "files": [
-        "StructureMap.Dnx.0.5.1-rc2-final.nupkg.sha512",
+        "StructureMap.Dnx.1.0.0.nupkg.sha512",
         "StructureMap.Dnx.nuspec",
         "lib/netcore50/StructureMap.Dnx.dll",
         "lib/netcore50/StructureMap.Dnx.xml",
@@ -11162,11 +11141,6 @@
       "path": "../TMS.Layer/project.json",
       "msbuildProject": "../TMS.Layer/TMS.Layer.xproj"
     },
-    "TMS.LayerInterface/1.0.0": {
-      "type": "project",
-      "path": "../TMS.LayerInterface/project.json",
-      "msbuildProject": "../TMS.LayerInterface/TMS.LayerInterface.xproj"
-    },
     "TMS.ModelLayer/1.0.0": {
       "type": "project",
       "path": "../TMS.ModelLayer/project.json",
@@ -11182,11 +11156,6 @@
       "path": "../TMS.RepositoryLayer/project.json",
       "msbuildProject": "../TMS.RepositoryLayer/TMS.RepositoryLayer.xproj"
     },
-    "TMS.RepositoryLayerInterface/1.0.0": {
-      "type": "project",
-      "path": "../TMS.RepositoryLayerInterface/project.json",
-      "msbuildProject": "../TMS.RepositoryLayerInterface/TMS.RepositoryLayerInterface.xproj"
-    },
     "TMS.ViewModelLayer/1.0.0": {
       "type": "project",
       "path": "../TMS.ViewModelLayer/project.json",
@@ -11196,6 +11165,11 @@
       "type": "project",
       "path": "../TMS.Web/project.json",
       "msbuildProject": "../TMS.Web/TMS.Web.xproj"
+    },
+    "Utility.StructureMap/1.0.0": {
+      "type": "project",
+      "path": "../Utilities/Utility.StructureMap/project.json",
+      "msbuildProject": "../Utilities/Utility.StructureMap/Utility.StructureMap.xproj"
     }
   },
   "projectFileDependencyGroups": {

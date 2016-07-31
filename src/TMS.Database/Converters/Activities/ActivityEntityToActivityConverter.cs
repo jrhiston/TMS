@@ -1,4 +1,6 @@
-﻿using TMS.Database.Entities.Activities;
+﻿using System.Linq;
+using TMS.Database.Entities.Activities;
+using TMS.Database.Entities.Tags;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Factories;
@@ -7,6 +9,7 @@ using TMS.ModelLayerInterface.Activities.Data;
 using TMS.ModelLayerInterface.Activities.Decorators;
 using TMS.ModelLayerInterface.People;
 using TMS.ModelLayerInterface.People.Data;
+using TMS.ModelLayerInterface.Tags;
 
 namespace TMS.Database.Converters.Activities
 {
@@ -17,18 +20,24 @@ namespace TMS.Database.Converters.Activities
         private readonly IDecoratorFactory<OwnedActivityData, IActivity, IOwnedActivity> _ownedActivityFactory;
         private readonly IDecoratorFactory<PersistableActivityData, IOwnedActivity, IPersistableActivity> _persistableActivityFactory;
         private readonly IFactory<PersonKeyData, IPersonKey> _personKeyFactory;
+        private readonly IConverter<TagEntity, ITag> _tagConverter;
+        private readonly IDecoratorFactory<TaggableActivityData, IPersistableActivity, ITaggableActivity> _taggableActivityFactory;
 
         public ActivityEntityToActivityConverter(IFactory<ActivityData, IActivity> activityFactory,
             IFactory<ActivityKeyData, IActivityKey> activityKeyFactory,
             IDecoratorFactory<OwnedActivityData, IActivity, IOwnedActivity> ownedActivityFactory,
             IDecoratorFactory<PersistableActivityData, IOwnedActivity, IPersistableActivity> persistableActivityFactory,
-            IFactory<PersonKeyData, IPersonKey> personKeyFactory)
+            IDecoratorFactory<TaggableActivityData, IPersistableActivity, ITaggableActivity> taggableActivityFactory,
+            IFactory<PersonKeyData, IPersonKey> personKeyFactory,
+            IConverter<TagEntity, ITag> tagConverter)
         {
             _activityFactory = activityFactory;
             _activityKeyFactory = activityKeyFactory;
             _persistableActivityFactory = persistableActivityFactory;
             _ownedActivityFactory = ownedActivityFactory;
+            _taggableActivityFactory = taggableActivityFactory;
             _personKeyFactory = personKeyFactory;
+            _tagConverter = tagConverter;
         }
 
         public Maybe<IActivity> Convert(ActivityEntity input)
@@ -57,6 +66,16 @@ namespace TMS.Database.Converters.Activities
             {
                 Key = activityKey
             }, ownedActivity);
+
+            if (input.Tags != null && input.Tags.Any())
+            {
+                var taggedActivity = _taggableActivityFactory.Create(new TaggableActivityData
+                {
+                    Tags = input.Tags.SelectMany(t => _tagConverter.Convert(t.Tag))
+                }, persistableActivity);
+
+                return new Maybe<IActivity>(taggedActivity);
+            }
 
             return new Maybe<IActivity>(persistableActivity);
         }
