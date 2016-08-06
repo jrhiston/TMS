@@ -1113,20 +1113,6 @@
         "runtime": {
           "netstandard1.6/TMS.Layer.dll": {}
         }
-      },
-      "TMS.ModelLayerInterface/1.0.0": {
-        "type": "project",
-        "framework": ".NETStandard,Version=v1.6",
-        "dependencies": {
-          "NETStandard.Library": "1.6.0",
-          "TMS.Layer": "1.0.0"
-        },
-        "compile": {
-          "netstandard1.6/TMS.ModelLayerInterface.dll": {}
-        },
-        "runtime": {
-          "netstandard1.6/TMS.ModelLayerInterface.dll": {}
-        }
       }
     }
   },
@@ -4146,18 +4132,12 @@
       "type": "project",
       "path": "../TMS.Layer/project.json",
       "msbuildProject": "../TMS.Layer/TMS.Layer.xproj"
-    },
-    "TMS.ModelLayerInterface/1.0.0": {
-      "type": "project",
-      "path": "../TMS.ModelLayerInterface/project.json",
-      "msbuildProject": "../TMS.ModelLayerInterface/TMS.ModelLayerInterface.xproj"
     }
   },
   "projectFileDependencyGroups": {
     "": [
       "NETStandard.Library >= 1.6.0",
-      "TMS.Layer >= 1.0.0-*",
-      "TMS.ModelLayerInterface >= 1.0.0-*"
+      "TMS.Layer >= 1.0.0-*"
     ],
     ".NETStandard,Version=v1.6": []
   },

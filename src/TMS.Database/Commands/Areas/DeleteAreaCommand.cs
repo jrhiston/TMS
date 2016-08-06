@@ -2,11 +2,11 @@
 using System.Linq;
 using TMS.Database.Entities.Areas;
 using TMS.Layer.Repositories;
-using TMS.ModelLayerInterface.Areas;
+using TMS.ModelLayer.Areas;
 
 namespace TMS.Database.Commands.Areas
 {
-    public class DeleteAreaCommand : INonQueryCommand<IAreaKey>
+    public class DeleteAreaCommand : INonQueryCommand<AreaKey>
     {
         private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
@@ -15,7 +15,7 @@ namespace TMS.Database.Commands.Areas
             _contextFactory = contextFactory;
         }
 
-        public void ExecuteCommand(IAreaKey data)
+        public void ExecuteCommand(AreaKey data)
         {
             using (var context = _contextFactory.Create())
             {

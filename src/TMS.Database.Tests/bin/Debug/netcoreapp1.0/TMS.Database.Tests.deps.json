@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "922e4c98e97fcecae450052b50906641182627c7"
+    "signature": "fccd30bb81a3f0bad907b1869beefe610a2aa362"
   },
   "compilationOptions": {},
   "targets": {
@@ -968,7 +968,7 @@
           "lib/dotnet/StructureMap.dll": {}
         }
       },
-      "StructureMap.Dnx/0.5.1-rc2-final": {
+      "StructureMap.Dnx/1.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
           "structuremap": "4.2.0.402"
@@ -1136,6 +1136,7 @@
       "TMS.ApplicationLayer/1.0.0": {
         "dependencies": {
           "TMS.Layer": "1.0.0",
+          "TMS.ModelLayer": "1.0.0",
           "TMS.ViewModelLayer": "1.0.0"
         },
         "runtime": {
@@ -1146,8 +1147,8 @@
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
           "TMS.Layer": "1.0.0",
-          "TMS.ModelLayerInterface": "1.0.0",
-          "Microsoft.EntityFrameworkCore": "1.0.0"
+          "Microsoft.EntityFrameworkCore": "1.0.0",
+          "TMS.ModelLayer": "1.0.0"
         },
         "runtime": {
           "TMS.Database.dll": {}
@@ -1163,26 +1164,16 @@
       },
       "TMS.ModelLayer/1.0.0": {
         "dependencies": {
-          "TMS.Layer": "1.0.0",
-          "TMS.ModelLayerInterface": "1.0.0"
+          "TMS.Layer": "1.0.0"
         },
         "runtime": {
           "TMS.ModelLayer.dll": {}
         }
       },
-      "TMS.ModelLayerInterface/1.0.0": {
-        "dependencies": {
-          "TMS.Layer": "1.0.0"
-        },
-        "runtime": {
-          "TMS.ModelLayerInterface.dll": {}
-        }
-      },
       "TMS.RepositoryLayer/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
-          "TMS.Layer": "1.0.0",
-          "TMS.ModelLayerInterface": "1.0.0"
+          "TMS.Layer": "1.0.0"
         },
         "runtime": {
           "TMS.RepositoryLayer.dll": {}
@@ -1193,7 +1184,7 @@
           "Microsoft.AspNetCore.Identity": "1.0.0",
           "Microsoft.AspNetCore.Mvc.ViewFeatures": "1.0.0",
           "TMS.Layer": "1.0.0",
-          "TMS.ModelLayerInterface": "1.0.0"
+          "TMS.ModelLayer": "1.0.0"
         },
         "runtime": {
           "TMS.ViewModelLayer.dll": {}
@@ -1221,9 +1212,8 @@
           "TMS.Database": "1.0.0",
           "TMS.Layer": "1.0.0",
           "TMS.ModelLayer": "1.0.0",
-          "TMS.ModelLayerInterface": "1.0.0",
           "TMS.RepositoryLayer": "1.0.0",
-          "StructureMap.Dnx": "0.5.1-rc2-final",
+          "StructureMap.Dnx": "1.0.0",
           "TMS.ApplicationLayer": "1.0.0",
           "TMS.ViewModelLayer": "1.0.0",
           "NLog.Extensions.Logging": "1.0.0-rtm-alpha1",
@@ -1756,10 +1746,10 @@
       "serviceable": true,
       "sha512": "sha512-KVANHSAE77vwEE9K0iroD/JyEUX/Xoxby6ME+i+n9UhRyO3UjTm88/sbA8oI/iM0xZOuqb36RGeOwRhVJjwIAg=="
     },
-    "StructureMap.Dnx/0.5.1-rc2-final": {
+    "StructureMap.Dnx/1.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3Y5Jsh2YtcxnIyE0f39sabR+Ukp5ru3Q9uc5XCJnCOUMvJD8CWNteRlyKD3t1aeE2bQGaW1eq6cXi9it9V9Y6w=="
+      "sha512": "sha512-FgcpPpF3IOwBu7Ihb+6SFE7szX4VbfEwlPd1hv5+aMf70+R+TNC6WVnhYLSbW+OeCaxMOikqMVY4hpgbqU4rNQ=="
     },
     "System.Collections.NonGeneric/4.0.1": {
       "type": "package",
@@ -1882,11 +1872,6 @@
       "sha512": ""
     },
     "TMS.ModelLayer/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "TMS.ModelLayerInterface/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

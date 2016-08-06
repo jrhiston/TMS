@@ -6,8 +6,8 @@ using TMS.Layer;
 using TMS.Layer.Exceptions;
 using TMS.Layer.Initialisers;
 using TMS.Layer.Readers;
-using TMS.ModelLayerInterface.Areas.Decorators;
-using TMS.ModelLayerInterface.People;
+using TMS.ModelLayer.Areas;
+using TMS.ModelLayer.People;
 using TMS.ViewModelLayer.Models.Areas;
 using TMS.ViewModelLayer.Models.Areas.Pages;
 
@@ -15,11 +15,11 @@ namespace TMS.ApplicationLayer.Areas
 {
     public class AreaPageModelInitialiser : IInitialiser<AreaPageModelInitialiserData, AreaPageModel>
     {
-        private readonly IListReader<IPersonKey, IPersistableArea> _personAreaReader;
+        private readonly IListReader<PersonKey, Area> _reader;
 
-        public AreaPageModelInitialiser(IListReader<IPersonKey, IPersistableArea> personAreaReader)
+        public AreaPageModelInitialiser(IListReader<PersonKey, Area> reader)
         {
-            _personAreaReader = personAreaReader;
+            _reader = reader;
         }
 
         public AreaPageModel Initialise(AreaPageModelInitialiserData data)
@@ -37,12 +37,15 @@ namespace TMS.ApplicationLayer.Areas
 
             var areaPageModel = new AreaPageModel
             {
-                Areas = areas.SelectMany(item => item).Select(area => new AreaListItemViewModel(area)).ToList()
+                Areas = areas.SelectMany(item => item)
+                    .Select(area => area.Accept(new AreaListItemViewModel()))
+                    .OfType<AreaListItemViewModel>()
+                    .ToList()
             };
 
             return areaPageModel;
         }
 
-        private Maybe<IEnumerable<IPersistableArea>> GetAreas(AreaPageModelInitialiserData data) => _personAreaReader.Read(data.CurrentUserKey);
+        private Maybe<IEnumerable<Area>> GetAreas(AreaPageModelInitialiserData data) => _reader.Read(data.CurrentUserKey);
     }
 }

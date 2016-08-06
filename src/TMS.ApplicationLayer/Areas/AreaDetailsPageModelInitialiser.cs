@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Linq;
 using TMS.ApplicationLayer.Areas.Data;
-using TMS.Layer.Factories;
 using TMS.Layer.Initialisers;
 using TMS.Layer.Readers;
-using TMS.ModelLayerInterface.Areas;
-using TMS.ModelLayerInterface.Areas.Data;
+using TMS.ModelLayer.Areas;
 using TMS.ViewModelLayer.Models.Areas;
 using TMS.ViewModelLayer.Models.Areas.Pages;
 
@@ -13,29 +11,21 @@ namespace TMS.ApplicationLayer.Areas
 {
     public class AreaDetailsPageModelInitialiser : IInitialiser<AreaDetailsPageModelInitialiserData, AreaDetailsPageModel>
     {
-        private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
-        private readonly IReader<IAreaKey, IArea> _areaReader;
+        private readonly IReader<AreaKey, Area> _areaReader;
 
-        public AreaDetailsPageModelInitialiser(IReader<IAreaKey, IArea> areaReader,
-            IFactory<AreaKeyData, IAreaKey> areaKeyFactory)
+        public AreaDetailsPageModelInitialiser(IReader<AreaKey, Area> areaReader)
         {
             _areaReader = areaReader;
-            _areaKeyFactory = areaKeyFactory;
         }
 
         public AreaDetailsPageModel Initialise(AreaDetailsPageModelInitialiserData data)
         {
-            var areaKey = _areaKeyFactory.Create(new AreaKeyData
-            {
-                Identifier = data.AreaId
-            });
-
-            var area = _areaReader.Read(areaKey);
+            var area = _areaReader.Read(new AreaKey(data.AreaId));
 
             if (!area.Any())
                 throw new InvalidOperationException($"Failed to find area for given identifier {data.AreaId}");
 
-            var areaViewModel = new AreaViewModel(area.FirstOrDefault());
+            var areaViewModel = (AreaViewModel)area.Single().Accept(new AreaViewModel());
 
             return new AreaDetailsPageModel
             {

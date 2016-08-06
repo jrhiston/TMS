@@ -2,21 +2,17 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TMS.Layer.Initialisers;
-using TMS.ModelLayerInterface.People;
-using TMS.Layer.Factories;
-using TMS.ModelLayerInterface.People.Data;
 using TMS.Database.Entities.People;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using TMS.ModelLayerInterface.Areas.Data;
-using TMS.ModelLayerInterface.Areas.Decorators;
-using TMS.ModelLayerInterface.Areas;
 using TMS.Layer.Persistence;
 using TMS.ApplicationLayer.Areas.Data;
 using TMS.ViewModelLayer.Models.Areas.Pages;
 using TMS.Layer.Creators;
 using Microsoft.Extensions.Logging;
 using TMS.Web.Logging;
+using TMS.ModelLayer.Areas;
+using TMS.ModelLayer.People;
 
 namespace TMS.Web.Controllers
 {
@@ -26,32 +22,28 @@ namespace TMS.Web.Controllers
         private readonly IInitialiser<AreaPageModelInitialiserData, AreaPageModel> _areasPageInitialiser;
         private readonly UserManager<PersonEntity> _userManager;
 
-        private readonly IWriter<IPersistableArea, IAreaKey> _areaWriter;
-        private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
+        private readonly IWriter<Area, AreaKey> _areaWriter;
 
         private readonly IInitialiser<DeleteAreaPageModelInitialiserData, DeleteAreaPageModel> _deletePageInitialiser;
         private readonly IInitialiser<AreaDetailsPageModelInitialiserData, AreaDetailsPageModel> _detailsPageInitialiser;
         private readonly IInitialiser<AreaEditPageModelInitialiserData, AreaEditPageModel> _editPageInitialiser;
-        private readonly ICreator<Tuple<AreaPageModelBase, IPersonKey>> _areaCreator;
+        private readonly ICreator<Tuple<AreaPageModelBase, PersonKey>> _areaCreator;
         private readonly ILogger<AreasController> _logger;
 
         public AreasController(
             UserManager<PersonEntity> userManager,
-            IFactory<PersonKeyData, IPersonKey> personKeyFactory,
-            IFactory<AreaKeyData, IAreaKey> areaKeyFactory,
             IInitialiser<AreaPageModelInitialiserData, AreaPageModel> areasPageInitialiser,
-            IWriter<IPersistableArea, IAreaKey> areaWriter,
+            IWriter<Area, AreaKey> areaWriter,
             IInitialiser<DeleteAreaPageModelInitialiserData, DeleteAreaPageModel> deletePageInitialiser,
             IInitialiser<AreaDetailsPageModelInitialiserData, AreaDetailsPageModel> detailsPageInitialiser,
             IInitialiser<AreaEditPageModelInitialiserData, AreaEditPageModel> editPageInitialiser,
-            ICreator<Tuple<AreaPageModelBase, IPersonKey>> areaCreator,
-            ILogger<AreasController> logger) : base(userManager, personKeyFactory)
+            ICreator<Tuple<AreaPageModelBase, PersonKey>> areaCreator,
+            ILogger<AreasController> logger) : base(userManager)
         {
             _userManager = userManager;
             _areasPageInitialiser = areasPageInitialiser;
             _areaWriter = areaWriter;
             _deletePageInitialiser = deletePageInitialiser;
-            _areaKeyFactory = areaKeyFactory;
             _detailsPageInitialiser = detailsPageInitialiser;
             _editPageInitialiser = editPageInitialiser;
             _areaCreator = areaCreator;
@@ -61,7 +53,7 @@ namespace TMS.Web.Controllers
         // GET: Areas
         public async Task<ActionResult> Index()
         {
-            IPersonKey personKey = await GetPersonKey();
+            var personKey = await GetPersonKey();
 
             var model = _areasPageInitialiser.Initialise(new AreaPageModelInitialiserData
             {
@@ -91,11 +83,11 @@ namespace TMS.Web.Controllers
 
                 _logger.LogInformation(LoggingEvents.UPDATE_ITEM, $"Saving area {model.AreaId}: {model.Name}");
 
-                _areaCreator.Create(new Tuple<AreaPageModelBase, IPersonKey>(model, personKey));
+                _areaCreator.Create(new Tuple<AreaPageModelBase, PersonKey>(model, personKey));
 
                 _logger.LogInformation(LoggingEvents.UPDATE_ITEM, $"Saved area {model.AreaId}: {model.Name}");
 
-                return RedirectToAction("Details");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -119,7 +111,9 @@ namespace TMS.Web.Controllers
             {
                 var personKey = await GetPersonKey();
 
-                _areaCreator.Create(new Tuple<AreaPageModelBase, IPersonKey>(model, personKey));
+                model.Created = DateTime.UtcNow;
+
+                _areaCreator.Create(new Tuple<AreaPageModelBase, PersonKey>(model, personKey));
 
                 return RedirectToAction("Index");
             }
@@ -162,14 +156,9 @@ namespace TMS.Web.Controllers
         {
             try
             {
-                var areaKey = _areaKeyFactory.Create(new AreaKeyData
-                {
-                    Identifier = model.Id
-                });
-
                 _logger.LogInformation(LoggingEvents.DELETE_ITEM, $"Deleting area {model.Id}");
 
-                _areaWriter.Delete(areaKey);
+                _areaWriter.Delete(new AreaKey(model.Id));
 
                 _logger.LogInformation(LoggingEvents.DELETE_ITEM, $"Deleted area {model.Id}");
 

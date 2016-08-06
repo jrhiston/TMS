@@ -1,9 +1,13 @@
-﻿using TMS.ModelLayerInterface.UserGroups;
+﻿using System;
 
 namespace TMS.ModelLayer.UserGroups
 {
-    public class UserGroupKey : IUserGroupKey
+    public class UserGroupKey : Key, IUserGroupElement
     {
-        public long Identifier { get; set; }
+        public UserGroupKey(long id) : base(id)
+        {
+        }
+
+        public IUserGroupVisitor Accept(IUserGroupVisitor visitor) => visitor.Visit(this);
     }
 }

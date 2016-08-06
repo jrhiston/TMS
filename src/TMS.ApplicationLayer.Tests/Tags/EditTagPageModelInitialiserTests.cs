@@ -7,11 +7,9 @@ using TMS.Layer;
 using TMS.Layer.Exceptions;
 using TMS.Layer.Factories;
 using TMS.Layer.Readers;
-using TMS.Layer.Visitors;
-using TMS.ModelLayerInterface.Tags;
-using TMS.ModelLayerInterface.Tags.Data;
-using TMS.ModelLayerInterface.Tags.Decorators;
-using TMS.ViewModelLayer.Models.Tags;
+using TMS.ModelLayer;
+using TMS.ModelLayer.Tags;
+using TMS.ModelLayer.Tags.CanSetOnActivities;
 using TMS.ViewModelLayer.Models.Tags.Pages;
 using Xunit;
 
@@ -22,14 +20,9 @@ namespace TMS.ApplicationLayer.Tests.Tags
         [Fact]
         public void EditTagPageModelInitialiserReturnsCorrectPageModel()
         {
-            var tagReaderMock = CreateTagReader(new PersistableTagMock
-            {
-                Name = "Name"
-            });
+            var tagReaderMock = CreateTagReader(new Tag());
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
-
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             var pageModel = initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = 1 });
 
@@ -42,28 +35,22 @@ namespace TMS.ApplicationLayer.Tests.Tags
         [InlineData(3)]
         public void EditTagPageModelInitialiserAssignTagId(long tagId)
         {
-            var tagReaderMock = CreateTagReader(new PersistableTagMock
-            {
-                Identifier = tagId,
-                Name = "Name"
-            });
+            var tagReaderMock = CreateTagReader(new Tag(new TagKey(tagId)));
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
-
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             var pageModel = initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = tagId });
 
             Assert.Equal(tagId, pageModel.TagId);
         }
 
-        private static Mock<IReader<ITagKey, ITag>> CreateTagReader(PersistableTagMock tag)
+        private static Mock<IReader<TagKey, Tag>> CreateTagReader(Tag tag)
         {
-            var tagReaderMock = new Mock<IReader<ITagKey, ITag>>();
+            var tagReaderMock = new Mock<IReader<TagKey, Tag>>();
 
             tagReaderMock
-                .Setup(r => r.Read(It.IsAny<ITagKey>()))
-                .Returns(new Maybe<ITag>(tag));
+                .Setup(r => r.Read(It.IsAny<TagKey>()))
+                .Returns(new Maybe<Tag>(tag));
 
             return tagReaderMock;
         }
@@ -74,14 +61,9 @@ namespace TMS.ApplicationLayer.Tests.Tags
         [InlineData("Tag Name 3")]
         public void ReturnsCorrectTagName(string tagName)
         {
-            var tagReaderMock = CreateTagReader(new PersistableTagMock
-            {
-                Name = tagName
-            });
+            var tagReaderMock = CreateTagReader(new Tag(new Name(tagName)));
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
-
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             var pageModel = initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = 3 });
 
@@ -91,15 +73,9 @@ namespace TMS.ApplicationLayer.Tests.Tags
         [Fact]
         public void InitialiserUsesReaderTagId()
         {
-            var tagReaderMock = CreateTagReader(new PersistableTagMock
-            {
-                Identifier = 1,
-                Name = ""
-            });
+            var tagReaderMock = CreateTagReader(new Tag(new TagKey(1)));
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
-
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             var pageModel = initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = 3 });
 
@@ -112,11 +88,9 @@ namespace TMS.ApplicationLayer.Tests.Tags
         [InlineData(3)]
         public void TagNotFoundSuitableErrorThrown(long tagId)
         {
-            var tagReaderMock = new Mock<IReader<ITagKey, ITag>>();
+            var tagReaderMock = new Mock<IReader<TagKey, Tag>>();
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
-
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             Exception ex = Assert.Throws<ModelObjectNotFoundException>(() => initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = tagId }));
 
@@ -126,11 +100,9 @@ namespace TMS.ApplicationLayer.Tests.Tags
         [Fact]
         public void NullDataGiven_ArgumentNullThrown()
         {
-            var tagReaderMock = new Mock<IReader<ITagKey, ITag>>();
+            var tagReaderMock = new Mock<IReader<TagKey, Tag>>();
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
-
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             Exception ex = Assert.Throws<ArgumentNullException>(() => initialiser.Initialise(null));
 
@@ -141,14 +113,9 @@ namespace TMS.ApplicationLayer.Tests.Tags
         public void ReturnsCorrectCreationDate()
         {
             var date = DateTime.Now;
-            var tagReaderMock = CreateTagReader(new PersistableTagMock
-            {
-                Created = date
-            });
+            var tagReaderMock = CreateTagReader(new Tag(new CreationDate(date)));
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
-
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             var expected = initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = 3 });
 
@@ -160,14 +127,11 @@ namespace TMS.ApplicationLayer.Tests.Tags
         [InlineData(false)]
         public void ReturnsCorrectCanSetOnActivity(bool canSetOnActivity)
         {
-            var tagReaderMock = CreateTagReader(new PersistableTagMock
-            {
-                CanSetOnActivity = canSetOnActivity
-            });
+            var canSetOnActivityBase = canSetOnActivity ?(CanSetOnActivityBase) new CanSetOnActivity() : new CanNotSetOnActivity();
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
+            var tagReaderMock = CreateTagReader(new Tag(canSetOnActivityBase));
 
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             var expected = initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = 3 });
 
@@ -180,14 +144,9 @@ namespace TMS.ApplicationLayer.Tests.Tags
         [InlineData("Description 3")]
         public void ReturnsCorrectDescription(string description)
         {
-            var tagReaderMock = CreateTagReader(new PersistableTagMock
-            {
-                Description = description
-            });
+            var tagReaderMock = CreateTagReader(new Tag(new Description(description)));
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
-
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             var expected = initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = 3 });
 
@@ -200,46 +159,13 @@ namespace TMS.ApplicationLayer.Tests.Tags
         [InlineData(0)]
         public void TagIdIsZero_ReturnsCorrectException(long tagId)
         {
-            var tagReaderMock = CreateTagReader(new PersistableTagMock());
+            var tagReaderMock = CreateTagReader(new Tag(new TagKey(tagId)));
 
-            var tagKeyFactoryMock = new Mock<IFactory<TagKeyData, ITagKey>>();
-
-            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object, tagKeyFactoryMock.Object);
+            var initialiser = new EditTagPageModelInitialiser(tagReaderMock.Object);
 
             var ex = Assert.Throws<IdentifierNotSpecifiedException>(() => initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = tagId }));
 
             Assert.Equal("Must provide an identifier greater than zero to edit a tag.", ex.Message);
-        }
-    }
-
-    internal class PersistableTagMock : IPersistableTag
-    {
-        public DateTime Created { get; internal set; }
-        public string Description { get; set; }
-        public bool CanSetOnActivity { get; set; }
-        public long Identifier { get; set; }
-        public string Name { get; set; }
-
-        public void Accept(Func<IVisitor<TagData>> visitorFactory)
-        {
-            var key = Mock.Of<ITagKey>();
-            key.Identifier = Identifier;
-
-            var visitor = visitorFactory();
-
-            var visitorAsType = visitor as IVisitor<PersistableTagData>;
-            visitorAsType?.Visit(new PersistableTagData
-            {
-                Key = key
-            });
-
-            visitor.Visit(new TagData
-            {
-                Name = Name,
-                Created = Created,
-                CanSetOnActivity = CanSetOnActivity,
-                Description = Description
-            });
         }
     }
 }

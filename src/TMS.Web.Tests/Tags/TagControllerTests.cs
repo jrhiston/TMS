@@ -11,12 +11,8 @@ using System.Threading.Tasks;
 using TMS.ApplicationLayer.Tags.Data;
 using TMS.Database.Entities.People;
 using TMS.Layer.Creators;
-using TMS.Layer.Factories;
 using TMS.Layer.Initialisers;
-using TMS.ModelLayerInterface.People;
-using TMS.ModelLayerInterface.People.Data;
-using TMS.ViewModelLayer.Models.Activities.Pages;
-using TMS.ViewModelLayer.Models.Tags;
+using TMS.ModelLayer.People;
 using TMS.ViewModelLayer.Models.Tags.Pages;
 using TMS.Web.Controllers;
 using Xunit;
@@ -34,14 +30,13 @@ namespace TMS.Web.Tests.Tags
             var mockInitialiser = GetCreateTagPageModelInitialiser();
             var mockCreator = GetMockCreator();
             var userManager = GetUserManager();
-            var personKeyFactory = GetPersonKeyFactory();
             var data = new CreateTagForActivityPageModelInitialiserData { ActivityId = activityId };
 
             mockInitialiser
                 .Setup(i => i.Initialise(It.IsAny<CreateTagForActivityPageModelInitialiserData>()))
                 .Returns(new CreateTagForActivityPageModel { ActivityId = activityId });
 
-            var controller = new TagController(userManager, personKeyFactory.Object, mockInitialiser.Object, mockCreator.Object);
+            var controller = new TagController(userManager, mockInitialiser.Object, mockCreator.Object);
 
             var result = controller.CreateForActivity(activityId);
 
@@ -63,13 +58,12 @@ namespace TMS.Web.Tests.Tags
             var mockInitialiser = GetCreateTagPageModelInitialiser();
             var mockCreator = GetMockCreator();
             var userManager = GetUserManager();
-            var personKeyFactory = GetPersonKeyFactory();
 
             mockInitialiser
                 .Setup(i => i.Initialise(It.IsAny<CreateTagForActivityPageModelInitialiserData>()))
                 .Returns(expectedPageModel);
 
-            var controller = new TagController(userManager, personKeyFactory.Object, mockInitialiser.Object, mockCreator.Object);
+            var controller = new TagController(userManager, mockInitialiser.Object, mockCreator.Object);
 
             var result = controller.CreateForActivity(activityId);
 
@@ -88,7 +82,6 @@ namespace TMS.Web.Tests.Tags
             var mockInitialiser = GetCreateTagPageModelInitialiser();
             var mockCreator = GetMockCreator();
             var userManager = GetUserManager();
-            var personKeyFactory = GetPersonKeyFactory();
             var expectedPageModel = new CreateTagForActivityPageModel
             {
                 ActivityId = activityId
@@ -96,7 +89,7 @@ namespace TMS.Web.Tests.Tags
             mockInitialiser
                 .Setup(i => i.Initialise(It.IsAny<CreateTagForActivityPageModelInitialiserData>()))
                 .Returns(expectedPageModel);
-            var controller = new TagController(userManager, personKeyFactory.Object, mockInitialiser.Object, mockCreator.Object);
+            var controller = new TagController(userManager, mockInitialiser.Object, mockCreator.Object);
 
             // Act
             var result = controller.CreateForActivity(activityId);
@@ -117,9 +110,8 @@ namespace TMS.Web.Tests.Tags
             var initialiser = GetCreateTagPageModelInitialiser();
             var mockCreator = GetMockCreator();
             var userManager = GetUserManager();
-            var personKeyFactory = GetPersonKeyFactory();
 
-            var controller = new TagController(userManager, personKeyFactory.Object, initialiser.Object, mockCreator.Object);
+            var controller = new TagController(userManager, initialiser.Object, mockCreator.Object);
 
             var pageModel = new CreateTagForActivityPageModel {
                 ActivityId = activityId
@@ -148,11 +140,10 @@ namespace TMS.Web.Tests.Tags
             var initialiser = GetCreateTagPageModelInitialiser();
             var mockCreator = GetMockCreator();
             var userManager = GetUserManager();
-            var personKeyFactory = GetPersonKeyFactory();
 
             var pageModel = new CreateTagForActivityPageModel();
 
-            var controller = new TagController(userManager, personKeyFactory.Object, initialiser.Object, mockCreator.Object);
+            var controller = new TagController(userManager, initialiser.Object, mockCreator.Object);
 
             controller.ControllerContext.HttpContext = Mock.Of<HttpContext>(c => c.User == new ClaimsPrincipal(new[]
             {
@@ -161,46 +152,7 @@ namespace TMS.Web.Tests.Tags
 
             var result = controller.CreateForActivity(pageModel);
 
-            mockCreator.Verify(c => c.Create(It.Is<Tuple<CreateTagForActivityPageModel, IPersonKey>>(m => ReferenceEquals(m.Item1, pageModel))), Times.Once);
-        }
-
-        [Fact]
-        public async Task CreateForActivityPost_SavesAgainstPerson_GivenModelData()
-        {
-            var initialiser = GetCreateTagPageModelInitialiser();
-            var mockCreator = GetMockCreator();
-            var userManager = GetUserManager();
-
-            var personKeyFactory = GetPersonKeyFactory();
-
-            var mockPersonKey = Mock.Of<IPersonKey>();
-            mockPersonKey.Identifier = 1;
-
-            personKeyFactory
-                .Setup(f => f.Create(It.IsAny<PersonKeyData>()))
-                .Returns(mockPersonKey);
-
-            var pageModel = new CreateTagForActivityPageModel();
-
-            var controller = new TagController(userManager,
-                personKeyFactory.Object,
-                initialiser.Object,
-                mockCreator.Object);
-
-            controller.ControllerContext.HttpContext = Mock.Of<HttpContext>(c => c.User == new ClaimsPrincipal(new[] 
-            {
-                new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, "1") })
-            }));
-
-            var result = await controller.CreateForActivity(pageModel);
-
-            mockCreator.Verify(c => c.Create(It.Is<Tuple<CreateTagForActivityPageModel, IPersonKey>>(m => ReferenceEquals(m.Item2, mockPersonKey))), Times.Once);
-            Assert.True(userManager.FindByIdAsyncCalled);
-        }
-
-        private static Mock<IFactory<PersonKeyData, IPersonKey>> GetPersonKeyFactory()
-        {
-            return new Mock<IFactory<PersonKeyData, IPersonKey>>();
+            mockCreator.Verify(c => c.Create(It.Is<Tuple<CreateTagForActivityPageModel, PersonKey>>(m => ReferenceEquals(m.Item1, pageModel))), Times.Once);
         }
 
         private static FakeUserManager GetUserManager()
@@ -242,9 +194,9 @@ namespace TMS.Web.Tests.Tags
             return new Mock<IInitialiser<CreateTagForActivityPageModelInitialiserData, CreateTagForActivityPageModel>>();
         }
 
-        private static Mock<ICreator<Tuple<CreateTagForActivityPageModel, IPersonKey>>> GetMockCreator()
+        private static Mock<ICreator<Tuple<CreateTagForActivityPageModel, PersonKey>>> GetMockCreator()
         {
-            return new Mock<ICreator<Tuple<CreateTagForActivityPageModel, IPersonKey>>>();
+            return new Mock<ICreator<Tuple<CreateTagForActivityPageModel, PersonKey>>>();
         }
     }
 }

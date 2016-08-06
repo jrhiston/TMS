@@ -1,19 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMS.Layer.Visitors;
-using TMS.ModelLayerInterface.Areas;
-using TMS.ModelLayerInterface.Areas.Data;
+using TMS.ModelLayer;
+using TMS.ModelLayer.Activities;
+using TMS.ModelLayer.Areas;
+using TMS.ModelLayer.People;
 using TMS.ViewModelLayer.Models.Activities;
 using TMS.ViewModelLayer.Models.People;
 
 namespace TMS.ViewModelLayer.Models.Areas
 {
-    public class AreaViewModel : 
-        IVisitor<AreaData>, 
-        IVisitor<PersistableActivitiesAreaData>, 
-        IVisitor<PersistableAreaData>,
-        IVisitor<AreaWithPeopleData>
+    public class AreaViewModel : AreaVisitorBase
     {
         public string Name { get; set; }
         public string Description { get; set; }
@@ -29,47 +26,40 @@ namespace TMS.ViewModelLayer.Models.Areas
             AssociatedPeople = new List<PersonListItemViewModel>();
         }
 
-        public AreaViewModel(IArea area) : this()
+        public override IAreaVisitor Visit(AreaKey areaKey)
         {
-            area.Accept(() => this);
-
-            foreach (var activity in Activities)
-            {
-                activity.AreaId = Id;
-            }
+            Id = areaKey.Identifier;
+            return this;
         }
 
-        public void Visit(AreaData data)
+        public override IAreaVisitor Visit(Name name)
         {
-            Name = data.Name;
-            Description = data.Description;
-            Created = data.Created;
+            Name = name.Value;
+            return this;
         }
 
-        public void Visit(PersistableActivitiesAreaData data)
+        public override IAreaVisitor Visit(CreationDate creationDate)
         {
-            var activities = data.Activities?
-                .Select(activity => new ActivityListItemViewModel(activity))
-                .ToList();
-
-            if (activities != null)
-                Activities.AddRange(activities);
+            Created = creationDate.Value;
+            return this;
         }
 
-        public void Visit(PersistableAreaData data)
+        public override IAreaVisitor Visit(Activity activity)
         {
-            Id = data.AreaKey?.Identifier ?? 0;
+            Activities.Add((ActivityListItemViewModel)activity.Accept(new ActivityListItemViewModel()));
+            return this;
         }
 
-        public void Visit(AreaWithPeopleData data)
+        public override IAreaVisitor Visit(Description description)
         {
-            var associatedPeople = data
-                .People?
-                .Select(item => new PersonListItemViewModel(item))
-                .ToList();
+            Description = description.Value;
+            return this;
+        }
 
-            if (associatedPeople != null)
-                AssociatedPeople.AddRange(associatedPeople);
+        public override IAreaVisitor Visit(PersonKey personKey)
+        {
+            AssociatedPeople.Add((PersonListItemViewModel)personKey.Accept(new PersonListItemViewModel()));
+            return this;
         }
     }
 }

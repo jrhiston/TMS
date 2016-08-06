@@ -1,32 +1,38 @@
 ﻿using System;
-using TMS.Layer.Visitors;
-using TMS.ModelLayerInterface.Areas;
-using TMS.ModelLayerInterface.Areas.Data;
+using TMS.ModelLayer;
+using TMS.ModelLayer.Areas;
 
 namespace TMS.ViewModelLayer.Models.Areas
 {
-    public class AreaListItemViewModel : IVisitor<AreaData>, IVisitor<PersistableAreaData>
+    public class AreaListItemViewModel : AreaVisitorBase
     {
         public long Id { get; set; }
         public DateTime Created { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
 
-        public AreaListItemViewModel(IArea area)
+        public override IAreaVisitor Visit(AreaKey areaKey)
         {
-            area.Accept(() => this);
+            Id = areaKey.Identifier;
+            return this;
         }
 
-        public void Visit(AreaData data)
+        public override IAreaVisitor Visit(CreationDate creationDate)
         {
-            Name = data.Name;
-            Description = data.Description;
-            Created = data.Created;
+            Created = creationDate.Value;
+            return this;
         }
 
-        public void Visit(PersistableAreaData data)
+        public override IAreaVisitor Visit(Description description)
         {
-            Id = data.AreaKey?.Identifier ?? 0;
+            Description = description.Value;
+            return this;
+        }
+
+        public override IAreaVisitor Visit(Name name)
+        {
+            Name = name.Value;
+            return this;
         }
     }
 }

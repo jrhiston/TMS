@@ -1,27 +1,23 @@
-﻿using TMS.Layer.Visitors;
-using TMS.ModelLayerInterface.Tags;
-using TMS.ModelLayerInterface.Tags.Data;
+﻿using TMS.ModelLayer;
+using TMS.ModelLayer.Tags;
 
 namespace TMS.ViewModelLayer.Models.Tags
 {
-    public class TagListItemViewModel : IVisitor<TagData>, IVisitor<PersistableTagData>
+    public class TagListItemViewModel : TagVisitorBase
     {
-        public long Id { get; set; }
-        public string Name { get; set; }
+        public long Id { get; private set; }
+        public string Name { get; private set; }
 
-        public TagListItemViewModel(ITag tag)
+        public override ITagVisitor Visit(TagKey tagKey)
         {
-            tag.Accept(() => this);
+            Id = tagKey.Identifier;
+            return this;
         }
 
-        public void Visit(TagData data)
+        public override ITagVisitor Visit(Name name)
         {
-            Name = data.Name;
-        }
-
-        public void Visit(PersistableTagData data)
-        {
-            Id = data.Key.Identifier;
+            Name = name.Value;
+            return this;
         }
     }
 }

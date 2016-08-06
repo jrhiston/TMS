@@ -1,33 +1,15 @@
 ﻿using System;
 using TMS.Layer.ModelObjects;
-using TMS.ModelLayerInterface.Activities;
-using TMS.ModelLayerInterface.Activities.Data;
+using TMS.ModelLayer.Areas;
 
 namespace TMS.ModelLayer.Activities
 {
-    internal class Activity : ModelObjectBase<ActivityData>, IActivity
+    public class Activity : AggregateRoot<IActivityElement, IActivityVisitor>, IActivityElement, IAreaElement
     {
-        private string _title;
-        private string _description;
-        private DateTime _creationDate;
-
-        public Activity(string title, 
-            string description, 
-            DateTime creationDate)
+        public Activity(params IActivityElement[] elements) : base(elements)
         {
-            _title = title;
-            _description = description;
-            _creationDate = creationDate;
         }
 
-        protected override ActivityData GetData()
-        {
-            return new ActivityData
-            {
-                Created = _creationDate,
-                Description = _description,
-                Title = _title
-            };
-        }
+        public IAreaVisitor Accept(IAreaVisitor visitor) => visitor.Visit(this);
     }
 }
