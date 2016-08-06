@@ -1,9 +1,15 @@
-﻿using TMS.ModelLayerInterface.Areas;
+﻿using System;
+using TMS.ModelLayer.Activities;
 
 namespace TMS.ModelLayer.Areas
 {
-    public class AreaKey : IAreaKey
+    public class AreaKey : Key, IAreaElement, IActivityElement
     {
-        public long Identifier { get; set; }
+        public AreaKey(long id) : base(id)
+        {
+        }
+
+        public IActivityVisitor Accept(IActivityVisitor visitor) => visitor.Visit(this);
+        public IAreaVisitor Accept(IAreaVisitor visitor) => visitor.Visit(this);
     }
 }

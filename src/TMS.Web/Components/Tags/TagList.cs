@@ -2,37 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TMS.Layer.Factories;
 using TMS.Layer.Readers;
-using TMS.ModelLayerInterface.Activities;
-using TMS.ModelLayerInterface.Activities.Data;
-using TMS.ModelLayerInterface.Tags.Data;
-using TMS.ModelLayerInterface.Tags.Decorators;
+using TMS.ModelLayer.Activities;
+using TMS.ModelLayer.Tags;
 using TMS.ViewModelLayer.Models.Tags;
 
 namespace TMS.Web.Components.Tags
 {
     public class TagList : ViewComponent
     {
-        private readonly IReader<TagFilterData, IEnumerable<IPersistableTag>> _tagReader;
-        private readonly IFactory<ActivityKeyData, IActivityKey> _activityFactory;
+        private readonly IReader<TagFilterData, IEnumerable<Tag>> _tagReader;
 
-        public TagList(IReader<TagFilterData, IEnumerable<IPersistableTag>> tagReader,
-            IFactory<ActivityKeyData, IActivityKey> activityFactory)
+        public TagList(IReader<TagFilterData, IEnumerable<Tag>> tagReader)
         {
             _tagReader = tagReader;
-            _activityFactory = activityFactory;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(TagListFilterData data)
         {
-            var activityKey = _activityFactory.Create(new ActivityKeyData { Identifier = data.ActivityId });
-
-            var result = await Task.Run(() => _tagReader.Read(new TagFilterData { ActivityKey = activityKey }));
+            var result = await Task.Run(() => _tagReader.Read(new TagFilterData { ActivityKey = new ActivityKey(data.ActivityId) }));
 
             var tagViewModels = result
                 .SelectMany(item => item)
-                .Select(tag => new TagListItemViewModel(tag));
+                .Select(tag => (TagListItemViewModel) tag.Accept(new TagListItemViewModel()));
 
             return View(tagViewModels);
         }

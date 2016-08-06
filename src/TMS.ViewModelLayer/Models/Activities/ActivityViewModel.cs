@@ -1,45 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using TMS.Layer.Visitors;
-using TMS.ModelLayerInterface.Activities;
-using TMS.ModelLayerInterface.Activities.Data;
+using TMS.ModelLayer;
+using TMS.ModelLayer.Activities;
+using TMS.ModelLayer.Areas;
+using TMS.ModelLayer.Tags;
 using TMS.ViewModelLayer.Models.Tags;
 
 namespace TMS.ViewModelLayer.Models.Activities
 {
-    public class ActivityViewModel : IVisitor<ActivityData>, IVisitor<PersistableActivityData>, IVisitor<TaggableActivityData>
+    public class ActivityViewModel : ActivityVisitorBase
     {
         public long Id { get; private set; }
         public DateTime Created { get; private set; }
         public string Description { get; private set; }
         public string Title { get; private set; }
-        public List<TagViewModel> Tags { get; private set; }
+        public long AreaId { get; private set; }
+        public List<TagViewModel> Tags { get; }
 
         public ActivityViewModel()
         {
+            Tags = new List<TagViewModel>();
         }
 
-        public ActivityViewModel(IActivity activity)
+        public override IActivityVisitor Visit(Name data)
         {
-            activity.Accept(() => this);
+            Title = data.Value;
+            return this;
         }
 
-        public void Visit(ActivityData data)
+        public override IActivityVisitor Visit(CreationDate data)
         {
-            Title = data.Title;
-            Description = data.Description;
-            Created = data.Created;
+            Created = data.Value;
+            return this;
         }
 
-        public void Visit(PersistableActivityData data)
+        public override IActivityVisitor Visit(Description data)
         {
-            Id = data.Key.Identifier;
+            Description = data.Value;
+            return this;
         }
 
-        public void Visit(TaggableActivityData data)
+        public override IActivityVisitor Visit(ActivityKey data)
         {
-            Tags = data.Tags.Select(t => new TagViewModel(t)).ToList();
+            Id = data.Identifier;
+            return this;
+        }
+
+        public override IActivityVisitor Visit(Tag data)
+        {
+            Tags.Add((TagViewModel)data.Accept(new TagViewModel()));
+            return this;
+        }
+
+        public override IActivityVisitor Visit(AreaKey data)
+        {
+            AreaId = data.Identifier;
+            return this;
         }
     }
 }

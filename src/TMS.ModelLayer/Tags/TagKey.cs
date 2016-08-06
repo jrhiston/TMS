@@ -1,14 +1,13 @@
-﻿using TMS.ModelLayerInterface.Tags;
+﻿using System;
 
 namespace TMS.ModelLayer.Tags
 {
-    public class TagKey : ITagKey
+    public class TagKey : Key, ITagElement
     {
-        public long Identifier { get; set; }
-
-        public bool Equals(ITagKey other)
+        public TagKey(long id) : base(id)
         {
-            return other.Identifier == Identifier;
         }
+
+        public ITagVisitor Accept(ITagVisitor visitor) => visitor.Visit(this);
     }
 }

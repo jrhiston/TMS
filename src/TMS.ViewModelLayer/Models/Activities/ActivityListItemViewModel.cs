@@ -1,11 +1,12 @@
 ﻿using System;
-using TMS.Layer.Visitors;
-using TMS.ModelLayerInterface.Activities;
-using TMS.ModelLayerInterface.Activities.Data;
+using System.Linq;
+using TMS.ModelLayer;
+using TMS.ModelLayer.Activities;
+using TMS.ModelLayer.Areas;
 
 namespace TMS.ViewModelLayer.Models.Activities
 {
-    public class ActivityListItemViewModel : IVisitor<ActivityData>, IVisitor<PersistableActivityData>
+    public class ActivityListItemViewModel : ActivityVisitorBase
     {
         public long Id { get; private set; }
         public DateTime Created { get; private set; }
@@ -13,21 +14,34 @@ namespace TMS.ViewModelLayer.Models.Activities
         public string Name { get; private set; }
         public long AreaId { get; set; }
 
-        public ActivityListItemViewModel(IActivity activity)
+        public override IActivityVisitor Visit(ActivityKey data)
         {
-            activity.Accept(() => this);
+            Id = data.Identifier;
+            return this;
         }
 
-        public void Visit(ActivityData data)
+        public override IActivityVisitor Visit(CreationDate data)
         {
-            Name = data.Title;
-            Description = data.Description;
-            Created = data.Created;
+            Created = data.Value;
+            return this;
         }
 
-        public void Visit(PersistableActivityData data)
+        public override IActivityVisitor Visit(Description data)
         {
-            Id = data.Key?.Identifier ?? 0;
+            Description = data.Value;
+            return this;
+        }
+
+        public override IActivityVisitor Visit(Name data)
+        {
+            Name = data.Value;
+            return this;
+        }
+
+        public override IActivityVisitor Visit(AreaKey data)
+        {
+            AreaId = data.Identifier;
+            return this;
         }
     }
 }

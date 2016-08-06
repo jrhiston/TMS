@@ -8,6 +8,6 @@
         /// <summary>
         /// Get or set the identifier for this model object key.
         /// </summary>
-        long Identifier { get; set; }
+        long Identifier { get; }
     }
 }

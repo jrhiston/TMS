@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StructureMap;
+using TMS.Database;
+using TMS.Database.Entities;
+using TMS.Layer.Builders;
 using TMS.Layer.Factories;
 using TMS.Layer.Persistence;
 using TMS.Layer.Readers;
@@ -30,12 +33,9 @@ namespace TMS.Web.DependencyResolution
                 c.For(typeof(IReader<,>)).Singleton().Use(typeof(Reader<,>));
                 c.For(typeof(IListReader<,>)).Singleton().Use(typeof(ListReader<,>));
                 c.For(typeof(IWriter<,>)).Singleton().Use(typeof(Writer<,>));
-                c.For(typeof(IFactoryRegistrar)).Singleton().Use(typeof(FactoryRegistrar));
-                c.For(typeof(IFactory<,>)).Singleton().Use(typeof(Factory<,>));
-                c.For(typeof(IDecoratorFactory<,,>)).Singleton().Use(typeof(DecoratorFactory<,,>));
+                c.For(typeof(IEntityService<,>)).Singleton().Use(typeof(EntityService<,>));
+                c.For(typeof(IEntityCollectionService<,>)).Singleton().Use(typeof(EntityCollectionService<,>));
             });
-
-            container.GetInstance<IFactoryRegistrar>().InitialiseModelLayer();
 
             return container;
         }

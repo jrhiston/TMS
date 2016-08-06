@@ -3,23 +3,23 @@ using TMS.Database.Entities.Activities;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Repositories;
-using TMS.ModelLayerInterface.Activities;
+using TMS.ModelLayer.Activities;
 
 namespace TMS.Database.Commands.Activities
 {
-    public class GetActivityCommand : IQueryCommand<IActivityKey, IActivity>
+    public class GetActivityCommand : IQueryCommand<ActivityKey, Activity>
     {
-        private readonly IConverter<ActivityEntity, IActivity> _entityConverter;
+        private readonly IConverter<ActivityEntity, Activity> _entityConverter;
         private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
 
         public GetActivityCommand(IDatabaseContextFactory<ActivityEntity> contextFactory,
-            IConverter<ActivityEntity, IActivity> entityConverter)
+            IConverter<ActivityEntity, Activity> entityConverter)
         {
             _contextFactory = contextFactory;
             _entityConverter = entityConverter;
         }
 
-        public Maybe<IActivity> ExecuteCommand(IActivityKey data)
+        public Maybe<Activity> ExecuteCommand(ActivityKey data)
         {
             using (var context = _contextFactory.Create())
             {

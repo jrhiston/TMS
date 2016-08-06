@@ -2,66 +2,52 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMS.Layer.Creators;
-using TMS.Layer.Factories;
 using TMS.Layer.Persistence;
 using TMS.Layer.Readers;
-using TMS.ModelLayerInterface.Areas;
-using TMS.ModelLayerInterface.Areas.Data;
-using TMS.ModelLayerInterface.Areas.Decorators;
-using TMS.ModelLayerInterface.People;
-using TMS.ModelLayerInterface.People.Decorators;
+using TMS.ModelLayer;
+using TMS.ModelLayer.Activities;
+using TMS.ModelLayer.Areas;
+using TMS.ModelLayer.People;
 using TMS.ViewModelLayer.Models.Areas.Pages;
 
 namespace TMS.ApplicationLayer.Areas
 {
-    public class AreaCreator : ICreator<Tuple<AreaPageModelBase, IPersonKey>>
+    public class AreaCreator : ICreator<Tuple<AreaPageModelBase, PersonKey>>
     {
-        private readonly IFactory<AreaData, IArea> _areaFactory;
-        private readonly IFactory<AreaKeyData, IAreaKey> _areaKeyFactory;
-        private readonly IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> _areaWithPeopleFactory;
-        private readonly IWriter<IPersistableArea, IAreaKey> _areaWriter;
-        private readonly IDecoratorFactory<PersistableAreaData, IArea, IPersistableArea> _persistableAreaFactory;
-        private readonly IReader<IPersonKey, IPersistablePerson> _personReader;
+        private readonly IWriter<Area, AreaKey> _areaWriter;
+        private readonly IReader<AreaKey, Area> _reader;
 
-        public AreaCreator(IReader<IPersonKey, IPersistablePerson> personReader,
-            IFactory<AreaData, IArea> areaFactory,
-            IDecoratorFactory<PersistableAreaData, IArea, IPersistableArea> persistableAreaFactory,
-            IWriter<IPersistableArea, IAreaKey> areaWriter,
-            IDecoratorFactory<AreaWithPeopleData, IPersistableArea, IAreaWithPeople> areaWithPeopleFactory,
-            IFactory<AreaKeyData,IAreaKey> areaKeyFactory)
+        public AreaCreator(IReader<AreaKey, Area> reader,
+            IWriter<Area, AreaKey> areaWriter)
         {
-            _personReader = personReader;
-            _areaFactory = areaFactory;
-            _persistableAreaFactory = persistableAreaFactory;
+            _reader = reader;
             _areaWriter = areaWriter;
-            _areaWithPeopleFactory = areaWithPeopleFactory;
-            _areaKeyFactory = areaKeyFactory;
         }
 
-        public void Create(Tuple<AreaPageModelBase, IPersonKey> input)
+        public void Create(Tuple<AreaPageModelBase, PersonKey> input)
         {
             var model = input.Item1;
             var personKey = input.Item2;
 
-            var person = _personReader.Read(personKey);
-
-            var area = _areaFactory.Create(new AreaData
+            var list = new List<IAreaElement>
             {
-                Name = model.Name,
-                Description = model.Description
-            });
+                new Name(model.Name),
+                new Description(model.Description),
+                personKey
+            };
 
-            var persistableArea = _persistableAreaFactory.Create(new PersistableAreaData
+            if (model.AreaId > 0)
             {
-                AreaKey = _areaKeyFactory.Create(new AreaKeyData { Identifier = model.AreaId })
-            }, area);
-
-            var areaWithPeople = _areaWithPeopleFactory.Create(new AreaWithPeopleData
+                var existingArea = _reader.Read(new AreaKey(model.AreaId)).Single();
+                list.AddRange(existingArea.OfType<Activity>());
+                list.Add(new AreaKey(model.AreaId));
+            }
+            else
             {
-                People = new List<IPersistablePerson> { person.FirstOrDefault() }
-            }, persistableArea);
+                list.Add(new CreationDate(model.Created));
+            }
 
-            _areaWriter.Save(areaWithPeople);
+            _areaWriter.Save(new Area(list.ToArray()));
         }
     }
 }

@@ -7,7 +7,5 @@ namespace TMS.ApplicationLayer.Activities.Data
     {
         public long PersonId { get; set; }
         public long ActivityId { get; set; }
-
-        public long AreaId { get; set; }
     }
 }

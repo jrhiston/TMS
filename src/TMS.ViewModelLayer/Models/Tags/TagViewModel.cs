@@ -1,11 +1,11 @@
 ﻿using System;
-using TMS.Layer.Visitors;
-using TMS.ModelLayerInterface.Tags;
-using TMS.ModelLayerInterface.Tags.Data;
+using TMS.ModelLayer;
+using TMS.ModelLayer.Tags;
+using TMS.ModelLayer.Tags.CanSetOnActivities;
 
 namespace TMS.ViewModelLayer.Models.Tags
 {
-    public class TagViewModel : IVisitor<TagData>, IVisitor<PersistableTagData>
+    public class TagViewModel : TagVisitorBase
     {
         public bool CanSetOnActivity { get; private set; }
         public DateTime Created { get; private set; }
@@ -13,22 +13,34 @@ namespace TMS.ViewModelLayer.Models.Tags
         public string Name { get; private set; }
         public long Identifier { get; private set; }
 
-        public TagViewModel(ITag tag)
+        public override ITagVisitor Visit(TagKey tagKey)
         {
-            tag.Accept(() => this);
+            Identifier = tagKey.Identifier;
+            return this;
         }
 
-        public void Visit(TagData data)
+        public override ITagVisitor Visit(CanSetOnActivityBase canSetOnActivityBase)
         {
-            Name = data.Name;
-            Description = data.Description;
-            CanSetOnActivity = data.CanSetOnActivity;
-            Created = data.Created;
+            CanSetOnActivity = canSetOnActivityBase.Value;
+            return this;
         }
 
-        public void Visit(PersistableTagData data)
+        public override ITagVisitor Visit(Description description)
         {
-            Identifier = data.Key.Identifier;
+            Description = description.Value;
+            return this;
+        }
+
+        public override ITagVisitor Visit(Name name)
+        {
+            Name = name.Value;
+            return this;
+        }
+
+        public override ITagVisitor Visit(CreationDate creationDate)
+        {
+            Created = creationDate.Value;
+            return this;
         }
     }
 }

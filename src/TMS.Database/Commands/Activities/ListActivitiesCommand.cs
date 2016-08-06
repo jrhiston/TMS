@@ -4,38 +4,33 @@ using TMS.Database.Entities.Activities;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Repositories;
-using TMS.ModelLayerInterface.Activities.Data;
-using TMS.ModelLayerInterface.Activities.Decorators;
-using Utility.StructureMap;
+using TMS.ModelLayer.Activities;
 
 namespace TMS.Database.Commands.Activities
 {
-    public class ListActivitiesCommand : IQueryCommand<ActivityFilterData, IEnumerable<IPersistableActivity>>
+    public class ListActivitiesCommand : IQueryCommand<ActivityFilterData, IEnumerable<Activity>>
     {
-        private readonly IObjectComposer<ActivityEntity, IPersistableActivity> _composer;
         private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
-        private readonly IConverter<ActivityEntity, IPersistableActivity> _entityToPersistableActivityConverter;
+        private readonly IConverter<ActivityEntity, Activity> _converter;
 
         public ListActivitiesCommand(IDatabaseContextFactory<ActivityEntity> contextFactory,
-            IObjectComposer<ActivityEntity, IPersistableActivity> composer,
-            IConverter<ActivityEntity, IPersistableActivity> entityToPersistableActivityConverter)
+            IConverter<ActivityEntity, Activity> converter)
         {
             _contextFactory = contextFactory;
-            _composer = composer;
-            _entityToPersistableActivityConverter = entityToPersistableActivityConverter;
+            _converter = converter;
         }
 
-        public Maybe<IEnumerable<IPersistableActivity>> ExecuteCommand(ActivityFilterData data)
+        public Maybe<IEnumerable<Activity>> ExecuteCommand(ActivityFilterData data)
         {
             using (var context = _contextFactory.Create())
             {
                 if (data == null)
-                    return new Maybe<IEnumerable<IPersistableActivity>>();
+                    return new Maybe<IEnumerable<Activity>>();
 
                 var areas = context.Entities.Where(item => item.AreaId == data.AreaKey.Identifier);
 
-                return new Maybe<IEnumerable<IPersistableActivity>>(areas
-                    .Select(area => _entityToPersistableActivityConverter.Convert(area))
+                return new Maybe<IEnumerable<Activity>>(areas
+                    .Select(area => _converter.Convert(area))
                     .SelectMany(item => item)
                     .ToList());
             }

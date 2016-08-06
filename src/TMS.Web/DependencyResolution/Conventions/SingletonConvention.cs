@@ -11,6 +11,7 @@ using TMS.Layer.Initialisers;
 using TMS.Layer.Creators;
 using TMS.Database;
 using TMS.Layer.Repositories;
+using TMS.Layer.Builders;
 
 namespace TMS.Web.DependencyResolution.Conventions
 {
@@ -38,7 +39,8 @@ namespace TMS.Web.DependencyResolution.Conventions
                    definition == typeof(IDatabaseContextFactory<>) ||
                    definition == typeof(INonQueryCommand<>) ||
                    definition == typeof(IQueryCommand<,>) || 
-                   definition == typeof(ISaveCommand));
+                   definition == typeof(ISaveCommand) ||
+                   definition == typeof(IEntityBuilder<,>));
         }
     }
 }

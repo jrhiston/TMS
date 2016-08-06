@@ -1,26 +1,15 @@
-﻿using TMS.Layer.Visitors;
-using TMS.ModelLayerInterface.People.Data;
-using TMS.ModelLayerInterface.People.Decorators;
+﻿using TMS.ModelLayer.People;
 
 namespace TMS.ViewModelLayer.Models.People
 {
-    public class PersonPasswordHashViewModel : IVisitor<PersonData>, IVisitor<PersistablePersonData>
+    public class PersonPasswordHashViewModel : PersonVisitorBase
     {
         public string PasswordHash { get; private set; }
 
-        public PersonPasswordHashViewModel(IPersistablePerson persistablePerson)
+        public override IPersonVisitor Visit(PasswordHash passwordHash)
         {
-            persistablePerson.Accept(() => this);
-        }
-
-        public void Visit(PersistablePersonData data)
-        {
-            PasswordHash = data.PasswordHash;
-        }
-
-        public void Visit(PersonData data)
-        {
-            
+            PasswordHash = passwordHash.Value;
+            return this;
         }
     }
 }

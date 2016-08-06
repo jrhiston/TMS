@@ -42,14 +42,12 @@
     "TMS.Database": "1.0.0-*",
     "TMS.Layer": "1.0.0-*",
     "TMS.ModelLayer": "1.0.0-*",
-    "TMS.ModelLayerInterface": "1.0.0-*",
     "TMS.RepositoryLayer": "1.0.0-*",
     "StructureMap.Dnx": "1.0.0",
     "TMS.ApplicationLayer": "1.0.0-*",
     "TMS.ViewModelLayer": "1.0.0-*",
     "NLog.Extensions.Logging": "1.0.0-rtm-alpha1",
-    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0",
-    "Utility.StructureMap": "1.0.0-*"
+    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0"
   },
 
   "tools": {

@@ -3,29 +3,29 @@ using TMS.Database.Entities.People;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Repositories;
-using TMS.ModelLayerInterface.People;
-using TMS.ModelLayerInterface.People.Decorators;
+using TMS.ModelLayer.People;
 
 namespace TMS.Database.Commands.People
 {
-    public class GetPersonCommand : IQueryCommand<IPersonKey, IPersistablePerson>
+    public class GetPersonCommand : IQueryCommand<PersonKey, Person>
     {
         private readonly IDatabaseContextFactory<PersonEntity> _contextFactory;
-        private readonly IConverter<PersonEntity, IPersistablePerson> _personConverter;
+        private readonly IConverter<PersonEntity, Person> _personConverter;
 
-        public GetPersonCommand(IDatabaseContextFactory<PersonEntity> contextFactory, IConverter<PersonEntity, IPersistablePerson> personConverter)
+        public GetPersonCommand(IDatabaseContextFactory<PersonEntity> contextFactory, IConverter<PersonEntity, Person> personConverter)
         {
             _contextFactory = contextFactory;
             _personConverter = personConverter;
         }
 
-        public Maybe<IPersistablePerson> ExecuteCommand(IPersonKey data)
+        public Maybe<Person> ExecuteCommand(PersonKey data)
         {
             using (var context = _contextFactory.Create())
             {
-                var matchingEntity = context.Entities.FirstOrDefault(item => item.Id == data.Identifier);
-
-                return _personConverter.Convert(matchingEntity);
+                return _personConverter
+                    .Convert(context
+                        .Entities
+                        .Single(item => item.Id == data.Identifier));
             }
         }
     }

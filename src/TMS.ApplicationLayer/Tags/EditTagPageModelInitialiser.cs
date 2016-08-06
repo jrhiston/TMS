@@ -3,11 +3,9 @@ using System.Linq;
 using TMS.ApplicationLayer.Exceptions;
 using TMS.ApplicationLayer.Tags.Data;
 using TMS.Layer.Exceptions;
-using TMS.Layer.Factories;
 using TMS.Layer.Initialisers;
 using TMS.Layer.Readers;
-using TMS.ModelLayerInterface.Tags;
-using TMS.ModelLayerInterface.Tags.Data;
+using TMS.ModelLayer.Tags;
 using TMS.ViewModelLayer.Models.Tags;
 using TMS.ViewModelLayer.Models.Tags.Pages;
 
@@ -15,14 +13,11 @@ namespace TMS.ApplicationLayer.Tags
 {
     public class EditTagPageModelInitialiser : IInitialiser<EditTagPageModelInitialiserData, EditTagPageModel>
     {
-        private readonly IFactory<TagKeyData, ITagKey> _tagKeyFactory;
-        private readonly IReader<ITagKey, ITag> _tagReader;
+        private readonly IReader<TagKey, Tag> _tagReader;
 
-        public EditTagPageModelInitialiser(IReader<ITagKey, ITag> tagReader,
-            IFactory<TagKeyData, ITagKey> tagKeyFactory)
+        public EditTagPageModelInitialiser(IReader<TagKey, Tag> tagReader)
         {
             _tagReader = tagReader;
-            _tagKeyFactory = tagKeyFactory;
         }
 
         public EditTagPageModel Initialise(EditTagPageModelInitialiserData data)
@@ -32,7 +27,7 @@ namespace TMS.ApplicationLayer.Tags
             if (data.TagId <= 0)
                 throw new IdentifierNotSpecifiedException("Must provide an identifier greater than zero to edit a tag.");
 
-            var tagKey = _tagKeyFactory.Create(new TagKeyData { Identifier = data.TagId });
+            var tagKey = new TagKey(data.TagId);
 
             var tag = _tagReader
                 .Read(tagKey)?
@@ -41,7 +36,7 @@ namespace TMS.ApplicationLayer.Tags
             if (tag == null)
                 throw new ModelObjectNotFoundException($"Failed to find tag with id {data.TagId}");
 
-            var tagViewModel = new TagViewModel(tag);
+            var tagViewModel = (TagViewModel)tag.Accept(new TagViewModel());
 
             return new EditTagPageModel
             {

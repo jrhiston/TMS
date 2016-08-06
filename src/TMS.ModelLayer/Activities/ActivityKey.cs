@@ -1,9 +1,14 @@
-﻿using TMS.ModelLayerInterface.Activities;
-
-namespace TMS.ModelLayer.Activities
+﻿namespace TMS.ModelLayer.Activities
 {
-    internal class ActivityKey : IActivityKey
+    public class ActivityKey : Key, IActivityElement
     {
-        public long Identifier { get; set; }
+        public ActivityKey(long id) : base(id)
+        {
+        }
+
+        public IActivityVisitor Accept(IActivityVisitor visitor)
+        {
+            return visitor.Visit(this);
+        }
     }
 }

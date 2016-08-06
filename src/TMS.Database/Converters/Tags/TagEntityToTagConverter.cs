@@ -1,43 +1,33 @@
-﻿using TMS.Database.Entities.Tags;
+﻿using System.Collections.Generic;
+using TMS.Database.Entities.Tags;
 using TMS.Layer;
 using TMS.Layer.Conversion;
-using TMS.Layer.Factories;
-using TMS.ModelLayerInterface.Tags;
-using TMS.ModelLayerInterface.Tags.Data;
-using TMS.ModelLayerInterface.Tags.Decorators;
+using TMS.ModelLayer;
+using TMS.ModelLayer.Tags;
+using TMS.ModelLayer.Tags.CanSetOnActivities;
 
 namespace TMS.Database.Converters.Tags
 {
-    public class TagEntityToTagConverter : IConverter<TagEntity, ITag>
+    public class TagEntityToTagConverter : IConverter<TagEntity, Tag>
     {
-        private readonly IDecoratorFactory<PersistableTagData, ITag, IPersistableTag> _persistableTagFactory;
-        private readonly IFactory<TagData, ITag> _tagFactory;
-        private readonly IFactory<TagKeyData, ITagKey> _tagKeyFactory;
-
-        public TagEntityToTagConverter(IFactory<TagData, ITag> tagFactory,
-            IDecoratorFactory<PersistableTagData, ITag, IPersistableTag> persistableTagFactory,
-            IFactory<TagKeyData, ITagKey> tagKeyFactory)
+        public Maybe<Tag> Convert(TagEntity tagEntity)
         {
-            _tagFactory = tagFactory;
-            _persistableTagFactory = persistableTagFactory;
-            _tagKeyFactory = tagKeyFactory;
-        }
+            var canSetOnActivity =
+                tagEntity.CanSetOnActivity 
+                ? (CanSetOnActivityBase) new CanSetOnActivity() 
+                : new CanNotSetOnActivity();
 
-        public Maybe<ITag> Convert(TagEntity tagEntity)
-        {
-            var tag = _tagFactory.Create(new TagData
+            var list = new List<ITagElement>
             {
-                Name = tagEntity.Name,
-                Created = tagEntity.Created,
-                Description = tagEntity.Description,
-                CanSetOnActivity = tagEntity.CanSetOnActivity,
-                Reusable = tagEntity.Reusable
-            });
+                new Name(tagEntity.Name),
+                new CreationDate(tagEntity.Created),
+                new Description(tagEntity.Description),
+                canSetOnActivity,
+                new Reusable(tagEntity.Reusable),
+                new TagKey(tagEntity.Id)
+            };
 
-            return new Maybe<ITag>(_persistableTagFactory.Create(new PersistableTagData
-            {
-                Key = _tagKeyFactory.Create(new TagKeyData { Identifier = tagEntity.Id })
-            }, tag));
+            return new Maybe<Tag>(new Tag(list.ToArray()));
         }
     }
 }

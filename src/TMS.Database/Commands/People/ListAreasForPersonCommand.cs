@@ -4,26 +4,26 @@ using TMS.Database.Entities.Areas;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.Layer.Repositories;
-using TMS.ModelLayerInterface.Areas.Decorators;
-using TMS.ModelLayerInterface.People;
+using TMS.ModelLayer.Areas;
+using TMS.ModelLayer.People;
 
 namespace TMS.Database.Commands.People
 {
-    public class ListAreasForPersonCommand : IQueryCommand<IPersonKey, IEnumerable<IPersistableArea>>
+    public class ListAreasForPersonCommand : IQueryCommand<PersonKey, IEnumerable<Area>>
     {
-        private readonly IConverter<AreaEntity, IPersistableArea> _areaEntityToPersistableAreaConverter;
+        private readonly IConverter<AreaEntity, Area> _converter;
         private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
 
-        public ListAreasForPersonCommand(IDatabaseContextFactory<AreaEntity> contextFactory, IConverter<AreaEntity, IPersistableArea> areaEntityToPersistableAreaConverter)
+        public ListAreasForPersonCommand(IDatabaseContextFactory<AreaEntity> contextFactory, IConverter<AreaEntity, Area> converter)
         {
             _contextFactory = contextFactory;
-            _areaEntityToPersistableAreaConverter = areaEntityToPersistableAreaConverter;
+            _converter = converter;
         }
 
-        public Maybe<IEnumerable<IPersistableArea>> ExecuteCommand(IPersonKey data)
+        public Maybe<IEnumerable<Area>> ExecuteCommand(PersonKey data)
         {
             if (data == null)
-                return new Maybe<IEnumerable<IPersistableArea>>();
+                return new Maybe<IEnumerable<Area>>();
 
             using (var context = _contextFactory.Create())
             {
@@ -31,8 +31,8 @@ namespace TMS.Database.Commands.People
                             where area.AreaPersons.Any(a => a.PersonId == data.Identifier)
                             select area;
 
-                return new Maybe<IEnumerable<IPersistableArea>>(areas
-                    .Select(area => _areaEntityToPersistableAreaConverter.Convert(area))
+                return new Maybe<IEnumerable<Area>>(areas
+                    .Select(area => _converter.Convert(area))
                     .SelectMany(item => item)
                     .ToList());
             }

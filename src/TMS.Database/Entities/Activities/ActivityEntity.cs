@@ -1,20 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TMS.Database.Entities.Areas;
 using TMS.Database.Entities.People;
 using TMS.Database.Entities.Tags;
-using TMS.Layer.Visitors;
-using TMS.ModelLayerInterface.Activities;
-using TMS.ModelLayerInterface.Activities.Data;
-using TMS.ModelLayerInterface.Areas.Data;
 
 namespace TMS.Database.Entities.Activities
 {
     [Table("Activity")]
-    public class ActivityEntity : IVisitor<ActivityData>, IVisitor<ActivityAreaData>, IVisitor<OwnedActivityData>, IVisitor<PersistableActivityData>
+    public class ActivityEntity
     {
         [Key]
         public long Id { get; set; }
@@ -41,43 +36,9 @@ namespace TMS.Database.Entities.Activities
 
         public ICollection<TagActivityEntity> Tags { get; set; }
 
-        internal void Accept(ActivityEntity newEntity)
+        public ActivityEntity()
         {
-            Title = newEntity.Title;
-            DeliveryTime = newEntity.DeliveryTime;
-            Description = newEntity.Description;
-            Owner = newEntity.Owner;
-            AreaId = newEntity.AreaId;
-            Area = newEntity.Area;
-        }
-
-        internal void Accept(IActivity activity) => activity.Accept(() => this);
-
-        public void Visit(ActivityData data)
-        {
-            Title = data.Title;
-            Description = data.Description;
-        }
-
-        public void Visit(ActivityAreaData data)
-        {
-            var areaEntity = new AreaEntity();
-            areaEntity.Accept(data.Area);
-
-            AreaId = areaEntity.Id;
-        }
-
-        public void Visit(OwnedActivityData data)
-        {
-            OwnerId = data.OwnerKey.Identifier;
-        }
-
-        public void Visit(PersistableActivityData data)
-        {
-            if (data.Key != null && data.Key.Identifier > 0)
-                Id = data.Key.Identifier;
-            else
-                Created = DateTime.UtcNow;
+            Tags = new HashSet<TagActivityEntity>();
         }
     }
 }
