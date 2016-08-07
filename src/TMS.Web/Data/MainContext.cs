@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TMS.Database;
 using TMS.Database.Entities.Activities;
@@ -8,6 +6,7 @@ using TMS.Database.Entities.Areas;
 using TMS.Database.Entities.People;
 using TMS.Database.Entities.PeopleAreas;
 using TMS.Database.Entities.Tags;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TMS.Web.Data
 {
@@ -32,10 +31,44 @@ namespace TMS.Web.Data
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(modelBuilder);
+            base.OnModelCreating(builder);
 
+            DefineManyToManyForPeopleAreas(builder);
+            DefineManyToManyForTagActivities(builder);
+            RestrictCascadeForAuthoredTags(builder);
+        }
+
+        private static void RestrictCascadeForAuthoredTags(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<TagEntity>()
+                .HasOne(t => t.Author)
+                .WithMany(p => p.AuthoredTags)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+
+        private static void DefineManyToManyForTagActivities(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TagActivityEntity>()
+                            .HasKey(tae => new { tae.TagId, tae.ActivityId });
+
+            modelBuilder
+                .Entity<TagActivityEntity>()
+                .HasOne(tae => tae.Activity)
+                .WithMany(a => a.Tags)
+                .HasForeignKey(tae => tae.ActivityId);
+
+            modelBuilder
+                .Entity<TagActivityEntity>()
+                .HasOne(tae => tae.Tag)
+                .WithMany(t => t.Activities)
+                .HasForeignKey(tae => tae.TagId);
+        }
+
+        private static void DefineManyToManyForPeopleAreas(ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<PeopleAreasEntity>()
                 .HasKey(pat => new { pat.PersonId, pat.AreaId });
 
@@ -50,21 +83,6 @@ namespace TMS.Web.Data
                 .HasOne(pat => pat.Area)
                 .WithMany(a => a.AreaPersons)
                 .HasForeignKey(pat => pat.AreaId);
-
-            modelBuilder.Entity<TagActivityEntity>()
-                .HasKey(tae => new { tae.TagId, tae.ActivityId });
-
-            modelBuilder
-                .Entity<TagActivityEntity>()
-                .HasOne(tae => tae.Activity)
-                .WithMany(a => a.Tags)
-                .HasForeignKey(tae => tae.ActivityId);
-
-            modelBuilder
-                .Entity<TagActivityEntity>()
-                .HasOne(tae => tae.Tag)
-                .WithMany(t => t.Activities)
-                .HasForeignKey(tae => tae.TagId);
         }
     }
 }

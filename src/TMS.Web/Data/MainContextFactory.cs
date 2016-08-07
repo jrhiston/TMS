@@ -7,12 +7,14 @@ using TMS.Web.Options;
 using TMS.Database.Entities.Activities;
 using TMS.Layer.Factories;
 using TMS.Database.Entities.People;
+using TMS.Database.Entities.Tags;
 
 namespace TMS.Web.Data
 {
     public class MainContextFactory : IDatabaseContextFactory<AreaEntity>,
         IDatabaseContextFactory<ActivityEntity>,
-        IDatabaseContextFactory<PersonEntity>
+        IDatabaseContextFactory<PersonEntity>,
+        IDatabaseContextFactory<TagEntity>
     {
         private readonly IOptions<ApplicationConfigurations> _configurationOptions;
 
@@ -24,7 +26,7 @@ namespace TMS.Web.Data
         public IDatabaseContext<AreaEntity> Create() => CreateMainContext();
 
         IDatabaseContext<PersonEntity> IQueryFactory<IDatabaseContext<PersonEntity>>.Create() => CreateMainContext();
-
+        IDatabaseContext<TagEntity> IQueryFactory<IDatabaseContext<TagEntity>>.Create() => CreateMainContext();
         IDatabaseContext<ActivityEntity> IQueryFactory<IDatabaseContext<ActivityEntity>>.Create() => CreateMainContext();
 
         private MainContext CreateMainContext()

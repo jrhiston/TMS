@@ -3,6 +3,7 @@ using TMS.Database.Entities.Tags;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.ModelLayer;
+using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
 using TMS.ModelLayer.Tags.CanSetOnActivities;
 
@@ -24,7 +25,8 @@ namespace TMS.Database.Converters.Tags
                 new Description(tagEntity.Description),
                 canSetOnActivity,
                 new Reusable(tagEntity.Reusable),
-                new TagKey(tagEntity.Id)
+                new TagKey(tagEntity.Id),
+                new PersonKey(tagEntity.AuthorId)
             };
 
             return new Maybe<Tag>(new Tag(list.ToArray()));

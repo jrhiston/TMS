@@ -1,4 +1,5 @@
 ﻿using System;
+using TMS.ViewModelLayer.Models.Tags;
 
 namespace TMS.ViewModelLayer.Models.Activities.Pages
 {

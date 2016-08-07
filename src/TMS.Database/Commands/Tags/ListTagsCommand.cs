@@ -8,12 +8,12 @@ using TMS.ModelLayer.Tags;
 
 namespace TMS.Database.Commands.Tags
 {
-    public class ListPersistableTagsCommand : IQueryCommand<TagFilterData, IEnumerable<Tag>>
+    public class ListTagsCommand : IQueryCommand<TagFilterData, IEnumerable<Tag>>
     {
         private readonly IDatabaseContext<TagEntity> _context;
         private readonly IConverter<TagEntity, Tag> _converter;
 
-        public ListPersistableTagsCommand(IDatabaseContext<TagEntity> context,
+        public ListTagsCommand(IDatabaseContext<TagEntity> context,
             IConverter<TagEntity, Tag> converter)
         {
             _context = context;
@@ -32,7 +32,7 @@ namespace TMS.Database.Commands.Tags
             if (!tags.Any())
                 return new Maybe<IEnumerable<Tag>>();
 
-            return new Maybe<IEnumerable<Tag>>(tags.Select(t => _converter.Convert(t).Single()));
+            return new Maybe<IEnumerable<Tag>>(tags.ToList().Select(t => _converter.Convert(t).Single()));
         }
     }
 }

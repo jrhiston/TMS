@@ -8,13 +8,13 @@ using TMS.Web.Data;
 namespace TMS.Web.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20160615202508_Initial")]
-    partial class Initial
+    [Migration("20160807080826_RelaxedTagNameRequirement")]
+    partial class RelaxedTagNameRequirement
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
-                .HasAnnotation("ProductVersion", "1.0.0-rc2-20901")
+                .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole<long>", b =>
@@ -124,7 +124,7 @@ namespace TMS.Web.Migrations
 
             modelBuilder.Entity("TMS.Database.Entities.Activities.ActivityEntity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<long>("AreaId");
@@ -136,8 +136,7 @@ namespace TMS.Web.Migrations
                     b.Property<string>("Description")
                         .HasAnnotation("MaxLength", 255);
 
-                    b.Property<long?>("OwnerId")
-                        .IsRequired();
+                    b.Property<long>("OwnerId");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -187,11 +186,9 @@ namespace TMS.Web.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasAnnotation("MaxLength", 255);
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasAnnotation("MaxLength", 255);
 
                     b.Property<bool>("LockoutEnabled");
@@ -223,6 +220,7 @@ namespace TMS.Web.Migrations
                         .HasName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
+                        .IsUnique()
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
@@ -240,13 +238,53 @@ namespace TMS.Web.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("PeopleAreasEntity");
+                    b.ToTable("PersonArea");
+                });
+
+            modelBuilder.Entity("TMS.Database.Entities.Tags.TagActivityEntity", b =>
+                {
+                    b.Property<long>("TagId");
+
+                    b.Property<long>("ActivityId");
+
+                    b.HasKey("TagId", "ActivityId");
+
+                    b.HasIndex("ActivityId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("TagActivity");
+                });
+
+            modelBuilder.Entity("TMS.Database.Entities.Tags.TagEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("AuthorId");
+
+                    b.Property<bool>("CanSetOnActivity");
+
+                    b.Property<DateTime>("Created");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Reusable");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Tag");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<long>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole<long>")
-                        .WithMany()
+                        .WithMany("Claims")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -254,7 +292,7 @@ namespace TMS.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<long>", b =>
                 {
                     b.HasOne("TMS.Database.Entities.People.PersonEntity")
-                        .WithMany()
+                        .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -262,7 +300,7 @@ namespace TMS.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<long>", b =>
                 {
                     b.HasOne("TMS.Database.Entities.People.PersonEntity")
-                        .WithMany()
+                        .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -270,24 +308,24 @@ namespace TMS.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserRole<long>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole<long>")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TMS.Database.Entities.People.PersonEntity")
-                        .WithMany()
+                        .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("TMS.Database.Entities.Activities.ActivityEntity", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.Areas.AreaEntity")
-                        .WithMany()
+                    b.HasOne("TMS.Database.Entities.Areas.AreaEntity", "Area")
+                        .WithMany("Activities")
                         .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TMS.Database.Entities.People.PersonEntity")
+                    b.HasOne("TMS.Database.Entities.People.PersonEntity", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -295,15 +333,35 @@ namespace TMS.Web.Migrations
 
             modelBuilder.Entity("TMS.Database.Entities.PeopleAreas.PeopleAreasEntity", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.Areas.AreaEntity")
-                        .WithMany()
+                    b.HasOne("TMS.Database.Entities.Areas.AreaEntity", "Area")
+                        .WithMany("AreaPersons")
                         .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TMS.Database.Entities.People.PersonEntity")
-                        .WithMany()
+                    b.HasOne("TMS.Database.Entities.People.PersonEntity", "Person")
+                        .WithMany("PersonAreas")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TMS.Database.Entities.Tags.TagActivityEntity", b =>
+                {
+                    b.HasOne("TMS.Database.Entities.Activities.ActivityEntity", "Activity")
+                        .WithMany("Tags")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TMS.Database.Entities.Tags.TagEntity", "Tag")
+                        .WithMany("Activities")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TMS.Database.Entities.Tags.TagEntity", b =>
+                {
+                    b.HasOne("TMS.Database.Entities.People.PersonEntity", "Author")
+                        .WithMany("AuthoredTags")
+                        .HasForeignKey("AuthorId");
                 });
         }
     }

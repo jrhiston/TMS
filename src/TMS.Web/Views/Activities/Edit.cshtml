@@ -1,4 +1,5 @@
 ﻿@using TMS.ViewModelLayer.Models.Tags
+@using TMS.ViewModelLayer.Models.Activities
 @using TMS.Web.Components.Tags
 @model TMS.ViewModelLayer.Models.Activities.Pages.EditActivityPageModel
 
@@ -43,3 +44,11 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-8">
+        @await Component.InvokeAsync(nameof(CommentList), new { data = new CommentListFilterData { ActivityId = Model.Id } })
+    </div>
+</div>
+
+@Html.Partial("AddActivityComment", new ActivityCommentViewModel { ActivityId = Model.Id })

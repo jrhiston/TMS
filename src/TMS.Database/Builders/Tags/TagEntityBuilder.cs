@@ -1,6 +1,7 @@
 ﻿using TMS.Database.Entities.Tags;
 using TMS.Layer.Builders;
 using TMS.ModelLayer;
+using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
 using TMS.ModelLayer.Tags.CanSetOnActivities;
 
@@ -52,6 +53,12 @@ namespace TMS.Database.Builders.Tags
         public override ITagVisitor Visit(Name name)
         {
             _entity.Name = name.Value;
+            return this;
+        }
+
+        public override ITagVisitor Visit(PersonKey personKey)
+        {
+            _entity.AuthorId = personKey.Identifier;
             return this;
         }
 

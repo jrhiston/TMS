@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TMS.Database.Entities.People;
 
 namespace TMS.Database.Entities.Tags
 {
@@ -9,10 +11,14 @@ namespace TMS.Database.Entities.Tags
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        [Required]
         public string Description { get; set; }
         public bool CanSetOnActivity { get; set; }
         public DateTime Created { get; set; }
         public bool Reusable { get; set; }
+
+        public long AuthorId { get; set; }
+        public PersonEntity Author { get; set; }
 
         public ICollection<TagActivityEntity> Activities { get; set; }
 

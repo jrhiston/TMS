@@ -3,15 +3,20 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TMS.ApplicationLayer.Activities.Data;
 using TMS.Database.Entities.People;
 using TMS.Layer.Creators;
 using TMS.Layer.Initialisers;
 using TMS.Layer.Persistence;
+using TMS.Layer.Readers;
 using TMS.ModelLayer.Activities;
 using TMS.ModelLayer.People;
+using TMS.ModelLayer.Tags;
+using TMS.ViewModelLayer.Models.Activities;
 using TMS.ViewModelLayer.Models.Activities.Pages;
+using TMS.ViewModelLayer.Models.Tags;
 using TMS.Web.Logging;
 
 namespace TMS.Web.Controllers
@@ -25,14 +30,20 @@ namespace TMS.Web.Controllers
         private readonly IInitialiser<DeleteActivityPageModelInitialiserData, DeleteActivityPageModel> _deleteInitialiser;
         private readonly IInitialiser<EditActivityPageModelInitialiserData, EditActivityPageModel> _editInitialiser;
         private readonly ILogger<ActivitiesController> _logger;
+        private readonly ICreator<ActivityCommentViewModel> _commentCreator;
+        private readonly IWriter<Tag, TagKey> _tagWriter;
+        private readonly IReader<ActivityKey, Activity> _activityReader;
 
         public ActivitiesController(UserManager<PersonEntity> userManager, 
             IInitialiser<CreateActivityPageModelInitialiserData, CreateActivityPageModel> createInitialiser,
             IInitialiser<DeleteActivityPageModelInitialiserData, DeleteActivityPageModel> deleteInitialiser,
             IInitialiser<EditActivityPageModelInitialiserData, EditActivityPageModel> editInitialiser,
             ICreator<Tuple<ActivityPageModelBase, PersonKey>> activityCreator,
+            ICreator<ActivityCommentViewModel> commentCreator,
             ILogger<ActivitiesController> logger,
-            IWriter<Activity,ActivityKey> activityWriter) : base(userManager)
+            IWriter<Activity,ActivityKey> activityWriter,
+            IReader<ActivityKey, Activity> activityReader,
+            IWriter<Tag, TagKey> tagWriter) : base(userManager)
         {
             _activityCreator = activityCreator;
             _createInitialiser = createInitialiser;
@@ -40,6 +51,9 @@ namespace TMS.Web.Controllers
             _logger = logger;
             _activityWriter = activityWriter;
             _editInitialiser = editInitialiser;
+            _commentCreator = commentCreator;
+            _tagWriter = tagWriter;
+            _activityReader = activityReader;
         }
 
         public ActionResult Create(long areaId)
@@ -146,6 +160,44 @@ namespace TMS.Web.Controllers
                 _logger.LogError(LoggingEvents.UPDATE_ITEM, ex, $"Failed to save changes to activity {model.Id}.");
                 return View();
             }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddComment(ActivityCommentViewModel model)
+        {
+            try
+            {
+                var personKey = await GetPersonKey();
+
+                model.CreatorId = personKey.Identifier;
+
+                _commentCreator.Create(model);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(LoggingEvents.UPDATE_ITEM, ex, $"Failed to save changes to activity {model.ActivityId}.");
+                ModelState.AddModelError("", "Failed to add comment.");
+            }
+
+            return RedirectToAction("Edit", new { id = model.ActivityId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteComment(CommentListItemViewModel comment)
+        {
+            try
+            {
+                _tagWriter.Delete(new TagKey(comment.Id));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(LoggingEvents.UPDATE_ITEM, ex, $"Failed to delete comment {comment.Id}.");
+                ModelState.AddModelError("", "Failed to delete comment.");
+            }
+
+            return RedirectToAction("Edit", new { id = comment.ParentId });
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags.CanSetOnActivities;
 
 namespace TMS.ModelLayer.Tags
@@ -12,6 +14,7 @@ namespace TMS.ModelLayer.Tags
         public virtual ITagVisitor Visit(CanSetOnActivityBase canSetOnActivityBase) => this;
         public virtual ITagVisitor Visit(Name name) => this;
         public virtual ITagVisitor Visit(TagKey tagKey) => this;
+        public virtual ITagVisitor Visit(PersonKey personKey) => this;
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

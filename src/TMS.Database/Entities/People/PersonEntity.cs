@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TMS.Database.Entities.PeopleAreas;
+using TMS.Database.Entities.Tags;
 
 namespace TMS.Database.Entities.People
 {
@@ -17,9 +18,13 @@ namespace TMS.Database.Entities.People
 
         public ICollection<PeopleAreasEntity> PersonAreas { get; set; }
 
+        [InverseProperty("Author")]
+        public ICollection<TagEntity> AuthoredTags { get; set; }
+
         public PersonEntity()
         {
             PersonAreas = new HashSet<PeopleAreasEntity>();
+            AuthoredTags = new HashSet<TagEntity>();
         }
     }
 }

@@ -8,8 +8,8 @@ using TMS.Web.Data;
 namespace TMS.Web.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20160727205052_Updates")]
-    partial class Updates
+    [Migration("20160807080011_AuthoredTags")]
+    partial class AuthoredTags
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -238,7 +238,7 @@ namespace TMS.Web.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("PeopleAreasEntity");
+                    b.ToTable("PersonArea");
                 });
 
             modelBuilder.Entity("TMS.Database.Entities.Tags.TagActivityEntity", b =>
@@ -253,7 +253,7 @@ namespace TMS.Web.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("TagActivityEntity");
+                    b.ToTable("TagActivity");
                 });
 
             modelBuilder.Entity("TMS.Database.Entities.Tags.TagEntity", b =>
@@ -261,17 +261,23 @@ namespace TMS.Web.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<long>("AuthorId");
+
                     b.Property<bool>("CanSetOnActivity");
 
                     b.Property<DateTime>("Created");
 
-                    b.Property<string>("Description");
+                    b.Property<string>("Description")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.Property<bool>("Reusable");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Tag");
                 });
@@ -350,6 +356,13 @@ namespace TMS.Web.Migrations
                         .WithMany("Activities")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("TMS.Database.Entities.Tags.TagEntity", b =>
+                {
+                    b.HasOne("TMS.Database.Entities.People.PersonEntity", "Author")
+                        .WithMany("AuthoredTags")
+                        .HasForeignKey("AuthorId");
                 });
         }
     }

@@ -16,8 +16,8 @@ namespace TMS.Web.Migrations
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    NormalizedName = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -46,7 +46,7 @@ namespace TMS.Web.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Created = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -61,24 +61,41 @@ namespace TMS.Web.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(nullable: false),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(maxLength: 255, nullable: true),
+                    LastName = table.Column<string>(maxLength: 255, nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NormalizedEmail = table.Column<string>(nullable: true),
-                    NormalizedUserName = table.Column<string>(nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     PasswordHash = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(nullable: true)
+                    UserName = table.Column<string>(maxLength: 256, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tag",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CanSetOnActivity = table.Column<bool>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Reusable = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tag", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -171,14 +188,14 @@ namespace TMS.Web.Migrations
                 name: "Activity",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AreaId = table.Column<long>(nullable: false),
                     Created = table.Column<DateTime>(nullable: false),
                     DeliveryTime = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(maxLength: 255, nullable: true),
                     OwnerId = table.Column<long>(nullable: false),
-                    Title = table.Column<string>(nullable: false)
+                    Title = table.Column<string>(maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -198,7 +215,7 @@ namespace TMS.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PeopleAreasEntity",
+                name: "PersonArea",
                 columns: table => new
                 {
                     PersonId = table.Column<long>(nullable: false),
@@ -206,17 +223,41 @@ namespace TMS.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PeopleAreasEntity", x => new { x.PersonId, x.AreaId });
+                    table.PrimaryKey("PK_PersonArea", x => new { x.PersonId, x.AreaId });
                     table.ForeignKey(
-                        name: "FK_PeopleAreasEntity_Area_AreaId",
+                        name: "FK_PersonArea_Area_AreaId",
                         column: x => x.AreaId,
                         principalTable: "Area",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PeopleAreasEntity_AspNetUsers_PersonId",
+                        name: "FK_PersonArea_AspNetUsers_PersonId",
                         column: x => x.PersonId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TagActivity",
+                columns: table => new
+                {
+                    TagId = table.Column<long>(nullable: false),
+                    ActivityId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TagActivity", x => new { x.TagId, x.ActivityId });
+                    table.ForeignKey(
+                        name: "FK_TagActivity_Activity_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TagActivity_Tag_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tag",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -269,17 +310,28 @@ namespace TMS.Web.Migrations
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
                 table: "AspNetUsers",
-                column: "NormalizedUserName");
+                column: "NormalizedUserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_PeopleAreasEntity_AreaId",
-                table: "PeopleAreasEntity",
+                name: "IX_PersonArea_AreaId",
+                table: "PersonArea",
                 column: "AreaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PeopleAreasEntity_PersonId",
-                table: "PeopleAreasEntity",
+                name: "IX_PersonArea_PersonId",
+                table: "PersonArea",
                 column: "PersonId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TagActivity_ActivityId",
+                table: "TagActivity",
+                column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TagActivity_TagId",
+                table: "TagActivity",
+                column: "TagId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -300,13 +352,19 @@ namespace TMS.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Activity");
+                name: "PersonArea");
 
             migrationBuilder.DropTable(
-                name: "PeopleAreasEntity");
+                name: "TagActivity");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Activity");
+
+            migrationBuilder.DropTable(
+                name: "Tag");
 
             migrationBuilder.DropTable(
                 name: "Area");

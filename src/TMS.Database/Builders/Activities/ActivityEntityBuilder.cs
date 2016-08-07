@@ -90,9 +90,9 @@ namespace TMS.Database.Builders.Activities
 
         private TagActivityEntity CreateNewTagLink(Tag data)
         {
-            var tagId = data.OfType<TagKey>().Single();
+            var tagId = data.OfType<TagKey>().FirstOrDefault();
 
-            if (tagId.Identifier <= 0)
+            if (tagId == null || tagId.Identifier <= 0)
             {
                 return new TagActivityEntity
                 {

@@ -20,7 +20,11 @@ namespace TMS.Web.Components.Tags
 
         public async Task<IViewComponentResult> InvokeAsync(TagListFilterData data)
         {
-            var result = await Task.Run(() => _tagReader.Read(new TagFilterData { ActivityKey = new ActivityKey(data.ActivityId) }));
+            var result = await Task.Run(() => _tagReader.Read(new TagFilterData
+            {
+                ActivityKey = new ActivityKey(data.ActivityId),
+                Reusable = true
+            }));
 
             var tagViewModels = result
                 .SelectMany(item => item)

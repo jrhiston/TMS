@@ -1,7 +1,9 @@
-﻿using TMS.Database.Entities.Activities;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using TMS.Database.Entities.Activities;
 
 namespace TMS.Database.Entities.Tags
 {
+    [Table("TagActivity")]
     public class TagActivityEntity
     {
         public long TagId { get; set; }
