@@ -1,11 +1,12 @@
 ﻿using System;
 using TMS.ModelLayer.Activities;
+using TMS.ModelLayer.Activities.Comments;
 using TMS.ModelLayer.Areas;
 using TMS.ModelLayer.Tags;
 
 namespace TMS.ModelLayer
 {
-    public struct Description : IActivityElement, ITagElement, IAreaElement
+    public struct Description : IActivityElement, ITagElement, IAreaElement, IActivityCommentElement
     {
         private readonly string _value;
 
@@ -19,5 +20,6 @@ namespace TMS.ModelLayer
         public IActivityVisitor Accept(IActivityVisitor visitor) => visitor.Visit(this);
         public ITagVisitor Accept(ITagVisitor visitor) => visitor.Visit(this);
         public IAreaVisitor Accept(IAreaVisitor visitor) => visitor.Visit(this);
+        public IActivityCommentVisitor Accept(IActivityCommentVisitor visitor) => visitor.Visit(this);
     }
 }

@@ -8,13 +8,15 @@ using TMS.Database.Entities.Activities;
 using TMS.Layer.Factories;
 using TMS.Database.Entities.People;
 using TMS.Database.Entities.Tags;
+using TMS.Database.Entities.Activities.Comments;
 
 namespace TMS.Web.Data
 {
     public class MainContextFactory : IDatabaseContextFactory<AreaEntity>,
         IDatabaseContextFactory<ActivityEntity>,
         IDatabaseContextFactory<PersonEntity>,
-        IDatabaseContextFactory<TagEntity>
+        IDatabaseContextFactory<TagEntity>,
+        IDatabaseContextFactory<ActivityCommentEntity>
     {
         private readonly IOptions<ApplicationConfigurations> _configurationOptions;
 
@@ -25,6 +27,7 @@ namespace TMS.Web.Data
 
         public IDatabaseContext<AreaEntity> Create() => CreateMainContext();
 
+        IDatabaseContext<ActivityCommentEntity> IQueryFactory<IDatabaseContext<ActivityCommentEntity>>.Create() => CreateMainContext();
         IDatabaseContext<PersonEntity> IQueryFactory<IDatabaseContext<PersonEntity>>.Create() => CreateMainContext();
         IDatabaseContext<TagEntity> IQueryFactory<IDatabaseContext<TagEntity>>.Create() => CreateMainContext();
         IDatabaseContext<ActivityEntity> IQueryFactory<IDatabaseContext<ActivityEntity>>.Create() => CreateMainContext();

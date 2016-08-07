@@ -12,6 +12,7 @@ using TMS.Layer.Initialisers;
 using TMS.Layer.Persistence;
 using TMS.Layer.Readers;
 using TMS.ModelLayer.Activities;
+using TMS.ModelLayer.Activities.Comments;
 using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
 using TMS.ViewModelLayer.Models.Activities;
@@ -31,7 +32,7 @@ namespace TMS.Web.Controllers
         private readonly IInitialiser<EditActivityPageModelInitialiserData, EditActivityPageModel> _editInitialiser;
         private readonly ILogger<ActivitiesController> _logger;
         private readonly ICreator<ActivityCommentViewModel> _commentCreator;
-        private readonly IWriter<Tag, TagKey> _tagWriter;
+        private readonly IWriter<ActivityComment, ActivityCommentKey> _tagWriter;
         private readonly IReader<ActivityKey, Activity> _activityReader;
 
         public ActivitiesController(UserManager<PersonEntity> userManager, 
@@ -43,7 +44,7 @@ namespace TMS.Web.Controllers
             ILogger<ActivitiesController> logger,
             IWriter<Activity,ActivityKey> activityWriter,
             IReader<ActivityKey, Activity> activityReader,
-            IWriter<Tag, TagKey> tagWriter) : base(userManager)
+            IWriter<ActivityComment, ActivityCommentKey> tagWriter) : base(userManager)
         {
             _activityCreator = activityCreator;
             _createInitialiser = createInitialiser;
@@ -189,7 +190,7 @@ namespace TMS.Web.Controllers
         {
             try
             {
-                _tagWriter.Delete(new TagKey(comment.Id));
+                _tagWriter.Delete(new ActivityCommentKey(comment.Id));
             }
             catch (Exception ex)
             {

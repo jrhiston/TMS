@@ -7,6 +7,8 @@ using TMS.Database.Entities.People;
 using TMS.Database.Entities.PeopleAreas;
 using TMS.Database.Entities.Tags;
 using Microsoft.EntityFrameworkCore.Metadata;
+using TMS.Database.Entities.Activities.Comments;
+using System;
 
 namespace TMS.Web.Data
 {
@@ -14,10 +16,12 @@ namespace TMS.Web.Data
         IDatabaseContext<PersonEntity>,
         IDatabaseContext<AreaEntity>,
         IDatabaseContext<ActivityEntity>,
-        IDatabaseContext<TagEntity>
+        IDatabaseContext<TagEntity>,
+        IDatabaseContext<ActivityCommentEntity>
     {
         public DbSet<AreaEntity> Areas { get; set; }
         public DbSet<ActivityEntity> Activities { get; set; }
+        public DbSet<ActivityCommentEntity> ActivityComments { get; set; }
 
         public DbSet<TagEntity> Tags { get; set; }
 
@@ -25,6 +29,8 @@ namespace TMS.Web.Data
         DbSet<AreaEntity> IDatabaseContext<AreaEntity>.Entities => Areas;
         DbSet<ActivityEntity> IDatabaseContext<ActivityEntity>.Entities => Activities;
         DbSet<TagEntity> IDatabaseContext<TagEntity>.Entities => Tags;
+
+        public DbSet<ActivityCommentEntity> Entities => ActivityComments;
 
         public MainContext(DbContextOptions options) : base(options)
         {
@@ -38,6 +44,7 @@ namespace TMS.Web.Data
             DefineManyToManyForPeopleAreas(builder);
             DefineManyToManyForTagActivities(builder);
             RestrictCascadeForAuthoredTags(builder);
+            RestrictCascadeForAuthoredActivityComments(builder);
         }
 
         private static void RestrictCascadeForAuthoredTags(ModelBuilder modelBuilder)
@@ -46,6 +53,15 @@ namespace TMS.Web.Data
                 .Entity<TagEntity>()
                 .HasOne(t => t.Author)
                 .WithMany(p => p.AuthoredTags)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+
+        private static void RestrictCascadeForAuthoredActivityComments(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<ActivityCommentEntity>()
+                .HasOne(t => t.Author)
+                .WithMany(p => p.AuthoredActivityComments)
                 .OnDelete(DeleteBehavior.Restrict);
         }
 

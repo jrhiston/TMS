@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using TMS.Database.Entities.PeopleAreas;
 using TMS.Database.Entities.Tags;
+using TMS.Database.Entities.Activities.Comments;
 
 namespace TMS.Database.Entities.People
 {
@@ -21,10 +22,14 @@ namespace TMS.Database.Entities.People
         [InverseProperty("Author")]
         public ICollection<TagEntity> AuthoredTags { get; set; }
 
+        [InverseProperty("Author")]
+        public ICollection<ActivityCommentEntity> AuthoredActivityComments { get; set; }
+
         public PersonEntity()
         {
             PersonAreas = new HashSet<PeopleAreasEntity>();
             AuthoredTags = new HashSet<TagEntity>();
+            AuthoredActivityComments = new HashSet<ActivityCommentEntity>();
         }
     }
 }

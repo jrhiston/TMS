@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMS.ModelLayer.Activities.Comments;
 using TMS.ModelLayer.Areas;
 using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
@@ -16,6 +17,7 @@ namespace TMS.ModelLayer.Activities
         public virtual IActivityVisitor Visit(Description data) => this;
         public virtual IActivityVisitor Visit(Name data) => this;
         public virtual IActivityVisitor Visit(AreaKey data) => this;
+        public virtual IActivityVisitor Visit(ActivityComment activityComment) => this;
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

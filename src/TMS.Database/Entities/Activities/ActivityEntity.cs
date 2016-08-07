@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TMS.Database.Entities.Activities.Comments;
 using TMS.Database.Entities.Areas;
 using TMS.Database.Entities.People;
 using TMS.Database.Entities.Tags;
@@ -36,9 +37,12 @@ namespace TMS.Database.Entities.Activities
 
         public ICollection<TagActivityEntity> Tags { get; set; }
 
+        public ICollection<ActivityCommentEntity> Comments { get; set; }
+
         public ActivityEntity()
         {
             Tags = new HashSet<TagActivityEntity>();
+            Comments = new HashSet<ActivityCommentEntity>();
         }
     }
 }

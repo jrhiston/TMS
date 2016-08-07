@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMS.Layer.Readers;
 using TMS.ModelLayer.Activities;
+using TMS.ModelLayer.Activities.Comments;
 using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
 using TMS.ViewModelLayer.Models.Tags;
@@ -14,9 +15,9 @@ namespace TMS.Web.Components.Tags
     public class CommentList : ViewComponent
     {
         private readonly IReader<PersonKey, Person> _personReader;
-        private readonly IReader<TagFilterData, IEnumerable<Tag>> _tagReader;
+        private readonly IReader<ActivityCommentFilterData, IEnumerable<ActivityComment>> _tagReader;
 
-        public CommentList(IReader<TagFilterData, IEnumerable<Tag>> tagReader,
+        public CommentList(IReader<ActivityCommentFilterData, IEnumerable<ActivityComment>> tagReader,
             IReader<PersonKey, Person> personReader)
         {
             _tagReader = tagReader;
@@ -25,10 +26,9 @@ namespace TMS.Web.Components.Tags
 
         public async Task<IViewComponentResult> InvokeAsync(CommentListFilterData data)
         {
-            var result = await Task.Run(() => _tagReader.Read(new TagFilterData
+            var result = await Task.Run(() => _tagReader.Read(new ActivityCommentFilterData
             {
-                ActivityKey = new ActivityKey(data.ActivityId),
-                Reusable = false
+                ActivityKey = new ActivityKey(data.ActivityId)
             }));
 
             var comments = result

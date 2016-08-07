@@ -5,6 +5,7 @@ using TMS.Layer.Persistence;
 using TMS.Layer.Readers;
 using TMS.ModelLayer;
 using TMS.ModelLayer.Activities;
+using TMS.ModelLayer.Activities.Comments;
 using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
 using TMS.ModelLayer.Tags.CanSetOnActivities;
@@ -30,10 +31,8 @@ namespace TMS.ApplicationLayer.Activities
 
             var list = activity.Single().OfType<IActivityElement>().ToList();
 
-            list.Add(new Tag(
+            list.Add(new ActivityComment(
                 new Description(model.Description),
-                new Reusable(false),
-                new CanSetOnActivity(),
                 new CreationDate(DateTime.UtcNow),
                 new PersonKey(model.CreatorId)
             ));
