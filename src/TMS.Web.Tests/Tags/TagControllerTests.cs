@@ -12,7 +12,10 @@ using TMS.ApplicationLayer.Tags.Data;
 using TMS.Database.Entities.People;
 using TMS.Layer.Creators;
 using TMS.Layer.Initialisers;
+using TMS.Layer.Persistence;
 using TMS.ModelLayer.People;
+using TMS.ModelLayer.Tags;
+using TMS.ViewModelLayer.Models.Tags;
 using TMS.ViewModelLayer.Models.Tags.Pages;
 using TMS.Web.Controllers;
 using Xunit;
@@ -21,86 +24,7 @@ namespace TMS.Web.Tests.Tags
 {
     public class TagControllerTests
     {
-        [Theory]
-        [InlineData(1)]
-        [InlineData(2)]
-        [InlineData(3)]
-        public void CreateForActivity_ReturnsModel_GivenActivityId(long activityId)
-        {
-            var mockInitialiser = GetCreateTagPageModelInitialiser();
-            var mockCreator = GetMockCreator();
-            var userManager = GetUserManager();
-            var data = new CreateTagForActivityPageModelInitialiserData { ActivityId = activityId };
-
-            mockInitialiser
-                .Setup(i => i.Initialise(It.IsAny<CreateTagForActivityPageModelInitialiserData>()))
-                .Returns(new CreateTagForActivityPageModel { ActivityId = activityId });
-
-            var controller = new TagController(userManager, mockInitialiser.Object, mockCreator.Object);
-
-            var result = controller.CreateForActivity(activityId);
-
-            var actionResult = Assert.IsType<ViewResult>(result);
-
-            var model = Assert.IsType<CreateTagForActivityPageModel>(actionResult.Model);
-
-            Assert.Equal(activityId, model.ActivityId);
-        }
-
-        [Theory]
-        [InlineData(1)]
-        [InlineData(2)]
-        [InlineData(3)]
-        public void CreateForActivity_InitialiserCalled_GivenActivityId(long activityId)
-        {
-            var expectedPageModel = new CreateTagForActivityPageModel();
-
-            var mockInitialiser = GetCreateTagPageModelInitialiser();
-            var mockCreator = GetMockCreator();
-            var userManager = GetUserManager();
-
-            mockInitialiser
-                .Setup(i => i.Initialise(It.IsAny<CreateTagForActivityPageModelInitialiserData>()))
-                .Returns(expectedPageModel);
-
-            var controller = new TagController(userManager, mockInitialiser.Object, mockCreator.Object);
-
-            var result = controller.CreateForActivity(activityId);
-
-            var actionResult = Assert.IsType<ViewResult>(result);
-
-            mockInitialiser
-                .Verify(i => i.Initialise(It.Is<CreateTagForActivityPageModelInitialiserData>(v => v.ActivityId == activityId)), Times.Once);
-
-            Assert.Same(expectedPageModel, actionResult.Model);
-        }
-
-        [Fact]
-        public void CreateForActivity_ReturnsActivityId_GivenActivityId()
-        {
-            long activityId = 1;
-            var mockInitialiser = GetCreateTagPageModelInitialiser();
-            var mockCreator = GetMockCreator();
-            var userManager = GetUserManager();
-            var expectedPageModel = new CreateTagForActivityPageModel
-            {
-                ActivityId = activityId
-            };
-            mockInitialiser
-                .Setup(i => i.Initialise(It.IsAny<CreateTagForActivityPageModelInitialiserData>()))
-                .Returns(expectedPageModel);
-            var controller = new TagController(userManager, mockInitialiser.Object, mockCreator.Object);
-
-            // Act
-            var result = controller.CreateForActivity(activityId);
-
-            var actionResult = Assert.IsType<ViewResult>(result);
-
-            var model = Assert.IsType<CreateTagForActivityPageModel>(actionResult.Model);
-
-            Assert.Equal(activityId, model.ActivityId);
-        }
-
+        
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
@@ -111,10 +35,14 @@ namespace TMS.Web.Tests.Tags
             var mockCreator = GetMockCreator();
             var userManager = GetUserManager();
 
-            var controller = new TagController(userManager, initialiser.Object, mockCreator.Object);
+            var controller = new TagsController(userManager, initialiser.Object, Mock.Of<IInitialiser<TagsPageModelInitialiserData, TagsPageModel>>(), mockCreator.Object, Mock.Of<IInitialiser<DeleteTagPageModelInitialiserData, DeleteTagPageModel>>(),
+                Mock.Of<IInitialiser<EditTagPageModelInitialiserData, EditTagPageModel>>(),
+                Mock.Of<IWriter<Tag, TagKey>>(),
+                Mock.Of<ILogger<TagsController>>(),
+                Mock.Of<ICreator<TagPageModelBase>>());
 
-            var pageModel = new CreateTagForActivityPageModel {
-                ActivityId = activityId
+            var pageModel = new AddTagViewModel {
+                ObjectId = activityId
             };
 
             controller.ControllerContext.HttpContext = Mock.Of<HttpContext>(c => c.User == new ClaimsPrincipal(new[]
@@ -141,9 +69,13 @@ namespace TMS.Web.Tests.Tags
             var mockCreator = GetMockCreator();
             var userManager = GetUserManager();
 
-            var pageModel = new CreateTagForActivityPageModel();
+            var pageModel = new AddTagViewModel();
 
-            var controller = new TagController(userManager, initialiser.Object, mockCreator.Object);
+            var controller = new TagsController(userManager, initialiser.Object, Mock.Of<IInitialiser<TagsPageModelInitialiserData, TagsPageModel>>(), mockCreator.Object, Mock.Of<IInitialiser<DeleteTagPageModelInitialiserData, DeleteTagPageModel>>(),
+                Mock.Of<IInitialiser<EditTagPageModelInitialiserData, EditTagPageModel>>(),
+                Mock.Of<IWriter<Tag, TagKey>>(),
+                Mock.Of<ILogger<TagsController>>(),
+                Mock.Of<ICreator<TagPageModelBase>>());
 
             controller.ControllerContext.HttpContext = Mock.Of<HttpContext>(c => c.User == new ClaimsPrincipal(new[]
             {
@@ -152,7 +84,7 @@ namespace TMS.Web.Tests.Tags
 
             var result = controller.CreateForActivity(pageModel);
 
-            mockCreator.Verify(c => c.Create(It.Is<Tuple<CreateTagForActivityPageModel, PersonKey>>(m => ReferenceEquals(m.Item1, pageModel))), Times.Once);
+            mockCreator.Verify(c => c.Create(It.Is<AddTagViewModel>(m => ReferenceEquals(m, pageModel))), Times.Once);
         }
 
         private static FakeUserManager GetUserManager()
@@ -194,9 +126,9 @@ namespace TMS.Web.Tests.Tags
             return new Mock<IInitialiser<CreateTagForActivityPageModelInitialiserData, CreateTagForActivityPageModel>>();
         }
 
-        private static Mock<ICreator<Tuple<CreateTagForActivityPageModel, PersonKey>>> GetMockCreator()
+        private static Mock<ICreator<AddTagViewModel>> GetMockCreator()
         {
-            return new Mock<ICreator<Tuple<CreateTagForActivityPageModel, PersonKey>>>();
+            return new Mock<ICreator<AddTagViewModel>>();
         }
     }
 }

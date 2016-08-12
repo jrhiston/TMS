@@ -20,11 +20,16 @@ namespace TMS.Database.Entities.Tags
         public long AuthorId { get; set; }
         public PersonEntity Author { get; set; }
 
+        public ICollection<TagToTagEntity> ParentTags { get; set; }
+        public ICollection<TagToTagEntity> ChildTags { get; set; }
+
         public ICollection<TagActivityEntity> Activities { get; set; }
 
         public TagEntity()
         {
             Activities = new HashSet<TagActivityEntity>();
+            ParentTags = new HashSet<TagToTagEntity>();
+            ChildTags = new HashSet<TagToTagEntity>();
         }
     }
 }

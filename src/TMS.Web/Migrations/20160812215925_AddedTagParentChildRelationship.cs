@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace TMS.Web.Migrations
 {
-    public partial class Initial : Migration
+    public partial class AddedTagParentChildRelationship : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -79,23 +79,6 @@ namespace TMS.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tag",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CanSetOnActivity = table.Column<bool>(nullable: false),
-                    Created = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
-                    Reusable = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tag", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -239,6 +222,58 @@ namespace TMS.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Tag",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AuthorId = table.Column<long>(nullable: false),
+                    CanSetOnActivity = table.Column<bool>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Reusable = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tag", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Tag_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ActivityComment",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ActivityId = table.Column<long>(nullable: false),
+                    AuthorId = table.Column<long>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ActivityComment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ActivityComment_Activity_ActivityId",
+                        column: x => x.ActivityId,
+                        principalTable: "Activity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ActivityComment_AspNetUsers_AuthorId",
+                        column: x => x.AuthorId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TagActivity",
                 columns: table => new
                 {
@@ -260,6 +295,30 @@ namespace TMS.Web.Migrations
                         principalTable: "Tag",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TagToTagEntity",
+                columns: table => new
+                {
+                    ParentTagId = table.Column<long>(nullable: false),
+                    ChildTagId = table.Column<long>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TagToTagEntity", x => new { x.ParentTagId, x.ChildTagId });
+                    table.ForeignKey(
+                        name: "FK_TagToTagEntity_Tag_ChildTagId",
+                        column: x => x.ChildTagId,
+                        principalTable: "Tag",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TagToTagEntity_Tag_ParentTagId",
+                        column: x => x.ParentTagId,
+                        principalTable: "Tag",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -303,6 +362,16 @@ namespace TMS.Web.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ActivityComment_ActivityId",
+                table: "ActivityComment",
+                column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityComment_AuthorId",
+                table: "ActivityComment",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -332,6 +401,21 @@ namespace TMS.Web.Migrations
                 name: "IX_TagActivity_TagId",
                 table: "TagActivity",
                 column: "TagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tag_AuthorId",
+                table: "Tag",
+                column: "AuthorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TagToTagEntity_ChildTagId",
+                table: "TagToTagEntity",
+                column: "ChildTagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TagToTagEntity_ParentTagId",
+                table: "TagToTagEntity",
+                column: "ParentTagId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -352,10 +436,16 @@ namespace TMS.Web.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "ActivityComment");
+
+            migrationBuilder.DropTable(
                 name: "PersonArea");
 
             migrationBuilder.DropTable(
                 name: "TagActivity");
+
+            migrationBuilder.DropTable(
+                name: "TagToTagEntity");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

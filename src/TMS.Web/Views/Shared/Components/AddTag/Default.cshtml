@@ -1,0 +1,26 @@
+﻿@model TMS.ViewModelLayer.Models.Tags.AddTagViewModel
+
+@if (Model.Tags != null)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Add Tag
+        </div>
+        <div class="panel-body">
+            <form asp-controller="@Model.Controller" asp-action="@Model.Action" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                <input type="hidden" asp-for="ObjectId" />
+                <div class="form-group">
+                    <label asp-for="TagToAddId" class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <select asp-for="TagToAddId" class="form-control" asp-items="@Model.Tags"></select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10 col-md-offset-2">
+                        <button type="submit" class="btn btn-default">Add</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}

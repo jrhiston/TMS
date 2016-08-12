@@ -41,10 +41,11 @@ namespace TMS.ApplicationLayer.Tags
             return new EditTagPageModel
             {
                 TagId = tagViewModel.Identifier,
-                TagName = tagViewModel.Name,
+                Name = tagViewModel.Name,
                 Created = tagViewModel.Created,
                 CanSetOnActivity = tagViewModel.CanSetOnActivity,
-                Description = tagViewModel.Description
+                Description = tagViewModel.Description,
+                AuthorId = tagViewModel.AuthorId
             };
         }
     }

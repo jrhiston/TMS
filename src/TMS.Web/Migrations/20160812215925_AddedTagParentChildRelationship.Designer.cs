@@ -8,8 +8,8 @@ using TMS.Web.Data;
 namespace TMS.Web.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20160807085818_AddedActivityComments")]
-    partial class AddedActivityComments
+    [Migration("20160812215925_AddedTagParentChildRelationship")]
+    partial class AddedTagParentChildRelationship
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -304,6 +304,21 @@ namespace TMS.Web.Migrations
                     b.ToTable("Tag");
                 });
 
+            modelBuilder.Entity("TMS.Database.Entities.Tags.TagToTagEntity", b =>
+                {
+                    b.Property<long>("ParentTagId");
+
+                    b.Property<long>("ChildTagId");
+
+                    b.HasKey("ParentTagId", "ChildTagId");
+
+                    b.HasIndex("ChildTagId");
+
+                    b.HasIndex("ParentTagId");
+
+                    b.ToTable("TagToTagEntity");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<long>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole<long>")
@@ -397,6 +412,17 @@ namespace TMS.Web.Migrations
                     b.HasOne("TMS.Database.Entities.People.PersonEntity", "Author")
                         .WithMany("AuthoredTags")
                         .HasForeignKey("AuthorId");
+                });
+
+            modelBuilder.Entity("TMS.Database.Entities.Tags.TagToTagEntity", b =>
+                {
+                    b.HasOne("TMS.Database.Entities.Tags.TagEntity", "ParentTag")
+                        .WithMany("ChildTags")
+                        .HasForeignKey("ChildTagId");
+
+                    b.HasOne("TMS.Database.Entities.Tags.TagEntity", "ChildTag")
+                        .WithMany("ParentTags")
+                        .HasForeignKey("ParentTagId");
                 });
         }
     }

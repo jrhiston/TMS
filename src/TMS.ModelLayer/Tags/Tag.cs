@@ -3,7 +3,7 @@ using TMS.ModelLayer.Activities;
 
 namespace TMS.ModelLayer.Tags
 {
-    public class Tag : AggregateRoot<ITagElement, ITagVisitor>, IActivityElement
+    public class Tag : AggregateRoot<ITagElement, ITagVisitor>, ITagElement, IActivityElement
     {
         public Tag(params ITagElement[] elements) : base(elements)
         {

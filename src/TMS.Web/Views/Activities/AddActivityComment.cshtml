@@ -1,7 +1,7 @@
 ﻿@model TMS.ViewModelLayer.Models.Activities.ActivityCommentViewModel
 
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <hr/>
         <form asp-controller="Activities" asp-action="AddComment" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
             <input type="hidden" asp-for="ActivityId" />

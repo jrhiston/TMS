@@ -43,8 +43,25 @@ namespace TMS.Web.Data
 
             DefineManyToManyForPeopleAreas(builder);
             DefineManyToManyForTagActivities(builder);
+            DefineManyTomanyForTagToTags(builder);
             RestrictCascadeForAuthoredTags(builder);
             RestrictCascadeForAuthoredActivityComments(builder);
+            RestrictCascadeForTagToTags(builder);
+        }
+
+        private void RestrictCascadeForTagToTags(ModelBuilder modelBuilder)
+        {
+            modelBuilder
+                .Entity<TagToTagEntity>()
+                .HasOne(t => t.ParentTag)
+                .WithMany(p => p.ChildTags)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<TagToTagEntity>()
+                .HasOne(t => t.ChildTag)
+                .WithMany(p => p.ParentTags)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         private static void RestrictCascadeForAuthoredTags(ModelBuilder modelBuilder)
@@ -63,6 +80,24 @@ namespace TMS.Web.Data
                 .HasOne(t => t.Author)
                 .WithMany(p => p.AuthoredActivityComments)
                 .OnDelete(DeleteBehavior.Restrict);
+        }
+
+        private void DefineManyTomanyForTagToTags(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TagToTagEntity>()
+                            .HasKey(tae => new { tae.ParentTagId, tae.ChildTagId });
+
+            modelBuilder
+                .Entity<TagToTagEntity>()
+                .HasOne(tae => tae.ParentTag)
+                .WithMany(a => a.ChildTags)
+                .HasForeignKey(tae => tae.ChildTagId);
+
+            modelBuilder
+                .Entity<TagToTagEntity>()
+                .HasOne(tae => tae.ChildTag)
+                .WithMany(t => t.ParentTags)
+                .HasForeignKey(tae => tae.ParentTagId);
         }
 
         private static void DefineManyToManyForTagActivities(ModelBuilder modelBuilder)

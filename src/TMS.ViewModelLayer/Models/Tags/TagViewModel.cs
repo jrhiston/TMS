@@ -1,5 +1,6 @@
 ﻿using System;
 using TMS.ModelLayer;
+using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
 using TMS.ModelLayer.Tags.CanSetOnActivities;
 
@@ -12,6 +13,7 @@ namespace TMS.ViewModelLayer.Models.Tags
         public string Description { get; private set; }
         public string Name { get; private set; }
         public long Identifier { get; private set; }
+        public long AuthorId { get; private set; }
 
         public override ITagVisitor Visit(TagKey tagKey)
         {
@@ -40,6 +42,12 @@ namespace TMS.ViewModelLayer.Models.Tags
         public override ITagVisitor Visit(CreationDate creationDate)
         {
             Created = creationDate.Value;
+            return this;
+        }
+
+        public override ITagVisitor Visit(PersonKey personKey)
+        {
+            AuthorId = personKey.Identifier;
             return this;
         }
     }

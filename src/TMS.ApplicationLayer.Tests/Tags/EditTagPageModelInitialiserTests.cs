@@ -67,7 +67,7 @@ namespace TMS.ApplicationLayer.Tests.Tags
 
             var pageModel = initialiser.Initialise(new EditTagPageModelInitialiserData { TagId = 3 });
 
-            Assert.Equal(tagName, pageModel.TagName);
+            Assert.Equal(tagName, pageModel.Name);
         }
 
         [Fact]

@@ -22,8 +22,9 @@ namespace TMS.Web.Components.Tags
         {
             var result = await Task.Run(() => _tagReader.Read(new TagFilterData
             {
-                ActivityKey = new ActivityKey(data.ActivityId),
-                Reusable = true
+                ActivityKey = data.ActivityId.HasValue ? new ActivityKey(data.ActivityId.Value) : null,
+                ChildTagKey = data.ChildTagId.HasValue ? new TagKey(data.ChildTagId.Value) : null,
+                Reusable = data.Reusable
             }));
 
             var tagViewModels = result

@@ -2,30 +2,34 @@
 
 @if (Model.Any())
 {
-    <h4>Comments</h4>
-
-    @foreach (var comment in Model)
-    {
-        <hr/>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <span>@comment.Creator</span>
-                <span><b>@comment.Created</b></span>
-            </div>
-            <div class="panel-body">
-
-                <p><b>Comment:</b> @comment.Description</p>
-
-                <form asp-action="DeleteComment" asp-controller="Activities">
-                    <input type="hidden" asp-for="@comment.Id" />
-                    <input type="hidden" asp-for="@comment.ParentId" />
-                    <div class="form-group">
-                        <button class="btn btn-default" type="submit">Delete</button>
-                    </div>
-                </form>
-            </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Comments
         </div>
-    }
+        <div class="panel-body">
+            @foreach (var comment in Model)
+            {
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <span>@comment.Creator</span>
+                        <span><b>@comment.Created</b></span>
+                    </div>
+                    <div class="panel-body">
+
+                        <p><b>Comment:</b> @comment.Description</p>
+
+                        <form asp-action="DeleteComment" asp-controller="Activities">
+                            <input type="hidden" asp-for="@comment.Id" />
+                            <input type="hidden" asp-for="@comment.ParentId" />
+                            <div class="form-group">
+                                <button class="btn btn-default" type="submit">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 }
 else
 {

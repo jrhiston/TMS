@@ -10,29 +10,40 @@ namespace TMS.Database.Commands.Tags
 {
     public class ListTagsCommand : IQueryCommand<TagFilterData, IEnumerable<Tag>>
     {
-        private readonly IDatabaseContext<TagEntity> _context;
+        private readonly IDatabaseContextFactory<TagEntity> _contextFactory;
         private readonly IConverter<TagEntity, Tag> _converter;
 
-        public ListTagsCommand(IDatabaseContext<TagEntity> context,
+        public ListTagsCommand(IDatabaseContextFactory<TagEntity> contextFactory,
             IConverter<TagEntity, Tag> converter)
         {
-            _context = context;
+            _contextFactory = contextFactory;
             _converter = converter;
         }
 
         public Maybe<IEnumerable<Tag>> ExecuteCommand(TagFilterData data)
         {
             var activityId = data.ActivityKey?.Identifier;
+            var parentTagId = data.ParentTagKey?.Identifier;
+            var childTagId = data.ChildTagKey?.Identifier;
+            var authorId = data.CreatorKey?.Identifier;
+            var canSetOnActivity = data.CanSetOnActivity;
 
-            var tags = _context.Entities.Where(item => 
-                    (data.TagName == null || item.Name == data.TagName)
-                &&  (data.Reusable == null || item.Reusable == data.Reusable)
-                &&  (activityId == null || item.Activities.Any(a => a.ActivityId == activityId)));
+            using (var context = _contextFactory.Create())
+            {
+                var tags = context.Entities.Where(item =>
+                        (data.TagName == null || item.Name == data.TagName)
+                    && (data.Reusable == null || item.Reusable == data.Reusable)
+                    && (parentTagId == null || item.ParentTags.Any(t => t.ParentTagId == parentTagId))
+                    && (childTagId == null || item.ChildTags.Any(t => t.ChildTagId == childTagId))
+                    && (authorId == null || item.AuthorId == authorId)
+                    && (canSetOnActivity == null || item.CanSetOnActivity == canSetOnActivity)
+                    && (activityId == null || item.Activities.Any(a => a.ActivityId == activityId)));
 
-            if (!tags.Any())
-                return new Maybe<IEnumerable<Tag>>();
+                if (!tags.Any())
+                    return new Maybe<IEnumerable<Tag>>();
 
-            return new Maybe<IEnumerable<Tag>>(tags.ToList().Select(t => _converter.Convert(t).Single()));
+                return new Maybe<IEnumerable<Tag>>(tags.ToList().Select(t => _converter.Convert(t).Single()));
+            }
         }
     }
 }
