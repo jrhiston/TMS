@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using TMS.Database.Entities.Activities;
+using TMS.Data.Entities.Activities;
+using TMS.Layer.Data;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Activities;
 
@@ -8,9 +9,9 @@ namespace TMS.Database.Commands.Activities
 {
     public class DeleteActivityCommand : INonQueryCommand<ActivityKey>
     {
-        private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
+        private readonly IDataContextFactory<ActivityEntity> _contextFactory;
 
-        public DeleteActivityCommand(IDatabaseContextFactory<ActivityEntity> contextFactory)
+        public DeleteActivityCommand(IDataContextFactory<ActivityEntity> contextFactory)
         {
             _contextFactory = contextFactory;
         }

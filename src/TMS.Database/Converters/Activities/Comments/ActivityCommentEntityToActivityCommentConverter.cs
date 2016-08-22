@@ -1,4 +1,4 @@
-﻿using TMS.Database.Entities.Activities.Comments;
+﻿using TMS.Data.Entities.Activities.Comments;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.ModelLayer;

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TMS.Database.Entities.Activities;
+using TMS.Data.Entities.Activities;
 using TMS.Layer;
 using TMS.Layer.Conversion;
+using TMS.Layer.Data;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Activities;
 
@@ -10,10 +11,10 @@ namespace TMS.Database.Commands.Activities
 {
     public class ListActivitiesCommand : IQueryCommand<ActivityFilterData, IEnumerable<Activity>>
     {
-        private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
+        private readonly IDataContextFactory<ActivityEntity> _contextFactory;
         private readonly IConverter<ActivityEntity, Activity> _converter;
 
-        public ListActivitiesCommand(IDatabaseContextFactory<ActivityEntity> contextFactory,
+        public ListActivitiesCommand(IDataContextFactory<ActivityEntity> contextFactory,
             IConverter<ActivityEntity, Activity> converter)
         {
             _contextFactory = contextFactory;

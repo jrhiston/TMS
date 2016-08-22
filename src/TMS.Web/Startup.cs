@@ -5,18 +5,17 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using TMS.Web.Services;
 using TMS.Web.Data;
-using TMS.Database.Entities.People;
-using TMS.Database;
 using System;
 using TMS.Web.DependencyResolution;
 using NLog.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using TMS.Web.Options;
 using Microsoft.EntityFrameworkCore;
+using TMS.Data.Entities.People;
 
 namespace TMS.Web
 {
-    public class Startup : IDbContextTypeProvider
+    public class Startup
     {
         public Startup(IHostingEnvironment env)
         {
@@ -113,7 +112,5 @@ namespace TMS.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
-
-        public Type GetDbContextType() => typeof(MainContext);
     }
 }

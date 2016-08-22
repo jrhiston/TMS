@@ -13,5 +13,6 @@ namespace TMS.ModelLayer.Tags
         ITagVisitor Visit(PersonKey personKey);
         ITagVisitor Visit(Description description);
         ITagVisitor Visit(Reusable reusable);
+        ITagVisitor Visit(ParentTag parentTag);
     }
 }

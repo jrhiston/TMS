@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TMS.Database.Entities.Activities;
-using TMS.Database.Entities.Tags;
+using TMS.Data.Entities.Activities;
+using TMS.Data.Entities.Tags;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.ModelLayer;

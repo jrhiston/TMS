@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TMS.Database.Entities.Areas;
+using TMS.Data.Entities.Areas;
 using TMS.Layer;
 using TMS.Layer.Conversion;
+using TMS.Layer.Data;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Areas;
 using TMS.ModelLayer.People;
@@ -12,9 +13,9 @@ namespace TMS.Database.Commands.People
     public class ListAreasForPersonCommand : IQueryCommand<PersonKey, IEnumerable<Area>>
     {
         private readonly IConverter<AreaEntity, Area> _converter;
-        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
+        private readonly IDataContextFactory<AreaEntity> _contextFactory;
 
-        public ListAreasForPersonCommand(IDatabaseContextFactory<AreaEntity> contextFactory, IConverter<AreaEntity, Area> converter)
+        public ListAreasForPersonCommand(IDataContextFactory<AreaEntity> contextFactory, IConverter<AreaEntity, Area> converter)
         {
             _contextFactory = contextFactory;
             _converter = converter;

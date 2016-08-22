@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TMS.Layer
 {
@@ -27,6 +28,19 @@ namespace TMS.Layer
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+    }
+
+    public static class Maybe
+    {
+        public static Maybe<T> ToMaybe<T>(this T value)
+        {
+            return new Maybe<T>(value);
+        }
+
+        public static Maybe<T> Empty<T>()
+        {
+            return new Maybe<T>();
         }
     }
 }

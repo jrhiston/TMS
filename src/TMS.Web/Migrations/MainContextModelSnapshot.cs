@@ -121,7 +121,7 @@ namespace TMS.Web.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Activities.ActivityEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Activities.ActivityEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -150,7 +150,7 @@ namespace TMS.Web.Migrations
                     b.ToTable("Activity");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Activities.Comments.ActivityCommentEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Activities.Comments.ActivityCommentEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -173,7 +173,7 @@ namespace TMS.Web.Migrations
                     b.ToTable("ActivityComment");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Areas.AreaEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Areas.AreaEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -192,7 +192,7 @@ namespace TMS.Web.Migrations
                     b.ToTable("Area");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.People.PersonEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.People.PersonEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -248,7 +248,7 @@ namespace TMS.Web.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.PeopleAreas.PeopleAreasEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.PeopleAreas.PeopleAreasEntity", b =>
                 {
                     b.Property<long>("PersonId");
 
@@ -263,7 +263,7 @@ namespace TMS.Web.Migrations
                     b.ToTable("PersonArea");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Tags.TagActivityEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Tags.TagActivityEntity", b =>
                 {
                     b.Property<long>("TagId");
 
@@ -278,7 +278,7 @@ namespace TMS.Web.Migrations
                     b.ToTable("TagActivity");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Tags.TagEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Tags.TagEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
@@ -303,7 +303,7 @@ namespace TMS.Web.Migrations
                     b.ToTable("Tag");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Tags.TagToTagEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Tags.TagToTagEntity", b =>
                 {
                     b.Property<long>("ParentTagId");
 
@@ -328,7 +328,7 @@ namespace TMS.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserClaim<long>", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.People.PersonEntity")
+                    b.HasOne("TMS.Data.Entities.People.PersonEntity")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -336,7 +336,7 @@ namespace TMS.Web.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserLogin<long>", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.People.PersonEntity")
+                    b.HasOne("TMS.Data.Entities.People.PersonEntity")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -349,78 +349,78 @@ namespace TMS.Web.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TMS.Database.Entities.People.PersonEntity")
+                    b.HasOne("TMS.Data.Entities.People.PersonEntity")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Activities.ActivityEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Activities.ActivityEntity", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.Areas.AreaEntity", "Area")
+                    b.HasOne("TMS.Data.Entities.Areas.AreaEntity", "Area")
                         .WithMany("Activities")
                         .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TMS.Database.Entities.People.PersonEntity", "Owner")
+                    b.HasOne("TMS.Data.Entities.People.PersonEntity", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Activities.Comments.ActivityCommentEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Activities.Comments.ActivityCommentEntity", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.Activities.ActivityEntity", "Activity")
+                    b.HasOne("TMS.Data.Entities.Activities.ActivityEntity", "Activity")
                         .WithMany("Comments")
                         .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TMS.Database.Entities.People.PersonEntity", "Author")
+                    b.HasOne("TMS.Data.Entities.People.PersonEntity", "Author")
                         .WithMany("AuthoredActivityComments")
                         .HasForeignKey("AuthorId");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.PeopleAreas.PeopleAreasEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.PeopleAreas.PeopleAreasEntity", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.Areas.AreaEntity", "Area")
+                    b.HasOne("TMS.Data.Entities.Areas.AreaEntity", "Area")
                         .WithMany("AreaPersons")
                         .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TMS.Database.Entities.People.PersonEntity", "Person")
+                    b.HasOne("TMS.Data.Entities.People.PersonEntity", "Person")
                         .WithMany("PersonAreas")
                         .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Tags.TagActivityEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Tags.TagActivityEntity", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.Activities.ActivityEntity", "Activity")
+                    b.HasOne("TMS.Data.Entities.Activities.ActivityEntity", "Activity")
                         .WithMany("Tags")
                         .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("TMS.Database.Entities.Tags.TagEntity", "Tag")
+                    b.HasOne("TMS.Data.Entities.Tags.TagEntity", "Tag")
                         .WithMany("Activities")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Tags.TagEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Tags.TagEntity", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.People.PersonEntity", "Author")
+                    b.HasOne("TMS.Data.Entities.People.PersonEntity", "Author")
                         .WithMany("AuthoredTags")
                         .HasForeignKey("AuthorId");
                 });
 
-            modelBuilder.Entity("TMS.Database.Entities.Tags.TagToTagEntity", b =>
+            modelBuilder.Entity("TMS.Data.Entities.Tags.TagToTagEntity", b =>
                 {
-                    b.HasOne("TMS.Database.Entities.Tags.TagEntity", "ParentTag")
-                        .WithMany("ChildTags")
+                    b.HasOne("TMS.Data.Entities.Tags.TagEntity", "ChildTag")
+                        .WithMany("ParentTags")
                         .HasForeignKey("ChildTagId");
 
-                    b.HasOne("TMS.Database.Entities.Tags.TagEntity", "ChildTag")
-                        .WithMany("ParentTags")
+                    b.HasOne("TMS.Data.Entities.Tags.TagEntity", "ParentTag")
+                        .WithMany("ChildTags")
                         .HasForeignKey("ParentTagId");
                 });
         }

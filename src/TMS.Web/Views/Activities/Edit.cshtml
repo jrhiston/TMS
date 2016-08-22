@@ -1,6 +1,7 @@
 ﻿@using TMS.ViewModelLayer.Models.Tags
 @using TMS.ViewModelLayer.Models.Activities
 @using TMS.Web.Components.Tags
+@using TMS.ViewModelLayer.Models.Tags.AddTagContextTypes
 @model TMS.ViewModelLayer.Models.Activities.Pages.EditActivityPageModel
 
 @{
@@ -53,7 +54,14 @@
 
 <div class="row">
     <div class="col-md-12">
-        @await Component.InvokeAsync(nameof(AddTag), new { data = new CreateTagData { Action = "CreateForActivity", Controller = "Tags", CanSetOnActivity = true, ObjectId = Model.Id } })
+        @await Component.InvokeAsync(nameof(AddTagComponent), new
+   {
+       data = new AddTagData
+       {
+           ObjectId = Model.Id,
+           Context = new AddTagToActivityContextType()
+       }
+   })
     </div>
 </div>
 

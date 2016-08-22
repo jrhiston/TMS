@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using TMS.Database.Entities.Activities.Comments;
+using TMS.Data.Entities.Activities.Comments;
+using TMS.Layer.Data;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Activities.Comments;
 
@@ -8,9 +9,9 @@ namespace TMS.Database.Commands.Activities.Comments
 {
     public class DeleteActivityCommentCommand : INonQueryCommand<ActivityCommentKey>
     {
-        private readonly IDatabaseContextFactory<ActivityCommentEntity> _contextFactory;
+        private readonly IDataContextFactory<ActivityCommentEntity> _contextFactory;
 
-        public DeleteActivityCommentCommand(IDatabaseContextFactory<ActivityCommentEntity> contextFactory)
+        public DeleteActivityCommentCommand(IDataContextFactory<ActivityCommentEntity> contextFactory)
         {
             _contextFactory = contextFactory;
         }

@@ -32,7 +32,7 @@ namespace TMS.ApplicationLayer.Tags
 
             if (tags == null)
                 throw new InvalidOperationException("Failed to retrieve a list of areas for the given user");
-
+            
             return new TagsPageModel
             {
                 Tags = tags.SelectMany(item => item)

@@ -1,23 +1,22 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using TMS.Database;
-using TMS.Database.Entities.Activities;
-using TMS.Database.Entities.Areas;
-using TMS.Database.Entities.People;
-using TMS.Database.Entities.PeopleAreas;
-using TMS.Database.Entities.Tags;
 using Microsoft.EntityFrameworkCore.Metadata;
-using TMS.Database.Entities.Activities.Comments;
-using System;
+using TMS.Layer.Data;
+using TMS.Data.Entities.Activities.Comments;
+using TMS.Data.Entities.Tags;
+using TMS.Data.Entities.Activities;
+using TMS.Data.Entities.Areas;
+using TMS.Data.Entities.People;
+using TMS.Data.Entities.PeopleAreas;
 
 namespace TMS.Web.Data
 {
     public class MainContext : IdentityDbContext<PersonEntity, IdentityRole<long>, long>, 
-        IDatabaseContext<PersonEntity>,
-        IDatabaseContext<AreaEntity>,
-        IDatabaseContext<ActivityEntity>,
-        IDatabaseContext<TagEntity>,
-        IDatabaseContext<ActivityCommentEntity>
+        IDataContext<PersonEntity>,
+        IDataContext<AreaEntity>,
+        IDataContext<ActivityEntity>,
+        IDataContext<TagEntity>,
+        IDataContext<ActivityCommentEntity>
     {
         public DbSet<AreaEntity> Areas { get; set; }
         public DbSet<ActivityEntity> Activities { get; set; }
@@ -25,10 +24,10 @@ namespace TMS.Web.Data
 
         public DbSet<TagEntity> Tags { get; set; }
 
-        DbSet<PersonEntity> IDatabaseContext<PersonEntity>.Entities => Users;
-        DbSet<AreaEntity> IDatabaseContext<AreaEntity>.Entities => Areas;
-        DbSet<ActivityEntity> IDatabaseContext<ActivityEntity>.Entities => Activities;
-        DbSet<TagEntity> IDatabaseContext<TagEntity>.Entities => Tags;
+        DbSet<PersonEntity> IDataContext<PersonEntity>.Entities => Users;
+        DbSet<AreaEntity> IDataContext<AreaEntity>.Entities => Areas;
+        DbSet<ActivityEntity> IDataContext<ActivityEntity>.Entities => Activities;
+        DbSet<TagEntity> IDataContext<TagEntity>.Entities => Tags;
 
         public DbSet<ActivityCommentEntity> Entities => ActivityComments;
 
@@ -91,13 +90,13 @@ namespace TMS.Web.Data
                 .Entity<TagToTagEntity>()
                 .HasOne(tae => tae.ParentTag)
                 .WithMany(a => a.ChildTags)
-                .HasForeignKey(tae => tae.ChildTagId);
+                .HasForeignKey(tae => tae.ParentTagId);
 
             modelBuilder
                 .Entity<TagToTagEntity>()
                 .HasOne(tae => tae.ChildTag)
                 .WithMany(t => t.ParentTags)
-                .HasForeignKey(tae => tae.ParentTagId);
+                .HasForeignKey(tae => tae.ChildTagId);
         }
 
         private static void DefineManyToManyForTagActivities(ModelBuilder modelBuilder)

@@ -1,5 +1,9 @@
-﻿using TMS.Database.Entities.Tags;
+﻿using System;
+using System.Linq;
+using TMS.Data.Entities.Tags;
 using TMS.Layer.Builders;
+using TMS.Layer.Entities;
+using TMS.Layer.Extensions;
 using TMS.ModelLayer;
 using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
@@ -10,6 +14,12 @@ namespace TMS.Database.Builders.Tags
     public class TagEntityBuilder : TagVisitorBase, IEntityBuilder<Tag, TagEntity>
     {
         private TagEntity _entity;
+        private readonly IEntityCollectionService<Tag, TagToTagEntity> _tagCollectionService;
+
+        public TagEntityBuilder(IEntityCollectionService<Tag, TagToTagEntity> tagCollectionService)
+        {
+            _tagCollectionService = tagCollectionService;
+        }
 
         public TagEntity Create(Tag data)
         {
@@ -18,12 +28,6 @@ namespace TMS.Database.Builders.Tags
             data.Accept(this);
 
             return _entity;
-        }
-
-        public override ITagVisitor Visit(TagKey tagKey)
-        {
-            _entity.Id = tagKey.Identifier;
-            return this;
         }
 
         public override ITagVisitor Visit(Reusable reusable)
@@ -62,11 +66,38 @@ namespace TMS.Database.Builders.Tags
             return this;
         }
 
+        public override ITagVisitor Visit(ParentTag parentTag)
+        {
+            _tagCollectionService.AddOrUpdate<TagKey>(_entity.ParentTags,
+                parentTag.Tag,
+                t => CreateNewTagLink(t),
+                (s, k) => s.ParentTagId == k.Identifier);
+
+            return this;
+        }
+
         public void Update(Tag data, TagEntity existing)
         {
             _entity = existing;
 
+            existing.ParentTags.DeleteMissing(
+                data.OfType<Tag>(), 
+                (t, e) => t.OfType<TagKey>().Single().Identifier == e.ParentTagId);
+
             data.Accept(this);
+        }
+
+        private TagToTagEntity CreateNewTagLink(Tag data)
+        {
+            var tagId = data
+                .OfType<TagKey>()
+                .FirstOrDefault();
+            
+            return new TagToTagEntity
+            {
+                ChildTagId = _entity.Id,
+                ParentTagId = tagId.Identifier,
+            };
         }
     }
 }

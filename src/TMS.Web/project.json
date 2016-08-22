@@ -47,7 +47,8 @@
     "TMS.ApplicationLayer": "1.0.0-*",
     "TMS.ViewModelLayer": "1.0.0-*",
     "NLog.Extensions.Logging": "1.0.0-rtm-alpha1",
-    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0"
+    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0",
+    "TMS.Data": "1.0.0-*"
   },
 
   "tools": {

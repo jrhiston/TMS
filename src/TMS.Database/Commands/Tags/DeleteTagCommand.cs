@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Linq;
-using TMS.Database.Entities.Activities;
-using TMS.Database.Entities.Tags;
+using TMS.Data.Entities.Tags;
+using TMS.Layer.Data;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Tags;
 
@@ -10,9 +9,9 @@ namespace TMS.Database.Commands.Tags
 {
     public class DeleteTagCommand : INonQueryCommand<TagKey>
     {
-        private readonly IDatabaseContextFactory<TagEntity> _contextFactory;
+        private readonly IDataContextFactory<TagEntity> _contextFactory;
 
-        public DeleteTagCommand(IDatabaseContextFactory<TagEntity> contextFactory)
+        public DeleteTagCommand(IDataContextFactory<TagEntity> contextFactory)
         {
             _contextFactory = contextFactory;
         }

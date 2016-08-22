@@ -1,6 +1,7 @@
 ﻿using System.Linq;
-using TMS.Database.Entities.Activities;
+using TMS.Data.Entities.Activities;
 using TMS.Layer;
+using TMS.Layer.Entities;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Activities;
 

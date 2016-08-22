@@ -1961,10 +1961,27 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
+      "TMS.Data/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+          "NETStandard.Library": "1.6.0",
+          "System.ComponentModel.Annotations": "4.1.0",
+          "TMS.Layer": "1.0.0"
+        },
+        "compile": {
+          "netstandard1.6/TMS.Data.dll": {}
+        },
+        "runtime": {
+          "netstandard1.6/TMS.Data.dll": {}
+        }
+      },
       "TMS.Layer/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0",
           "NETStandard.Library": "1.6.0",
           "System.Linq.Expressions": "4.1.0",
@@ -6137,6 +6154,11 @@
         "ref/xamarinwatchos10/_._"
       ]
     },
+    "TMS.Data/1.0.0": {
+      "type": "project",
+      "path": "../TMS.Data/project.json",
+      "msbuildProject": "../TMS.Data/TMS.Data.xproj"
+    },
     "TMS.Layer/1.0.0": {
       "type": "project",
       "path": "../TMS.Layer/project.json",
@@ -6153,6 +6175,7 @@
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 1.0.0",
       "System.Reflection.TypeExtensions >= 4.1.0",
+      "TMS.Data >= 1.0.0-*",
       "TMS.Layer >= 1.0.0-*",
       "TMS.ModelLayer >= 1.0.0-*"
     ],

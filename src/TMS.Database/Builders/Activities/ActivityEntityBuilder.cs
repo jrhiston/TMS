@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
-using TMS.Database.Entities.Activities;
-using TMS.Database.Entities.Activities.Comments;
-using TMS.Database.Entities.Tags;
+using TMS.Data.Entities.Activities;
+using TMS.Data.Entities.Activities.Comments;
+using TMS.Data.Entities.Tags;
 using TMS.Layer.Builders;
+using TMS.Layer.Entities;
 using TMS.Layer.Extensions;
 using TMS.ModelLayer;
 using TMS.ModelLayer.Activities;

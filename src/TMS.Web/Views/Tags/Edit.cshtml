@@ -1,5 +1,7 @@
 ﻿@using TMS.Web.Components.Tags
 @using TMS.ViewModelLayer.Models.Tags
+@using TMS.ModelLayer.Tags
+@using TMS.ViewModelLayer.Models.Tags.AddTagContextTypes
 @model TMS.ViewModelLayer.Models.Tags.Pages.EditTagPageModel
 
 @{
@@ -45,10 +47,25 @@
             </div>
         </form>
     </div>
+</div>
 
-    <div class="col-md-4">
+<div class="row">
+    <div class="col-md-12">
         <div id="tag-list">
             @await Component.InvokeAsync(nameof(TagList), new { data = new TagListFilterData { ChildTagId = Model.TagId } })
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @await Component.InvokeAsync(nameof(AddTagComponent), new
+       {
+           data = new AddTagData
+           {
+               ObjectId = Model.TagId,
+               Context = new AddTagToTagContextType()
+           }
+       })
     </div>
 </div>

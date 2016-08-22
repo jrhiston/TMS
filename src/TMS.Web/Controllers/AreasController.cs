@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TMS.Layer.Initialisers;
-using TMS.Database.Entities.People;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using TMS.Layer.Persistence;
@@ -13,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using TMS.Web.Logging;
 using TMS.ModelLayer.Areas;
 using TMS.ModelLayer.People;
+using TMS.Data.Entities.People;
 
 namespace TMS.Web.Controllers
 {

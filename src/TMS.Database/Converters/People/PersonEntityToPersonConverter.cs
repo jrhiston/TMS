@@ -1,4 +1,4 @@
-﻿using TMS.Database.Entities.People;
+﻿using TMS.Data.Entities.People;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.ModelLayer.People;

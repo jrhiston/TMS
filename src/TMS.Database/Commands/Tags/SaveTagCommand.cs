@@ -1,6 +1,7 @@
 ﻿using System.Linq;
-using TMS.Database.Entities.Tags;
+using TMS.Data.Entities.Tags;
 using TMS.Layer;
+using TMS.Layer.Entities;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Tags;
 

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using TMS.Database.Entities.People;
+using TMS.Data.Entities.People;
 using TMS.ModelLayer.People;
 
 namespace TMS.Web.Controllers

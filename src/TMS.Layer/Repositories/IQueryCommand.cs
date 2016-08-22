@@ -5,7 +5,7 @@
     /// </summary>
     /// <typeparam name="TIn"></typeparam>
     /// <typeparam name="TOut"></typeparam>
-    public interface IQueryCommand<in TIn, TOut>
+    public interface IQueryCommand<in TIn, TOut> : IQueryCommand
     {
         /// <summary>
         /// Execute the query command.
@@ -14,4 +14,6 @@
         /// <returns>A potential output based on the given data.</returns>
         Maybe<TOut> ExecuteCommand(TIn data);
     }
+
+    public interface IQueryCommand { }
 }

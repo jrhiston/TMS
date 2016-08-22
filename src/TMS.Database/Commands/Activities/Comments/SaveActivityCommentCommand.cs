@@ -1,6 +1,7 @@
 ﻿using System.Linq;
-using TMS.Database.Entities.Activities.Comments;
+using TMS.Data.Entities.Activities.Comments;
 using TMS.Layer;
+using TMS.Layer.Entities;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Activities.Comments;
 

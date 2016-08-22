@@ -19,5 +19,7 @@ namespace TMS.ModelLayer.Tags
         public bool? CanSetOnActivity { get; set; }
 
         public TagKey ParentTagKey { get; set; }
+
+        public long[] ExcludedTagIds { get; set; }
     }
 }

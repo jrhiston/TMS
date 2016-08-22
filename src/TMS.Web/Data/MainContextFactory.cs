@@ -1,22 +1,21 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using TMS.Database;
-using TMS.Database.Entities.Areas;
 using TMS.Web.Options;
-using TMS.Database.Entities.Activities;
 using TMS.Layer.Factories;
-using TMS.Database.Entities.People;
-using TMS.Database.Entities.Tags;
-using TMS.Database.Entities.Activities.Comments;
+using TMS.Data.Entities.Tags;
+using TMS.Data.Entities.People;
+using TMS.Data.Entities.Activities;
+using TMS.Data.Entities.Activities.Comments;
+using TMS.Layer.Data;
+using TMS.Data.Entities.Areas;
 
 namespace TMS.Web.Data
 {
-    public class MainContextFactory : IDatabaseContextFactory<AreaEntity>,
-        IDatabaseContextFactory<ActivityEntity>,
-        IDatabaseContextFactory<PersonEntity>,
-        IDatabaseContextFactory<TagEntity>,
-        IDatabaseContextFactory<ActivityCommentEntity>
+    public class MainContextFactory : IDataContextFactory<AreaEntity>,
+        IDataContextFactory<ActivityEntity>,
+        IDataContextFactory<PersonEntity>,
+        IDataContextFactory<TagEntity>,
+        IDataContextFactory<ActivityCommentEntity>
     {
         private readonly IOptions<ApplicationConfigurations> _configurationOptions;
 
@@ -25,12 +24,12 @@ namespace TMS.Web.Data
             _configurationOptions = configurationOptions;
         }
 
-        public IDatabaseContext<AreaEntity> Create() => CreateMainContext();
+        public IDataContext<AreaEntity> Create() => CreateMainContext();
 
-        IDatabaseContext<ActivityCommentEntity> IQueryFactory<IDatabaseContext<ActivityCommentEntity>>.Create() => CreateMainContext();
-        IDatabaseContext<PersonEntity> IQueryFactory<IDatabaseContext<PersonEntity>>.Create() => CreateMainContext();
-        IDatabaseContext<TagEntity> IQueryFactory<IDatabaseContext<TagEntity>>.Create() => CreateMainContext();
-        IDatabaseContext<ActivityEntity> IQueryFactory<IDatabaseContext<ActivityEntity>>.Create() => CreateMainContext();
+        IDataContext<ActivityCommentEntity> IQueryFactory<IDataContext<ActivityCommentEntity>>.Create() => CreateMainContext();
+        IDataContext<PersonEntity> IQueryFactory<IDataContext<PersonEntity>>.Create() => CreateMainContext();
+        IDataContext<TagEntity> IQueryFactory<IDataContext<TagEntity>>.Create() => CreateMainContext();
+        IDataContext<ActivityEntity> IQueryFactory<IDataContext<ActivityEntity>>.Create() => CreateMainContext();
 
         private MainContext CreateMainContext()
         {

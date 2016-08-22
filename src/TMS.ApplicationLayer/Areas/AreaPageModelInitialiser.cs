@@ -15,9 +15,9 @@ namespace TMS.ApplicationLayer.Areas
 {
     public class AreaPageModelInitialiser : IInitialiser<AreaPageModelInitialiserData, AreaPageModel>
     {
-        private readonly IListReader<PersonKey, Area> _reader;
+        private readonly IReader<PersonKey, IEnumerable<Area>> _reader;
 
-        public AreaPageModelInitialiser(IListReader<PersonKey, Area> reader)
+        public AreaPageModelInitialiser(IReader<PersonKey, IEnumerable<Area>> reader)
         {
             _reader = reader;
         }

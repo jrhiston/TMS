@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using TMS.Database.Entities.Activities;
-using TMS.Database.Entities.Areas;
-using TMS.Database.Entities.PeopleAreas;
+using TMS.Data.Entities.Activities;
+using TMS.Data.Entities.Areas;
+using TMS.Data.Entities.PeopleAreas;
 using TMS.Layer.Builders;
 using TMS.Layer.Extensions;
 using TMS.ModelLayer;

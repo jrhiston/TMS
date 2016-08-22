@@ -3,15 +3,12 @@ using StructureMap;
 using StructureMap.Graph.Scanning;
 using System.Reflection;
 using System.Linq;
-using TMS.Layer.Factories;
-using TMS.Layer.Filters;
-using TMS.Layer.Readers;
 using TMS.Layer.Conversion;
 using TMS.Layer.Initialisers;
 using TMS.Layer.Creators;
-using TMS.Database;
 using TMS.Layer.Repositories;
 using TMS.Layer.Builders;
+using TMS.Layer.Data;
 
 namespace TMS.Web.DependencyResolution.Conventions
 {
@@ -36,10 +33,9 @@ namespace TMS.Web.DependencyResolution.Conventions
             return (definition == typeof(IConverter<,>) ||
                    definition == typeof(IInitialiser<,>) ||
                    definition == typeof(ICreator<>) ||
-                   definition == typeof(IDatabaseContextFactory<>) ||
+                   definition == typeof(IDataContextFactory<>) ||
                    definition == typeof(INonQueryCommand<>) ||
                    definition == typeof(IQueryCommand<,>) || 
-                   definition == typeof(ISaveCommand) ||
                    definition == typeof(IEntityBuilder<,>));
         }
     }

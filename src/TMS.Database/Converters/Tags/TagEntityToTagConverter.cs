@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TMS.Database.Entities.Tags;
+using TMS.Data.Entities.Tags;
 using TMS.Layer;
 using TMS.Layer.Conversion;
 using TMS.ModelLayer;

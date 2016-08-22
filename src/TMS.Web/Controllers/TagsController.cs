@@ -5,15 +5,14 @@ using TMS.ViewModelLayer.Models.Tags.Pages;
 using System;
 using TMS.Layer.Creators;
 using Microsoft.AspNetCore.Identity;
-using TMS.Database.Entities.People;
 using System.Threading.Tasks;
-using TMS.ModelLayer.People;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using TMS.Web.Logging;
 using TMS.ModelLayer.Tags;
 using TMS.Layer.Persistence;
 using TMS.ViewModelLayer.Models.Tags;
+using TMS.Data.Entities.People;
 
 namespace TMS.Web.Controllers
 {
@@ -21,7 +20,8 @@ namespace TMS.Web.Controllers
     public class TagsController : ControllerBase
     {
         private IInitialiser<CreateTagForActivityPageModelInitialiserData, CreateTagForActivityPageModel> _createInitialiser;
-        private readonly ICreator<AddTagViewModel> _tagForActivityCreator;
+        private readonly ICreator<AddTagToActivityViewModel> _tagForActivityCreator;
+        private readonly ICreator<AddTagToTagViewModel> _tagForTagCreator;
         private readonly IInitialiser<TagsPageModelInitialiserData, TagsPageModel> _tagsPageModelInitialiser;
         private readonly IInitialiser<DeleteTagPageModelInitialiserData, DeleteTagPageModel> _deleteTagPadeModelInitialiser;
         private readonly ILogger<TagsController> _logger;
@@ -32,7 +32,8 @@ namespace TMS.Web.Controllers
         public TagsController(UserManager<PersonEntity> userManager,
             IInitialiser<CreateTagForActivityPageModelInitialiserData, CreateTagForActivityPageModel> createInitialiser,
             IInitialiser<TagsPageModelInitialiserData, TagsPageModel> tagsPageModelInitialiser,
-            ICreator<AddTagViewModel> tagForActivityCreator,
+            ICreator<AddTagToActivityViewModel> tagForActivityCreator,
+            ICreator<AddTagToTagViewModel> tagForTagCreator,
             IInitialiser<DeleteTagPageModelInitialiserData, DeleteTagPageModel> deleteTagPadeModelInitialiser,
             IInitialiser<EditTagPageModelInitialiserData, EditTagPageModel> editTagPageModelInitialiser,
             IWriter<Tag, TagKey> tagWriter,
@@ -41,6 +42,7 @@ namespace TMS.Web.Controllers
         {
             _createInitialiser = createInitialiser;
             _tagForActivityCreator = tagForActivityCreator;
+            _tagForTagCreator = tagForTagCreator;
             _tagsPageModelInitialiser = tagsPageModelInitialiser;
             _deleteTagPadeModelInitialiser = deleteTagPadeModelInitialiser;
             _editTagPageModelInitialiser = editTagPageModelInitialiser;
@@ -134,7 +136,27 @@ namespace TMS.Web.Controllers
 
             model.PersonKey = personKey;
 
-            _tagForActivityCreator.Create(model);
+            _tagForActivityCreator.Create(new AddTagToActivityViewModel
+            {
+                ActivityId = model.ObjectId,
+                TagToAddId = model.TagToAddId
+            });
+
+            return RedirectToAction("Edit", "Activities", new { id = model.ObjectId });
+        }
+
+        [HttpPost]
+        public async Task<RedirectToActionResult> CreateForTag(AddTagViewModel model)
+        {
+            var personKey = await GetPersonKey();
+
+            model.PersonKey = personKey;
+
+            _tagForTagCreator.Create(new AddTagToTagViewModel
+            {
+                TagId = model.ObjectId,
+                TagToAddId = model.TagToAddId
+            });
 
             return RedirectToAction("Edit", "Activities", new { id = model.ObjectId });
         }

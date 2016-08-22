@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
-using TMS.Database.Entities.Areas;
+using TMS.Data.Entities.Areas;
+using TMS.Layer.Data;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Areas;
 
@@ -8,9 +9,9 @@ namespace TMS.Database.Commands.Areas
 {
     public class DeleteAreaCommand : INonQueryCommand<AreaKey>
     {
-        private readonly IDatabaseContextFactory<AreaEntity> _contextFactory;
+        private readonly IDataContextFactory<AreaEntity> _contextFactory;
 
-        public DeleteAreaCommand(IDatabaseContextFactory<AreaEntity> contextFactory)
+        public DeleteAreaCommand(IDataContextFactory<AreaEntity> contextFactory)
         {
             _contextFactory = contextFactory;
         }

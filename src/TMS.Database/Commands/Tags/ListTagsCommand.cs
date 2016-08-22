@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using TMS.Database.Entities.Tags;
+using TMS.Data.Entities.Tags;
 using TMS.Layer;
 using TMS.Layer.Conversion;
+using TMS.Layer.Data;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Tags;
 
@@ -10,10 +11,10 @@ namespace TMS.Database.Commands.Tags
 {
     public class ListTagsCommand : IQueryCommand<TagFilterData, IEnumerable<Tag>>
     {
-        private readonly IDatabaseContextFactory<TagEntity> _contextFactory;
+        private readonly IDataContextFactory<TagEntity> _contextFactory;
         private readonly IConverter<TagEntity, Tag> _converter;
 
-        public ListTagsCommand(IDatabaseContextFactory<TagEntity> contextFactory,
+        public ListTagsCommand(IDataContextFactory<TagEntity> contextFactory,
             IConverter<TagEntity, Tag> converter)
         {
             _contextFactory = contextFactory;
@@ -27,6 +28,7 @@ namespace TMS.Database.Commands.Tags
             var childTagId = data.ChildTagKey?.Identifier;
             var authorId = data.CreatorKey?.Identifier;
             var canSetOnActivity = data.CanSetOnActivity;
+            var excludedIds = data.ExcludedTagIds;
 
             using (var context = _contextFactory.Create())
             {
@@ -37,12 +39,16 @@ namespace TMS.Database.Commands.Tags
                     && (childTagId == null || item.ChildTags.Any(t => t.ChildTagId == childTagId))
                     && (authorId == null || item.AuthorId == authorId)
                     && (canSetOnActivity == null || item.CanSetOnActivity == canSetOnActivity)
-                    && (activityId == null || item.Activities.Any(a => a.ActivityId == activityId)));
+                    && (activityId == null || item.Activities.Any(a => a.ActivityId == activityId))
+                    && (excludedIds == null || !excludedIds.Any(id => id == item.Id)));
 
                 if (!tags.Any())
-                    return new Maybe<IEnumerable<Tag>>();
+                    return Maybe.Empty<IEnumerable<Tag>>();
 
-                return new Maybe<IEnumerable<Tag>>(tags.ToList().Select(t => _converter.Convert(t).Single()));
+                return tags
+                    .ToList()
+                    .Select(t => _converter.Convert(t).Single())
+                    .ToMaybe();
             }
         }
     }

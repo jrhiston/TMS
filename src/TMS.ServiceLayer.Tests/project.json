@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "testRunner": "xunit",
   "dependencies": {
@@ -6,7 +6,8 @@
     "XUnit": "2.1.0",
     "Moq": "4.6.25-alpha",
     "System.Diagnostics.TraceSource": "4.0.0",
-    "TMS.ServiceLayer": "1.0.0-*"
+    "TMS.ServiceLayer": "1.0.0-*",
+    "TMS.Database": "1.0.0-*"
   },
   "frameworks": {
     "netcoreapp1.0": {

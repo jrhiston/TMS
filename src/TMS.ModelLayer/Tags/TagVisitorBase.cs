@@ -15,6 +15,7 @@ namespace TMS.ModelLayer.Tags
         public virtual ITagVisitor Visit(Name name) => this;
         public virtual ITagVisitor Visit(TagKey tagKey) => this;
         public virtual ITagVisitor Visit(PersonKey personKey) => this;
+        public virtual ITagVisitor Visit(ParentTag parentTag) => this;
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 

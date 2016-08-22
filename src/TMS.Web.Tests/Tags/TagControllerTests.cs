@@ -9,11 +9,10 @@ using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TMS.ApplicationLayer.Tags.Data;
-using TMS.Database.Entities.People;
+using TMS.Data.Entities.People;
 using TMS.Layer.Creators;
 using TMS.Layer.Initialisers;
 using TMS.Layer.Persistence;
-using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
 using TMS.ViewModelLayer.Models.Tags;
 using TMS.ViewModelLayer.Models.Tags.Pages;
@@ -35,7 +34,10 @@ namespace TMS.Web.Tests.Tags
             var mockCreator = GetMockCreator();
             var userManager = GetUserManager();
 
-            var controller = new TagsController(userManager, initialiser.Object, Mock.Of<IInitialiser<TagsPageModelInitialiserData, TagsPageModel>>(), mockCreator.Object, Mock.Of<IInitialiser<DeleteTagPageModelInitialiserData, DeleteTagPageModel>>(),
+            var controller = new TagsController(userManager, initialiser.Object, Mock.Of<IInitialiser<TagsPageModelInitialiserData, TagsPageModel>>(),
+                mockCreator.Object,
+                Mock.Of<ICreator<AddTagToTagViewModel>>(),
+                Mock.Of<IInitialiser<DeleteTagPageModelInitialiserData, DeleteTagPageModel>>(),
                 Mock.Of<IInitialiser<EditTagPageModelInitialiserData, EditTagPageModel>>(),
                 Mock.Of<IWriter<Tag, TagKey>>(),
                 Mock.Of<ILogger<TagsController>>(),
@@ -71,7 +73,8 @@ namespace TMS.Web.Tests.Tags
 
             var pageModel = new AddTagViewModel();
 
-            var controller = new TagsController(userManager, initialiser.Object, Mock.Of<IInitialiser<TagsPageModelInitialiserData, TagsPageModel>>(), mockCreator.Object, Mock.Of<IInitialiser<DeleteTagPageModelInitialiserData, DeleteTagPageModel>>(),
+            var controller = new TagsController(userManager, initialiser.Object, Mock.Of<IInitialiser<TagsPageModelInitialiserData, TagsPageModel>>(), mockCreator.Object,
+                Mock.Of<ICreator<AddTagToTagViewModel>>(), Mock.Of<IInitialiser<DeleteTagPageModelInitialiserData, DeleteTagPageModel>>(),
                 Mock.Of<IInitialiser<EditTagPageModelInitialiserData, EditTagPageModel>>(),
                 Mock.Of<IWriter<Tag, TagKey>>(),
                 Mock.Of<ILogger<TagsController>>(),
@@ -84,7 +87,7 @@ namespace TMS.Web.Tests.Tags
 
             var result = controller.CreateForActivity(pageModel);
 
-            mockCreator.Verify(c => c.Create(It.Is<AddTagViewModel>(m => ReferenceEquals(m, pageModel))), Times.Once);
+            mockCreator.Verify(c => c.Create(It.Is<AddTagToActivityViewModel>(m => ReferenceEquals(m, pageModel))), Times.Once);
         }
 
         private static FakeUserManager GetUserManager()
@@ -126,9 +129,9 @@ namespace TMS.Web.Tests.Tags
             return new Mock<IInitialiser<CreateTagForActivityPageModelInitialiserData, CreateTagForActivityPageModel>>();
         }
 
-        private static Mock<ICreator<AddTagViewModel>> GetMockCreator()
+        private static Mock<ICreator<AddTagToActivityViewModel>> GetMockCreator()
         {
-            return new Mock<ICreator<AddTagViewModel>>();
+            return new Mock<ICreator<AddTagToActivityViewModel>>();
         }
     }
 }

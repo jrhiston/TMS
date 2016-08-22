@@ -1,7 +1,8 @@
 ﻿using System.Linq;
-using TMS.Database.Entities.Activities;
+using TMS.Data.Entities.Activities;
 using TMS.Layer;
 using TMS.Layer.Conversion;
+using TMS.Layer.Data;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Activities;
 
@@ -10,9 +11,9 @@ namespace TMS.Database.Commands.Activities
     public class GetActivityCommand : IQueryCommand<ActivityKey, Activity>
     {
         private readonly IConverter<ActivityEntity, Activity> _entityConverter;
-        private readonly IDatabaseContextFactory<ActivityEntity> _contextFactory;
+        private readonly IDataContextFactory<ActivityEntity> _contextFactory;
 
-        public GetActivityCommand(IDatabaseContextFactory<ActivityEntity> contextFactory,
+        public GetActivityCommand(IDataContextFactory<ActivityEntity> contextFactory,
             IConverter<ActivityEntity, Activity> entityConverter)
         {
             _contextFactory = contextFactory;

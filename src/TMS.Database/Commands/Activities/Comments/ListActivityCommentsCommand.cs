@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using TMS.Database.Entities.Activities.Comments;
+using TMS.Data.Entities.Activities.Comments;
 using TMS.Layer;
 using TMS.Layer.Conversion;
+using TMS.Layer.Data;
 using TMS.Layer.Repositories;
 using TMS.ModelLayer.Activities.Comments;
 
@@ -12,10 +11,10 @@ namespace TMS.Database.Commands.Activities.Comments
 {
     public class ListActivityCommentsCommand : IQueryCommand<ActivityCommentFilterData, IEnumerable<ActivityComment>>
     {
-        private readonly IDatabaseContextFactory<ActivityCommentEntity> _contextFactory;
+        private readonly IDataContextFactory<ActivityCommentEntity> _contextFactory;
         private readonly IConverter<ActivityCommentEntity, ActivityComment> _converter;
 
-        public ListActivityCommentsCommand(IDatabaseContextFactory<ActivityCommentEntity> contextFactory,
+        public ListActivityCommentsCommand(IDataContextFactory<ActivityCommentEntity> contextFactory,
             IConverter<ActivityCommentEntity, ActivityComment> converter)
         {
             _contextFactory = contextFactory;

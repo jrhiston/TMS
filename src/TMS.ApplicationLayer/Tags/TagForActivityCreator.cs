@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using TMS.Layer.Creators;
 using TMS.Layer.Persistence;
 using TMS.Layer.Readers;
 using TMS.ModelLayer.Activities;
-using TMS.ModelLayer.People;
 using TMS.ModelLayer.Tags;
 using TMS.ViewModelLayer.Models.Tags;
-using TMS.ViewModelLayer.Models.Tags.Pages;
 
 namespace TMS.ApplicationLayer.Tags
 {
-    public class TagForActivityCreator : ICreator<AddTagViewModel>
+    public class TagForActivityCreator : ICreator<AddTagToActivityViewModel>
     {
         private readonly IReader<ActivityKey, Activity> _activityReader;
         private readonly IWriter<Activity, ActivityKey> _activityWriter;
@@ -27,12 +24,12 @@ namespace TMS.ApplicationLayer.Tags
             _activityWriter = activityWriter;
         }
 
-        public void Create(AddTagViewModel data)
+        public void Create(AddTagToActivityViewModel data)
         {
-            var existingActivity = _activityReader.Read(new ActivityKey(data.ObjectId));
+            var existingActivity = _activityReader.Read(new ActivityKey(data.ActivityId));
 
             if (!existingActivity.Any())
-                throw new InvalidOperationException($"Activity does not exist for id {data.ObjectId}");
+                throw new InvalidOperationException($"Activity does not exist for id {data.ActivityId}");
 
             var activity = existingActivity.Single();
 

@@ -17,7 +17,7 @@ namespace TMS.Layer.Factories
     /// <summary>
     /// Use this class for creation of normal model objects.
     /// 
-    /// N.B. If no data is expected to be accepted, use the <see cref="IQueryFactory{TProduce}"/> class.
+    /// N.B. If no data is expected to be accepted, use the <see cref="IQueryFactory{TProduce}"/> abstraction.
     /// </summary>
     /// <typeparam name="TData">The data to give to the <paramref name="TProduce"/> object.</typeparam>
     /// <typeparam name="TReturned">The object this factory shall create</typeparam>

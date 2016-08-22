@@ -13,9 +13,9 @@ namespace TMS.Layer.ModelObjects
             _elements = elements;
         }
 
-        public virtual TVisitor Accept(TVisitor visitorFactory)
+        public virtual TVisitor Accept(TVisitor visitor)
         {
-            return _elements.Aggregate(visitorFactory, (v, e) => e.Accept(v));
+            return _elements.Aggregate(visitor, (v, e) => e.Accept(v));
         }
 
         public virtual IEnumerator<TElement> GetEnumerator()

@@ -9,9 +9,9 @@ namespace Proto.ModelLayer.Infrastructure.Filters
     public class Filter<TReturnedModel> : IFilter<TReturnedModel>
     {
         private readonly IData _data;
-        private readonly IFilterableRepository<TReturnedModel, IData> _repository;
+        private readonly IQueryableRepository<IEnumerable<TReturnedModel>, IData> _repository;
 
-        public Filter(IFilterableRepository<TReturnedModel, IData> repository, IData data)
+        public Filter(IQueryableRepository<IEnumerable<TReturnedModel>, IData> repository, IData data)
         {
             _repository = repository;
             _data = data;
@@ -19,7 +19,7 @@ namespace Proto.ModelLayer.Infrastructure.Filters
 
         public Maybe<IEnumerable<TReturnedModel>> List()
         {
-            return _repository.List(_data);
+            return _repository.Get(_data);
         }
     }
 }

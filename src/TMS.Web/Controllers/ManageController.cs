@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TMS.Web.Services;
-using TMS.Database.Entities.People;
 using TMS.ViewModelLayer.Models.ManageViewModels;
+using TMS.Data.Entities.People;
 
 namespace TMS.Web.Controllers
 {

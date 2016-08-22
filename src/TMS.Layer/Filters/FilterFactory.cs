@@ -1,4 +1,5 @@
-﻿using TMS.Layer.Data;
+﻿using System.Collections.Generic;
+using TMS.Layer.Data;
 using TMS.Layer.Filters;
 using TMS.Layer.Repositories;
 
@@ -6,9 +7,9 @@ namespace Proto.ModelLayer.Infrastructure.Filters
 {
     public class FilterFactory<TReturnedModel> : IFilterFactory<TReturnedModel>
     {
-        private readonly IFilterableRepository<TReturnedModel, IData> _repository;
+        private readonly IQueryableRepository<IEnumerable<TReturnedModel>, IData> _repository;
 
-        public FilterFactory(IFilterableRepository<TReturnedModel, IData> repository)
+        public FilterFactory(IQueryableRepository<IEnumerable<TReturnedModel>, IData> repository)
         {
             _repository = repository;
         }
