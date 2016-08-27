@@ -11,25 +11,17 @@ namespace TMS.Database.Converters.Tags
 {
     public class TagEntityToTagConverter : IConverter<TagEntity, Tag>
     {
-        public Maybe<Tag> Convert(TagEntity tagEntity)
+        public Maybe<Tag> Convert(TagEntity tagEntity) => new Tag(GetElements(tagEntity)).ToMaybe();
+
+        private static IEnumerable<ITagElement> GetElements(TagEntity tagEntity) => new List<ITagElement>
         {
-            var canSetOnActivity =
-                tagEntity.CanSetOnActivity 
-                ? (CanSetOnActivityBase) new CanSetOnActivity() 
-                : new CanNotSetOnActivity();
-
-            var list = new List<ITagElement>
-            {
-                new Name(tagEntity.Name),
-                new CreationDate(tagEntity.Created),
-                new Description(tagEntity.Description),
-                canSetOnActivity,
-                new Reusable(tagEntity.Reusable),
-                new TagKey(tagEntity.Id),
-                new PersonKey(tagEntity.AuthorId)
-            };
-
-            return new Maybe<Tag>(new Tag(list.ToArray()));
-        }
+            new Name(tagEntity.Name),
+            new CreationDate(tagEntity.Created),
+            new Description(tagEntity.Description),
+            CanSetOnActivityBase.GetInstance(tagEntity.CanSetOnActivity),
+            new Reusable(tagEntity.Reusable),
+            new TagKey(tagEntity.Id),
+            new PersonKey(tagEntity.AuthorId)
+        };
     }
 }

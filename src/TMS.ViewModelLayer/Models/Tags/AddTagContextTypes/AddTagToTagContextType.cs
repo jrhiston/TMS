@@ -17,17 +17,25 @@ namespace TMS.ViewModelLayer.Models.Tags.AddTagContextTypes
         {
         }
 
-        public override Maybe<IEnumerable<Tag>> GetTags(IReader<TagFilterData, IEnumerable<Tag>> tagReader, AddTagData data)
+        public override Maybe<IEnumerable<Tag>> GetTags(
+            IReader<TagFilterData, IEnumerable<Tag>> tagReader,
+            AddTagData data)
         {
             var filterData = new TagFilterData
             {
                 Reusable = true,
-                ExcludedTagIds = GetExcludedTagIds(tagReader, data.ObjectId)
-                    .Append(data.ObjectId)
-                    .ToArray()
+                ExcludedTagIds = GetExcludedTagIds(
+                    tagReader,
+                    GetTagFilterData(data),
+                    data.ObjectId)?.Append(data.ObjectId).ToArray()
             };
 
             return tagReader.Read(filterData);
         }
+
+        private static TagFilterData GetTagFilterData(AddTagData data) => new TagFilterData
+        {
+            ChildTagKey = new TagKey(data.ObjectId)
+        };
     }
 }

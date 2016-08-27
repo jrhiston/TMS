@@ -158,7 +158,7 @@ namespace TMS.Web.Controllers
                 TagToAddId = model.TagToAddId
             });
 
-            return RedirectToAction("Edit", "Activities", new { id = model.ObjectId });
+            return RedirectToAction("Edit", "Tags", new { id = model.ObjectId });
         }
 
         public ViewResult Edit(long id)

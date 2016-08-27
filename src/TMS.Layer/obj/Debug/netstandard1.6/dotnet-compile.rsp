@@ -100,7 +100,9 @@ G:\TMS.Web\src\TMS.Layer\ErrorHandling\IValidationResult.cs
 G:\TMS.Web\src\TMS.Layer\ErrorHandling\IValidator.cs
 G:\TMS.Web\src\TMS.Layer\Exceptions\IdentifierNotSpecifiedException.cs
 G:\TMS.Web\src\TMS.Layer\Exceptions\MustProvideInitialiserDataException.cs
+G:\TMS.Web\src\TMS.Layer\Extensions\DictionaryExtensions.cs
 G:\TMS.Web\src\TMS.Layer\Extensions\EnumerableExtensions.cs
+G:\TMS.Web\src\TMS.Layer\Extensions\IIdentifiable.cs
 G:\TMS.Web\src\TMS.Layer\Factories\DecoratorFactory.cs
 G:\TMS.Web\src\TMS.Layer\Factories\Factory.cs
 G:\TMS.Web\src\TMS.Layer\Factories\FactoryRegistrar.cs
@@ -145,6 +147,7 @@ G:\TMS.Web\src\TMS.Layer\State\IStateMarker.cs
 G:\TMS.Web\src\TMS.Layer\State\IStateProvider.cs
 G:\TMS.Web\src\TMS.Layer\State\IStateReader.cs
 G:\TMS.Web\src\TMS.Layer\State\IStateWriter.cs
+G:\TMS.Web\src\TMS.Layer\State\StateObjectBase.cs
 G:\TMS.Web\src\TMS.Layer\UnitOfWork\IUnitOfWork.cs
 G:\TMS.Web\src\TMS.Layer\Visitors\IVisited.cs
 G:\TMS.Web\src\TMS.Layer\Visitors\IVisitor.cs

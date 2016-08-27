@@ -2,6 +2,7 @@
 using System.Linq;
 using TMS.Layer;
 using TMS.Layer.Readers;
+using TMS.ModelLayer.Activities;
 using TMS.ModelLayer.Tags;
 
 namespace TMS.ViewModelLayer.Models.Tags.AddTagContextTypes
@@ -17,13 +18,18 @@ namespace TMS.ViewModelLayer.Models.Tags.AddTagContextTypes
         {
         }
         
-        public override Maybe<IEnumerable<Tag>> GetTags(IReader<TagFilterData, IEnumerable<Tag>> tagReader, AddTagData data) => tagReader.Read(new TagFilterData
+        public override Maybe<IEnumerable<Tag>> GetTags(
+            IReader<TagFilterData, IEnumerable<Tag>> tagReader,
+            AddTagData data) => tagReader.Read(new TagFilterData
         {
             Reusable = true,
             CanSetOnActivity = true,
-            ExcludedTagIds = GetExcludedTagIds(tagReader, data.ObjectId)
-                .Append(data.ObjectId)
-                .ToArray()
+            ExcludedTagIds = GetExcludedTagIds(tagReader, GetTagFilterData(data), data.ObjectId)?.ToArray()
         });
+
+        private static TagFilterData GetTagFilterData(AddTagData data) => new TagFilterData
+        {
+            ActivityKey = new ActivityKey(data.ObjectId)
+        };
     }
 }
